@@ -1,0 +1,2748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kiziba Kingdom - Home</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: #f5f5f5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Navbar Styles */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background-color: #fff;
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      background-color: #8B4513;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.2rem;
+    }
+
+    .logo-text h1 {
+      font-size: 1.5rem;
+      color: #8B4513;
+      font-weight: 600;
+    }
+
+    .logo-text h1 span {
+      font-weight: 800;
+    }
+
+    .logo-text p {
+      font-size: 0.8rem;
+      color: #A0522D;
+      margin-top: 0.2rem;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 1.5rem;
+    }
+
+    .nav-links li a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .nav-links li a:hover {
+      color: #8B4513;
+    }
+
+    .nav-links li a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background-color: #8B4513;
+      transition: all 0.3s ease;
+      transform: translateX(-50%);
+    }
+
+    .nav-links li a:hover::after,
+    .nav-links li a.active::after {
+      width: 70%;
+    }
+
+    .nav-links li a.active {
+      color: #8B4513;
+      font-weight: 600;
+    }
+
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: #8B4513;
+      cursor: pointer;
+    }
+
+    /* Mobile Drawer */
+    .mobile-drawer {
+      position: fixed;
+      top: 0;
+      left: -100%;
+      width: 70%;
+      max-width: 300px;
+      height: 100vh;
+      background-color: #fff;
+      box-shadow: 2px 0 15px rgba(0, 0, 0, 0.15);
+      z-index: 1001;
+      transition: all 0.4s ease;
+      overflow-y: auto;
+    }
+
+    .mobile-drawer.show {
+      left: 0;
+    }
+
+    .drawer-header {
+      padding: 1.5rem;
+      background-color: #8B4513;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .drawer-header .logo {
+      gap: 0.8rem;
+    }
+
+    .drawer-header .logo-icon {
+      background-color: white;
+      color: #8B4513;
+    }
+
+    .drawer-header .logo-text h1 {
+      color: white;
+    }
+
+    .drawer-header .logo-text p {
+      color: #f0f0f0;
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .drawer-links {
+      list-style: none;
+      padding: 1rem 0;
+    }
+
+    .drawer-links li a {
+      display: block;
+      padding: 1rem 1.5rem;
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      border-left: 4px solid transparent;
+    }
+
+    .drawer-links li a:hover,
+    .drawer-links li a.active {
+      background-color: #f9f9f9;
+      color: #8B4513;
+      border-left: 4px solid #8B4513;
+      padding-left: 2rem;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .overlay.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Page Content */
+    .page-content {
+    flex: 1;
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    perspective: 1000px;
+}
+
+.page-header {
+    color: #8B4513;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #8B4513;
+    animation: slideInFromLeft 0.8s ease-out, textGlow 3s infinite alternate;
+    transform-origin: left center;
+    position: relative;
+}
+
+.page-header::after {
+    content: '';
+    position: absolute;
+    bottom: -0.5rem;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #8B4513, #FFD700, #8B4513);
+    animation: borderExpand 1.5s forwards 0.5s;
+}
+
+.page-text {
+    line-height: 1.6;
+    color: #555;
+    margin-bottom: 1rem;
+    animation: fadeInUp 0.8s ease-out;
+    animation-fill-mode: both;
+}
+
+/* Text Animation Delays */
+.page-text:nth-child(1) { animation-delay: 0.3s; }
+.page-text:nth-child(2) { animation-delay: 0.6s; }
+.page-text:nth-child(3) { animation-delay: 0.9s; }
+.page-text:nth-child(4) { animation-delay: 1.2s; }
+
+/* Hover Effects */
+.page-text:hover {
+    transform: translateY(-3px);
+    text-shadow: 0 5px 15px rgba(139, 69, 19, 0.3);
+    transition: all 0.3s ease;
+}
+
+/* Special Floating Animation */
+@keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(2deg); }
+}
+
+/* Advanced Animations */
+@keyframes slideInFromLeft {
+    0% {
+        transform: translateX(-50px) rotateY(90deg);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0) rotateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes textGlow {
+    0% {
+        text-shadow: 0 0 5px rgba(139, 69, 19, 0.5);
+    }
+    100% {
+        text-shadow: 0 0 15px rgba(255, 215, 0, 0.7), 
+                     0 0 20px rgba(139, 69, 19, 0.6);
+    }
+}
+
+@keyframes borderExpand {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 100%;
+    }
+}
+
+/* Particle Background Effect (optional) */
+.particle-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.particle {
+    position: absolute;
+    background: rgba(139, 69, 19, 0.3);
+    border-radius: 50%;
+    animation: floatParticle 15s infinite linear;
+}
+
+@keyframes floatParticle {
+    0% {
+        transform: translateY(0) translateX(0);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-500px) translateX(100px);
+        opacity: 0;
+    }
+}
+
+/* Typewriter Effect (for headings) */
+.typewriter {
+    overflow: hidden;
+    border-right: 3px solid #8B4513;
+    white-space: nowrap;
+    animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+}
+
+@keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+}
+
+@keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: #8B4513 }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .navbar {
+        padding: 1rem;
+    }
+    
+    .page-content {
+        padding: 1.5rem;
+    }
+    
+    .page-header {
+        animation: none;
+        text-shadow: none;
+    }
+    
+    .page-text {
+        animation: fadeIn 0.5s ease !important;
+        animation-delay: 0s !important;
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+    /* Header Styles */
+    .economy-header {
+      text-align: center;
+      margin-bottom: 3rem;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 1s 0.3s forwards;
+    }
+
+    .economy-header h1 {
+      font-size: 2.5rem;
+      color: #8B4513;
+      margin-bottom: 1rem;
+      position: relative;
+      display: inline-block;
+    }
+
+    .economy-header h1::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 4px;
+      background: linear-gradient(90deg, #8B4513, #A0522D, #8B4513);
+      border-radius: 2px;
+    }
+
+    .economy-header p {
+      font-size: 1.2rem;
+      color: #555;
+      max-width: 700px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* Activity Cards Container */
+    .activities-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      perspective: 1000px;
+    }
+
+    /* Activity Card Styles */
+    .activity-card {
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(139, 69, 19, 0.1);
+      padding: 2rem;
+      transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+      opacity: 0;
+      transform: translateY(50px) rotateX(15deg);
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .activity-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, #8B4513, #A0522D);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.5s ease;
+      z-index: 2;
+    }
+
+    .activity-card:hover {
+      transform: translateY(-10px) rotateX(0);
+      box-shadow: 0 15px 35px rgba(139, 69, 19, 0.2);
+    }
+
+    .activity-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .activity-card h2 {
+      color: #8B4513;
+      margin-bottom: 1rem;
+      font-size: 1.8rem;
+      position: relative;
+      padding-bottom: 10px;
+    }
+
+    .activity-card h2::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 50px;
+      height: 3px;
+      background: #A0522D;
+      border-radius: 3px;
+    }
+
+    .activity-card p {
+      color: #555;
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+
+    .impact-item {
+      margin-bottom: 1rem;
+      position: relative;
+      padding-left: 30px;
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+
+    .impact-item::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: #8B4513;
+      font-weight: bold;
+    }
+
+    .growth-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #4CAF50, #8BC34A);
+      color: white;
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+      box-shadow: 0 3px 10px rgba(76, 175, 80, 0.3);
+      transform: scale(0);
+      animation: popIn 0.5s 1s forwards;
+    }
+
+    /* Divider Style */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(139, 69, 19, 0.3), transparent);
+      margin: 2rem 0;
+      opacity: 0;
+      animation: fadeIn 1s 0.5s forwards;
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes popIn {
+      0% { transform: scale(0); }
+      80% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+
+    @keyframes cardEntrance {
+      from {
+        opacity: 0;
+        transform: translateY(50px) rotateX(15deg);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) rotateX(0);
+      }
+    }
+
+    /* Particle Effects */
+    .particle {
+      position: absolute;
+      background: rgba(139, 69, 19, 0.6);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: -1;
+    }
+    /* Base Styles */
+    .quick-facts-section {
+      padding: 3rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Header Styles */
+    .facts-header {
+      text-align: center;
+      margin-bottom: 3rem;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 1s 0.3s forwards;
+    }
+
+    .facts-header h1 {
+      font-size: 2.5rem;
+      color: #8B4513;
+      margin-bottom: 1rem;
+      position: relative;
+      display: inline-block;
+      background: linear-gradient(90deg, #8B4513, #A0522D);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 2px 10px rgba(139, 69, 19, 0.2);
+    }
+
+    .facts-header p {
+      font-size: 1.2rem;
+      color: #555;
+      max-width: 700px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* Divider Style */
+    .gold-divider {
+      height: 3px;
+      background: linear-gradient(90deg, transparent, #8B4513, #A0522D, #8B4513, transparent);
+      margin: 2rem auto;
+      width: 80%;
+      max-width: 500px;
+      opacity: 0;
+      animation: scaleIn 1s 0.5s forwards;
+      border-radius: 3px;
+      box-shadow: 0 2px 10px rgba(160, 82, 45, 0.3);
+    }
+
+    /* Facts Grid */
+    .facts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      perspective: 1000px;
+    }
+
+    /* Fact Card Styles */
+    .fact-card {
+      background: white;
+      border-radius: 15px;
+      padding: 2rem;
+      box-shadow: 0 5px 25px rgba(139, 69, 19, 0.1);
+      transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+      opacity: 0;
+      transform: translateY(50px) rotateY(15deg);
+      position: relative;
+      overflow: hidden;
+      border-top: 4px solid transparent;
+      border-image: linear-gradient(90deg, #8B4513, #A0522D);
+      border-image-slice: 1;
+      z-index: 1;
+    }
+
+    .fact-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(139, 69, 19, 0.05), rgba(160, 82, 45, 0.03));
+      z-index: -1;
+    }
+
+    .fact-card:hover {
+      transform: translateY(-10px) rotateY(0);
+      box-shadow: 0 15px 35px rgba(139, 69, 19, 0.15);
+    }
+
+    .fact-card h3 {
+      color: #8B4513;
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      position: relative;
+      display: inline-block;
+    }
+
+    .fact-card h3::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 40px;
+      height: 2px;
+      background: #A0522D;
+      transition: width 0.3s ease;
+    }
+
+    .fact-card:hover h3::after {
+      width: 60px;
+    }
+
+    .fact-card p {
+      color: #333;
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin: 0;
+      line-height: 1.4;
+      position: relative;
+      padding-left: 30px;
+    }
+
+    .fact-card p::before {
+      content: '»';
+      position: absolute;
+      left: 0;
+      color: #A0522D;
+      font-weight: bold;
+    }
+
+    /* Floating Crown Elements */
+    .floating-crown {
+      position: absolute;
+      opacity: 0.1;
+      z-index: -1;
+      font-size: 10rem;
+      color: #8B4513;
+      animation: float 15s infinite ease-in-out;
+    }
+
+    .crown-1 {
+      top: 10%;
+      left: 5%;
+      animation-delay: 0s;
+    }
+
+    .crown-2 {
+      bottom: 10%;
+      right: 5%;
+      animation-delay: 2s;
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes scaleIn {
+      from {
+        transform: scaleX(0);
+        opacity: 0;
+      }
+      to {
+        transform: scaleX(1);
+        opacity: 1;
+      }
+    }
+
+    @keyframes cardEntrance {
+      from {
+        opacity: 0;
+        transform: translateY(50px) rotateY(15deg);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) rotateY(0);
+      }
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0) rotate(0deg);
+      }
+      50% {
+        transform: translateY(-20px) rotate(5deg);
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      .quick-facts-section {
+        padding: 2rem 1rem;
+      }
+      
+      .facts-header h1 {
+        font-size: 2rem;
+      }
+      
+      .facts-header p {
+        font-size: 1rem;
+      }
+      
+      .facts-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .fact-card {
+        padding: 1.5rem;
+      }
+      
+      .floating-crown {
+        font-size: 6rem;
+      }
+    }
+    /* Royal Message Section */
+    .royal-message-section {
+      padding: 4rem 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    /* Royal Seal Background */
+    .royal-seal {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 30vw;
+      color: rgba(139, 69, 19, 0.03);
+      z-index: -1;
+      animation: pulse 15s infinite alternate;
+    }
+
+    /* Section Header */
+    .royal-header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 1s 0.3s forwards;
+    }
+
+    .royal-header h1 {
+      font-size: 2.8rem;
+      background: linear-gradient(135deg, #8B4513, #A0522D, #D2691E);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 1rem;
+      letter-spacing: 1px;
+      text-shadow: 0 2px 10px rgba(139, 69, 19, 0.15);
+    }
+
+    /* Royal Message Card */
+    .royal-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        max-width: 800px;
+        margin: 0 auto;
+        background: linear-gradient(to bottom, #FFFFF0, #F8F8E8);
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        overflow: hidden;
+        position: relative;
+        border: 1px solid rgba(139, 69, 19, 0.2);
+    }
+    
+    .royal-portrait {
+        width: 100%;
+        height: 250px;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .king-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center top;
+        filter: grayscale(10%) contrast(110%);
+    }
+    
+    .royal-frame {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border: 8px solid transparent;
+        background: linear-gradient(135deg, #FFD700, #D4AF37) border-box;
+        mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+        mask-composite: exclude;
+        pointer-events: none;
+    }
+    
+    .royal-symbol {
+        position: absolute;
+        bottom: -20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, #003366, #001a33);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 3px solid #FFD700;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    .royal-symbol i {
+        color: #FFD700;
+        font-size: 1.8rem;
+    }
+    
+    .royal-message-container {
+        padding: 40px 30px 30px;
+        text-align: center;
+        position: relative;
+    }
+    
+    .royal-message {
+        font-size: 1.1rem;
+        line-height: 1.8;
+        color: #333;
+        font-style: italic;
+        position: relative;
+        margin-bottom: 30px;
+    }
+    
+    .royal-message:before,
+    .royal-message:after {
+        content: '"';
+        color: #8B4513;
+        font-size: 2.5rem;
+        font-family: serif;
+        line-height: 0;
+        position: absolute;
+    }
+    
+    .royal-message:before {
+        top: 0;
+        left: -15px;
+    }
+    
+    .royal-message:after {
+        bottom: -25px;
+        right: -15px;
+    }
+    
+    .royal-signature {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .signature-line {
+        width: 150px;
+        height: 1px;
+        background: linear-gradient(to right, transparent, #8B4513, transparent);
+        margin-bottom: 15px;
+    }
+    
+    .signature-content p {
+        font-size: 1.3rem;
+        font-weight: bold;
+        color: #003366;
+        margin: 0;
+        line-height: 1.3;
+    }
+    
+    .signature-content small {
+        font-size: 0.9rem;
+        color: #8B4513;
+        letter-spacing: 1px;
+    }
+    
+    @media (min-width: 768px) {
+        .royal-card {
+            flex-direction: row;
+            align-items: stretch;
+        }
+        
+        .royal-portrait {
+            width: 40%;
+            height: auto;
+            border-right: 1px solid rgba(139, 69, 19, 0.1);
+        }
+        
+        .royal-symbol {
+            left: auto;
+            right: -20px;
+            top: 50%;
+            bottom: auto;
+            transform: translateY(-50%);
+        }
+        
+        .royal-message-container {
+            width: 60%;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+    }
+     /* Container to center everything */
+        .container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        /* Map Territories Section */
+        .map-section {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            border-radius: 15px;
+            padding: 30px;
+            width: 300px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+            color: white;
+            transition: transform 0.3s ease;
+            margin: 0 auto; /* Added for extra centering */
+        }
+
+        .map-section:hover {
+            transform: translateY(-5px);
+        }
+
+        .map-icon {
+            font-size: 60px;
+            margin-bottom: 15px;
+            color: #ffd700;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+            animation: pulse 2s infinite;
+        }
+
+        .map-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .map-btn {
+            background-color: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+        }
+
+        .map-btn:hover {
+            background-color: #ff5252;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.6);
+        }
+
+        .map-btn i {
+            margin-left: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .map-btn:hover i {
+            transform: rotate(90deg);
+        }
+
+        /* Map Popup Styles */
+        .map-popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .map-popup.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .map-popup-content {
+            background-color: white;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 800px;
+            padding: 20px;
+            position: relative;
+            transform: scale(0.7);
+            transition: transform 0.3s ease;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .map-popup.active .map-popup-content {
+            transform: scale(1);
+        }
+
+        .map-popup-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 24px;
+            color: #777;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .map-popup-close:hover {
+            color: #333;
+        }
+
+        .map-popup-title {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: #1e3c72;
+            text-align: center;
+        }
+
+        .map-image {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Decorative Elements */
+        .map-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            transform: rotate(30deg);
+            pointer-events: none;
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+            }
+            50% {
+                transform: scale(1.1);
+                text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+            }
+            100% {
+                transform: scale(1);
+                text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .map-popup-content {
+                width: 95%;
+            }
+        }
+   
+    /* Footer Wave Decoration */
+ 
+
+    /* Footer Wave Decoration - High Contrast */
+   :root {
+            --gold: #FFD700;
+            --dark-gold: #D4AF37;
+            --royal-blue: #003366;
+            --earth-brown: #8B4513;
+            --ivory: #FFFFF0;
+            --rich-black: #141313;
+            --orange-gradient: linear-gradient(135deg, #f67215 0%, #e65c00 100%);
+            --soft-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Roboto', system-ui, sans-serif;
+        }
+        
+        /* Footer Wave */
+        .footer-wave {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: var(--royal-blue);
+            z-index: 1;
+            clip-path: ellipse(100% 100% at 50% 0%);
+        }
+        
+        /* Main Footer Container */
+        footer {
+            position: relative;
+            background: var(--orange-gradient);
+            color: white;
+            padding-top: 100px;
+            margin-top: 5rem;
+            border-radius: 20px 20px 0 0;
+            overflow: hidden;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+            position: relative;
+            z-index: 2;
+            padding: 3rem 2rem;
+        }
+        
+        /* Community Section */
+        .community-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            animation: fadeInUp 0.8s 0.3s forwards;
+            opacity: 0;
+        }
+        
+        .community-section h3 {
+            color: var(--gold);
+            font-weight: 700;
+            text-shadow: var(--text-shadow);
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .community-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--gold);
+        }
+        
+        .community-section p {
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+        }
+        
+        /* About Section */
+        .about-section {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 215, 0, 0.1);
+            animation: fadeInUp 0.8s 0.5s forwards;
+            opacity: 0;
+        }
+        
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-logo-icon i {
+            color: var(--gold);
+            font-size: 2.2rem;
+            text-shadow: var(--text-shadow);
+        }
+        
+        .footer-logo-text h2 {
+            color: var(--gold);
+            font-weight: 700;
+            text-shadow: var(--text-shadow);
+            font-size: 1.8rem;
+            line-height: 1.2;
+        }
+        
+        .footer-logo-text p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+            font-style: italic;
+        }
+        
+        .about-text {
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+        
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .action-btn {
+            padding: 1rem 1.8rem;
+            border-radius: 50px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 1rem;
+            border: 2px solid transparent;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-align: center;
+            flex-grow: 1;
+            justify-content: center;
+        }
+        
+        .newsletter-btn {
+            background: var(--earth-brown);
+            color: white;
+            border-color: var(--earth-brown);
+        }
+        /* Newsletter Popup Styles */
+        .newsletter-popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.4s ease;
+        }
+
+        .newsletter-popup.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .popup-content {
+            background: white;
+            border-radius: 20px;
+            max-width: 500px;
+            width: 90%;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            transform: translateY(50px);
+            transition: transform 0.4s ease;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            border: 3px solid var(--gold);
+        }
+
+        .newsletter-popup.active .popup-content {
+            transform: translateY(0);
+        }
+
+        .popup-content .close-popup {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--royal-blue);
+            transition: all 0.3s ease;
+        }
+
+        .popup-content .close-popup:hover {
+            color: var(--earth-brown);
+            transform: rotate(90deg);
+        }
+
+        .popup-icon {
+            font-size: 4rem;
+            color: var(--gold);
+            margin-bottom: 1rem;
+            animation: bounce 1s infinite alternate;
+        }
+
+        @keyframes bounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(-10px); }
+        }
+
+        .popup-content h3 {
+            color: var(--royal-blue);
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .popup-content p {
+            color: var(--rich-black);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: var(--gold);
+            opacity: 0;
+        }
+
+        .newsletter-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .newsletter-form input {
+            padding: 0.8rem 1rem;
+            border: 2px solid #ddd;
+            border-radius: 50px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .newsletter-form input:focus {
+            border-color: var(--gold);
+            outline: none;
+        }
+
+        .submit-btn {
+            background: var(--earth-brown);
+            color: white;
+            border: none;
+            padding: 0.8rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .submit-btn:hover {
+            background: #7a3b10;
+            transform: translateY(-3px);
+        }
+
+        .success-message {
+            display: none;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .contact-btn {
+            background: transparent;
+            color: var(--gold);
+            border-color: var(--gold);
+        }
+        
+        .action-btn:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Founder Section */
+        .founder-section {
+            background: linear-gradient(135deg, rgba(0, 51, 102, 0.9), rgba(0, 26, 51, 0.9));
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: var(--transition);
+        }
+        
+        .founder-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+        
+        .founder-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .founder-icon i {
+            color: var(--gold);
+            font-size: 2rem;
+        }
+        
+        .founder-header h3 {
+            color: var(--gold);
+            font-size: 1.5rem;
+            margin-bottom: 0.3rem;
+        }
+        
+        .founder-header p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1rem;
+        }
+        
+        .founder-btn {
+            background: var(--earth-brown);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+            justify-content: center;
+        }
+        
+        .founder-btn:hover {
+            background: #7a3b10;
+            transform: scale(1.05);
+        }
+        
+        /* Social Media */
+        .social-media {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            padding: 1.5rem 0;
+        }
+        
+        .social-link {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: var(--royal-blue);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: var(--transition);
+            box-shadow: var(--soft-shadow);
+        }
+        
+        .social-link:hover {
+            background: var(--gold);
+            color: var(--royal-blue);
+            transform: translateY(-5px);
+        }
+        
+        /* Footer Bottom */
+        .footer-bottom {
+            background: var(--rich-black);
+            color: rgba(255, 255, 255, 0.7);
+            text-align: center;
+            padding: 1.5rem;
+            font-size: 0.9rem;
+            animation: fadeIn 1s 1s forwards;
+            opacity: 0;
+        }
+        
+        /* Founder Modal */
+        .founder-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 1rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .founder-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+        
+        .modal-content {
+            background: var(--ivory);
+            border-radius: 16px;
+            max-width: 800px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            border: 2px solid var(--gold);
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--royal-blue);
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+        
+        .close-modal:hover {
+            background: var(--earth-brown);
+            transform: rotate(90deg);
+        }
+        
+        .modal-header {
+            background: linear-gradient(135deg, var(--royal-blue), #001a33);
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+        
+        .founder-modal-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid var(--gold);
+            margin-bottom: 1rem;
+        }
+        
+        .founder-modal-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .founder-modal-title h2 {
+            color: var(--gold);
+            font-size: 2rem;
+            margin-bottom: 0.3rem;
+        }
+        
+        .founder-modal-title p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
+        }
+        
+        .modal-body {
+            padding: 2rem;
+        }
+        
+        .bio-section, .message-section {
+            margin-bottom: 2rem;
+        }
+        
+        .modal-body h3 {
+            color: var(--royal-blue);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .modal-body h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--gold);
+        }
+        
+        .modal-body p {
+            color: var(--rich-black);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+        
+        .signature {
+            text-align: right;
+            font-style: italic;
+            color: var(--earth-brown);
+            font-weight: 600;
+        }
+         /* Expanded Image Overlay */
+        .image-expand-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .image-expand-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .expanded-image-container {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        .expanded-image-container img {
+            max-width: 100%;
+            max-height: 90vh;
+            border: 3px solid #FFD700;
+            border-radius: 5px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .close-expanded {
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            background: #003366;
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .close-expanded:hover {
+            background: #8B4513;
+            transform: rotate(90deg);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .modal-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .founder-modal-image {
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* Responsive Design */
+        @media (min-width: 768px) {
+            .footer-container {
+                grid-template-columns: 1.5fr 1fr;
+            }
+            
+            .action-btn {
+                flex-grow: 0;
+            }
+            
+            .founder-section {
+                grid-column: span 2;
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .footer-container {
+                grid-template-columns: 1.5fr 1fr 1fr;
+            }
+            
+            .founder-section {
+                grid-column: span 1;
+            }
+        }
+        
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo">
+      <div class="logo-icon">
+        <i class="fas fa-crown"></i>
+      </div>
+      <div class="logo-text">
+        <h1>Kiziba <span>Kingdom</span></h1>
+        <p>Heritage Portal</p>
+      </div>
+    </div>
+
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="leadership.html">Leadership</a></li>
+      <li><a href="cultural.html">Cultural Heritage</a></li>
+      <li><a href="livelihood.html">Livelihood & Economy</a></li>
+      <li><a href="land.html">Land & Environment</a></li>
+      <li><a href="media.html">Media</a></li>
+    </ul>
+
+    <button class="menu-toggle" id="menuToggle">
+      <i class="fas fa-bars"></i>
+    </button>
+  </nav>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-drawer" id="mobileDrawer">
+    <div class="drawer-header">
+      <div class="logo">
+        <div class="logo-icon">
+          <i class="fas fa-crown"></i>
+        </div>
+        <div class="logo-text">
+          <h1>Kiziba <span>Kingdom</span></h1>
+          <p>Heritage Portal</p>
+        </div>
+      </div>
+      <button class="close-btn" id="closeDrawer">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+
+    <ul class="drawer-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="leadership.html">Leadership</a></li>
+      <li><a href="cultural.html">Cultural Heritage</a></li>
+      <li><a href="livelihood.html">Livelihood & Economy</a></li>
+      <li><a href="land.html">Land & Environment</a></li>
+      <li><a href="media.html">Media</a></li>
+    </ul>
+  </div>
+
+  <!-- Overlay -->
+  <div class="overlay" id="overlay"></div>
+
+  <!-- Page Content -->
+  <div class="page-content">
+    <h1 class="page-header">Welcome to Kiziba Kingdom</h1>
+    <p class="page-text">Discover the rich heritage and traditions of our ancient kingdom, preserved through generations and celebrated in modern times.</p>
+    <p class="page-text">Explore our website to learn about our leadership, cultural heritage, economic activities, environmental conservation, and media presence.</p>
+  </div>
+  <div class="page-content">
+    <section class="economy-section">
+      <div class="economy-header">
+        <h1>Core Economic Sectors</h1>
+        <p>Our diverse economy is built on sustainable practices that honor tradition while embracing innovation</p>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="activities-container">
+        <!-- Coffee Farming Card -->
+        <div class="activity-card" data-delay="0.1">
+          <h2>Coffee Farming</h2>
+          <p>Premium Arabica coffee cultivation in the highlands of Kiziba, known for its exceptional quality and flavor.</p>
+          <div class="impact-item" style="animation-delay: 0.3s">Primary income source for 60% of families</div>
+        </div>
+
+        <!-- Livestock Keeping Card -->
+        <div class="activity-card" data-delay="0.2">
+          <h2>Livestock Keeping</h2>
+          <p>Traditional cattle keeping, especially the prized Ankole long-horned cattle, along with goats and sheep.</p>
+          <div class="impact-item" style="animation-delay: 0.4s">Cultural and economic significance</div>
+          <div class="growth-badge">Growth: +8% annually</div>
+        </div>
+
+        <!-- Fishing Card -->
+        <div class="activity-card" data-delay="0.3">
+          <h2>Fishing</h2>
+          <p>Lake Victoria proximity provides abundant fish resources, supporting both subsistence and commercial fishing.</p>
+          <div class="impact-item" style="animation-delay: 0.5s">Sustains 25% of households</div>
+          <div class="growth-badge">Growth: +12% annually</div>
+        </div>
+
+        <!-- Agriculture Card -->
+        <div class="activity-card" data-delay="0.4">
+          <h2>Agriculture</h2>
+          <p>Diverse crop production including bananas, beans, sweet potatoes, and traditional vegetables.</p>
+          <div class="impact-item" style="animation-delay: 0.6s">Food security for all residents</div>
+          <div class="growth-badge">Growth: +10% annually</div>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+  <div class="page-content">
+    <section class="quick-facts-section">
+      <!-- Floating decorative crowns -->
+      <i class="fas fa-crown floating-crown crown-1"></i>
+      <i class="fas fa-crown floating-crown crown-2"></i>
+      
+      <div class="facts-header">
+        <h1>Quick Facts</h1>
+        <p>Discover the essential facts about our ancient kingdom and its rich heritage</p>
+      </div>
+
+      <div class="gold-divider"></div>
+
+      <div class="facts-grid">
+        <!-- Founded Fact -->
+        <div class="fact-card" data-delay="0.1">
+          <h3>Founded</h3>
+          <p>14th Century</p>
+        </div>
+
+        <!-- Location Fact -->
+        <div class="fact-card" data-delay="0.2">
+          <h3>Location</h3>
+          <p>Kagera Region, Tanzania</p>
+        </div>
+
+        <!-- Language Fact -->
+        <div class="fact-card" data-delay="0.3">
+          <h3>Language</h3>
+          <p>Kihaya</p>
+        </div>
+
+        <!-- Current Ruler Fact -->
+       <div class="fact-card" data-delay="0.4">
+  <h3>Current Ruler</h3>
+  <p>Omukama Mutatembwa II</p>
+</div>
+    </section>
+</div>
+<div class="page-content">
+    <section class="royal-message-section">
+      <!-- Royal Seal Background -->
+      <i class="fas fa-crown royal-seal"></i>
+      
+      <!-- Decorative Corners -->
+      <div class="corner-decoration corner-1"></div>
+      <div class="corner-decoration corner-2"></div>
+      
+      <div class="royal-header">
+        <h1>Message from the King</h1>
+      </div>
+
+      <div class="royal-card">
+    <div class="royal-portrait">
+        <img src="images/mutatembwa.jpeg" alt="Omukama Mutatembwa the Second" class="king-image">
+        <div class="royal-frame"></div>
+        <div class="royal-symbol">
+            <i class="fas fa-crown"></i>
+        </div>
+    </div>
+    
+    <div class="royal-message-container">
+        <div class="royal-message">
+            “Greetings to all who visit our digital home. The Kiziba Kingdom stands as a testament to the enduring strength of our people and the wisdom of our ancestors. As we honor our past, we embrace the future with determination and unity. Together, we shall continue to flourish while preserving the sacred traditions that define us.”
+        </div>
+        
+        <div class="royal-signature">
+            <div class="signature-line"></div>
+            <div class="signature-content">
+                <p>Omukama Mutatembwa II</p>
+                <small>King of Kiziba</small>
+            </div>
+        </div>
+    </div>
+</div>
+    </section>
+  </div>
+   <div class="container">
+        <div class="map-section">
+            <div class="map-icon">
+                <i class="fas fa-map-marked-alt"></i>
+            </div>
+            <h2 class="map-title">Map Territories</h2>
+            <button class="map-btn" id="mapBtn">
+                Explore Kiziba Map <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Map Popup -->
+    <div class="map-popup" id="mapPopup">
+        <div class="map-popup-content">
+            <span class="map-popup-close" id="mapPopupClose">&times;</span>
+            <h3 class="map-popup-title">Kiziba Territory Map</h3>
+            <img src="images/kizibapicha.jpeg" 
+                 alt="Kiziba Map" class="map-image" id="mapImage">
+            <!-- Note: Replace with your actual map image or Google Maps API key -->
+        </div>
+    </div>
+  <footer>
+        <div class="footer-wave"></div>
+        <div class="footer-container">
+        <!-- Community Section -->
+        <div class="community-section">
+            <h3>Join Our Community</h3>
+            <p>Be part of preserving and celebrating the rich heritage of Kiziba Kingdom. Connect with us and stay informed about our cultural events and development initiatives.</p>
+            <div class="action-buttons">
+                <a href="#" class="action-btn newsletter-btn" id="newsletterBtn">
+                    <i class="fas fa-envelope"></i> Subscribe to Newsletter
+                </a>
+                
+            </div>
+        </div>
+    </div>
+
+    <!-- Newsletter Popup -->
+    <div class="newsletter-popup" id="newsletterPopup">
+        <div class="popup-content">
+            <span class="close-popup" id="closePopup">&times;</span>
+            <div class="popup-icon">
+                <i class="fas fa-crown"></i>
+            </div>
+            
+            <div id="subscriptionForm">
+                <h3>Join the Royal Newsletter</h3>
+                <p>Enter your email to receive exclusive updates about Kiziba Kingdom's heritage, cultural events, and preservation efforts.</p>
+                
+                <form class="newsletter-form" id="newsletterForm">
+                    <input type="email" placeholder="Your email address" required>
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-paper-plane"></i> Subscribe Now
+                    </button>
+                </form>
+            </div>
+            
+            <div class="success-message" id="successMessage">
+                <h3>Welcome to the Kingdom!</h3>
+                <p>Thank you for subscribing to our royal newsletter. You'll now receive:</p>
+                <ul style="text-align: left; margin: 1rem 0; padding-left: 1.5rem;">
+                    <li>📜 Monthly heritage highlights</li>
+                    <li>🎉 Exclusive event invitations</li>
+                    <li>👑 Behind-the-scenes royal updates</li>
+                </ul>
+                <p>Your first royal dispatch will arrive soon!</p>
+                <div style="margin-top: 1.5rem; font-style: italic; color: var(--earth-brown);">
+                    "Preserving our past, inspiring our future"
+                </div>
+            </div>
+        </div>
+    </div>
+            
+            <!-- About Section -->
+            
+            
+            <!-- Founder Section -->
+            <div class="founder-section">
+                <div class="founder-header">
+                    <div class="founder-icon">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <div>
+                        <h3>Meet Our Founder</h3>
+                        <p>The visionary behind Kiziba Digital Archive</p>
+                    </div>
+                </div>
+                <button class="founder-btn" id="founderTrigger">
+                    <span>About The Author</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+            </div>
+            
+            <!-- Social Media -->
+            <div class="social-media">
+                <a href="https://instagram.com/mutasingwaa" class="social-link" target="_blank" aria-label="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://wa.me/255746210442" class="social-link" target="_blank" aria-label="WhatsApp">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                
+            </div>
+        </div>
+        
+        <!-- Footer Bottom -->
+        <div class="footer-bottom">
+            <p>&copy; 2025 Kiziba Kingdom. All rights reserved.</p>
+        </div>
+        
+        <!-- Founder Modal -->
+        <div class="founder-modal" id="founderModal">
+        <div class="modal-content">
+            <button class="close-modal">&times;</button>
+            <div class="modal-header">
+                <div class="founder-modal-image" id="founderImage">
+                    <img src="images/mutahsingwa.jpeg" alt="Founder Portrait">
+                </div>
+                <div class="founder-modal-title">
+                    <h2>Lewis Christian Lutinwa</h2>
+                    <p>Founder & Curator, Kiziba Digital Archive</p>
+                </div>
+            </div>
+            <div class="modal-body">
+    <div class="bio-section">
+    <h3>Biography</h3>
+    <p>Lewis Lutinwa was born in Dar es Salaam, carrying the spirit of Kagera in his heart from childhood. While growing up in the city, my father, Mr. Lutinwa, would bring the stories of our ancestral homeland to life through his vivid storytelling. These tales of Kiziba Kingdom's glorious past, shared , planted the seeds of my passion for cultural preservation.</p>
+    
+    <p>With my father's unwavering support and encouragement, I pursued Computer Science and Software Development, recognizing technology's power to bridge generations. This vision led me to establish the Kiziba Digital Archive in 2024 - transforming childhood memories into an internationally recognized digital preservation effort. My father's wisdom that "our past must walk hand-in-hand with our future" continues to guide this important work.</p>
+    
+    <p>Today, I combine my technical expertise with deep cultural reverence to ensure our heritage thrives in the digital age, honoring both my academic journey and the family legacy that made it possible.</p>
+</div>
+    <div class="message-section">
+        <h3>Message to Visitors</h3>
+        <p>"My dear brothers and sisters,</p>
+        
+        <p>When I was a boy, my late great grandmother Ma Eles Ntare would tell me stories  - stories of kings and warriors, of harvests and ceremonies, of love and sacrifice. Those stories shaped who I am today. This archive is my way of keeping that fire burning, of passing forward the warmth of our collective memory.</p>
+        
+        <p>Every photograph, every recording, every artifact here is a piece of our soul. They are not just relics of the past, but seeds for our future. As you explore these digital halls, I pray you feel the presence of those who came before us - their wisdom, their struggles, their triumphs.</p>
+        
+        <p>To my family, both by blood and by shared heritage: What we build here together is more than an archive. It is a sacred trust, a promise that no matter how far we journey into tomorrow, we will always carry the essence of home in our hearts.</p>
+        
+        <p>Walk gently through these memories, for you tread on holy ground."</p>
+    </div>
+    <div class="signature">
+        <p>With ancestral blessings,<br>— Lewis Lutinwa</p>
+    </div>
+</div>
+        </div>
+    </div>
+
+    <!-- Expanded Image Overlay -->
+    <div class="image-expand-overlay" id="imageExpandOverlay">
+        <div class="expanded-image-container">
+            <img id="expandedImage" src="" alt="Expanded Founder Portrait">
+            <button class="close-expanded">&times;</button>
+        </div>
+    </div>
+    </footer>
+  
+  <script>
+    // DOM Elements
+    const menuToggle = document.getElementById('menuToggle');
+    const mobileDrawer = document.getElementById('mobileDrawer');
+    const closeDrawer = document.getElementById('closeDrawer');
+    const overlay = document.getElementById('overlay');
+
+    // Toggle Drawer
+    function toggleDrawer() {
+      mobileDrawer.classList.toggle('show');
+      overlay.classList.toggle('show');
+      document.body.style.overflow = mobileDrawer.classList.contains('show') ? 'hidden' : 'auto';
+    }
+
+    // Event Listeners
+    menuToggle.addEventListener('click', toggleDrawer);
+    closeDrawer.addEventListener('click', toggleDrawer);
+    overlay.addEventListener('click', toggleDrawer);
+
+    // Highlight active link based on current page
+    function setActiveLink() {
+      const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+      
+      document.querySelectorAll('.nav-links a').forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === currentPage) {
+          link.classList.add('active');
+        }
+      });
+      
+      document.querySelectorAll('.drawer-links a').forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === currentPage) {
+          link.classList.add('active');
+        }
+      });
+    }
+
+    // Initialize
+    setActiveLink();
+    
+  </script>
+  <script>
+    // Animate cards on scroll
+    document.addEventListener('DOMContentLoaded', function() {
+      // Animate cards with delays
+      const cards = document.querySelectorAll('.activity-card');
+      cards.forEach(card => {
+        const delay = parseFloat(card.getAttribute('data-delay')) || 0;
+        setTimeout(() => {
+          card.style.animation = `cardEntrance 0.8s ${delay}s cubic-bezier(0.22, 0.61, 0.36, 1) forwards`;
+        }, 100);
+      });
+
+      // Animate impact items
+      const impactItems = document.querySelectorAll('.impact-item');
+      impactItems.forEach((item, index) => {
+        const delay = parseFloat(item.style.animationDelay) || 0;
+        setTimeout(() => {
+          item.style.opacity = '1';
+          item.style.transform = 'translateX(0)';
+          item.style.transition = 'all 0.5s cubic-bezier(0.22, 0.61, 0.36, 1)';
+        }, delay * 1000 + 300);
+      });
+
+      // Particle effects on card hover
+      const container = document.querySelector('.activities-container');
+      cards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          
+          // Create particle
+          const particle = document.createElement('div');
+          particle.className = 'particle';
+          particle.style.left = `${x}px`;
+          particle.style.top = `${y}px`;
+          particle.style.width = `${Math.random() * 10 + 5}px`;
+          particle.style.height = particle.style.width;
+          particle.style.opacity = Math.random() * 0.5 + 0.3;
+          
+          card.appendChild(particle);
+          
+          // Animate particle
+          const angle = Math.random() * Math.PI * 2;
+          const distance = Math.random() * 50 + 20;
+          const duration = Math.random() * 1000 + 500;
+          
+          setTimeout(() => {
+            particle.style.transform = `translate(${Math.cos(angle) * distance}px, ${Math.sin(angle) * distance}px)`;
+            particle.style.opacity = '0';
+            particle.style.transition = `all ${duration}ms linear`;
+            
+            // Remove particle after animation
+            setTimeout(() => {
+              particle.remove();
+            }, duration);
+          }, 10);
+        });
+      });
+
+      // Parallax effect on scroll
+      window.addEventListener('scroll', () => {
+        const scrollY = window.scrollY;
+        cards.forEach((card, index) => {
+          const speed = 0.1 + (index * 0.05);
+          card.style.transform = `translateY(${scrollY * speed}px) rotateX(${scrollY * 0.02}deg)`;
+        });
+      });
+    });
+  </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Animate fact cards with delays
+      const factCards = document.querySelectorAll('.fact-card');
+      factCards.forEach(card => {
+        const delay = parseFloat(card.getAttribute('data-delay')) || 0;
+        setTimeout(() => {
+          card.style.animation = `cardEntrance 0.8s ${delay}s cubic-bezier(0.22, 0.61, 0.36, 1) forwards`;
+        }, 100);
+      });
+
+      // Add ripple effect to cards
+      factCards.forEach(card => {
+        card.addEventListener('click', function(e) {
+          // Create ripple element
+          const ripple = document.createElement('span');
+          ripple.className = 'ripple-effect';
+          
+          // Position ripple
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          
+          ripple.style.left = `${x}px`;
+          ripple.style.top = `${y}px`;
+          
+          // Add ripple to card
+          card.appendChild(ripple);
+          
+          // Remove ripple after animation
+          setTimeout(() => {
+            ripple.remove();
+          }, 1000);
+        });
+      });
+
+      // Add scroll-triggered pulse animation
+      window.addEventListener('scroll', function() {
+        const factsSection = document.querySelector('.quick-facts-section');
+        const sectionPosition = factsSection.getBoundingClientRect().top;
+        const screenPosition = window.innerHeight / 1.3;
+        
+        if (sectionPosition < screenPosition) {
+          factsSection.classList.add('animated');
+        }
+      });
+
+      // Add dynamic background pattern
+      const section = document.querySelector('.quick-facts-section');
+      for (let i = 0; i < 20; i++) {
+        const dot = document.createElement('div');
+        dot.className = 'bg-dot';
+        dot.style.left = `${Math.random() * 100}%`;
+        dot.style.top = `${Math.random() * 100}%`;
+        dot.style.width = `${Math.random() * 10 + 2}px`;
+        dot.style.height = dot.style.width;
+        dot.style.animationDelay = `${Math.random() * 5}s`;
+        section.appendChild(dot);
+      }
+    });
+
+    // Add dynamic text color change for facts
+    const facts = document.querySelectorAll('.fact-card p');
+    const colors = ['#8B4513', '#A0522D', '#CD853F', '#D2691E'];
+    let currentColor = 0;
+
+    setInterval(() => {
+      facts.forEach(fact => {
+        fact.style.color = colors[currentColor];
+        fact.style.transition = 'color 1s ease';
+      });
+      currentColor = (currentColor + 1) % colors.length;
+    }, 3000);
+  </script>
+
+  <style>
+    /* Ripple Effect */
+    .ripple-effect {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(139, 69, 19, 0.3);
+      transform: scale(0);
+      animation: ripple 0.6s linear;
+      pointer-events: none;
+    }
+
+    @keyframes ripple {
+      to {
+        transform: scale(2.5);
+        opacity: 0;
+      }
+    }
+
+    /* Background Pattern */
+    .bg-dot {
+      position: absolute;
+      background: rgba(139, 69, 19, 0.05);
+      border-radius: 50%;
+      z-index: -1;
+      animation: pulse 3s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.5);
+      }
+    }
+  </style>
+   <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Create royal particles
+      const section = document.querySelector('.royal-message-section');
+      for (let i = 0; i < 15; i++) {
+        createParticle(section);
+      }
+
+      // Animate particles continuously
+      setInterval(() => {
+        const particles = document.querySelectorAll('.royal-particle');
+        particles.forEach(particle => {
+          if (isElementInViewport(particle)) {
+            animateParticle(particle);
+          }
+        });
+      }, 3000);
+
+      // Add hover effect to royal card
+      const royalCard = document.querySelector('.royal-card');
+      royalCard.addEventListener('mousemove', (e) => {
+        const rect = royalCard.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        royalCard.style.transform = `perspective(1000px) rotateX(${(y - rect.height/2)/20}deg) rotateY(${(rect.width/2 - x)/20}deg) scale(1.02)`;
+      });
+
+      royalCard.addEventListener('mouseleave', () => {
+        royalCard.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+      });
+
+      // Add scroll-triggered glow effect
+      window.addEventListener('scroll', () => {
+        const scrollY = window.scrollY;
+        const seal = document.querySelector('.royal-seal');
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.offsetHeight;
+        
+        if (scrollY > sectionTop - window.innerHeight/2 && scrollY < sectionTop + sectionHeight) {
+          const progress = (scrollY - sectionTop + window.innerHeight/2) / sectionHeight;
+          seal.style.opacity = 0.03 + (progress * 0.05);
+        }
+      });
+
+      // Founder modal JavaScript (ADDED CODE STARTS HERE)
+      const modal = document.getElementById('founderModal');
+      const trigger = document.getElementById('founderTrigger');
+      const closeBtn = document.querySelector('.close-modal');
+      
+      if (modal && trigger && closeBtn) {
+        // Open modal
+        trigger.addEventListener('click', function() {
+          modal.classList.add('active');
+          document.body.style.overflow = 'hidden';
+        });
+        
+        // Close modal
+        closeBtn.addEventListener('click', function() {
+          modal.classList.remove('active');
+          document.body.style.overflow = 'auto';
+        });
+        
+        // Close when clicking outside
+        modal.addEventListener('click', function(e) {
+          if (e.target === modal) {
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+          }
+        });
+      }
+      // ADDED CODE ENDS HERE
+    });
+
+    // Particle functions
+    function createParticle(container) {
+      const particle = document.createElement('div');
+      particle.className = 'royal-particle';
+      
+      // Random position
+      const posX = Math.random() * 100;
+      const posY = Math.random() * 100;
+      
+      // Random size
+      const size = Math.random() * 8 + 2;
+      
+      particle.style.left = `${posX}%`;
+      particle.style.top = `${posY}%`;
+      particle.style.width = `${size}px`;
+      particle.style.height = `${size}px`;
+      particle.style.opacity = Math.random() * 0.3 + 0.1;
+      particle.style.background = `rgba(139, 69, 19, ${Math.random() * 0.2 + 0.05})`;
+      
+      container.appendChild(particle);
+      animateParticle(particle);
+    }
+
+    function animateParticle(particle) {
+      const duration = Math.random() * 10000 + 5000;
+      const newX = Math.random() * 100;
+      const newY = Math.random() * 100;
+      
+      particle.style.transition = `all ${duration}ms cubic-bezier(0.17, 0.67, 0.83, 0.67)`;
+      particle.style.left = `${newX}%`;
+      particle.style.top = `${newY}%`;
+      
+      setTimeout(() => {
+        if (particle.parentNode) {
+          animateParticle(particle);
+        }
+      }, duration);
+    }
+
+    function isElementInViewport(el) {
+      const rect = el.getBoundingClientRect();
+      return (
+        rect.top >= 0 &&
+        rect.left >= 0 &&
+        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+      );
+    }
+  </script>
+    <script>
+    // Enhanced for accessibility
+    document.addEventListener('DOMContentLoaded', function() {
+      // Focus styles for keyboard navigation
+      const interactiveElements = document.querySelectorAll('a, button');
+      interactiveElements.forEach(el => {
+        el.addEventListener('focus', function() {
+          this.style.outline = '3px solid #FFD700';
+          this.style.outlineOffset = '3px';
+        });
+        el.addEventListener('blur', function() {
+          this.style.outline = 'none';
+        });
+      });
+
+      // Larger click targets for touch devices
+      if ('ontouchstart' in window) {
+        const touchElements = document.querySelectorAll('.action-btn, .social-link, .contact-item');
+        touchElements.forEach(el => {
+          el.style.minHeight = '60px';
+          el.style.display = 'flex';
+          el.style.alignItems = 'center';
+          el.style.justifyContent = 'center';
+        });
+      }
+    });
+  </script>
+     <script>
+        // Modal functionality
+        const founderModal = document.getElementById('founderModal');
+        const founderImage = document.getElementById('founderImage');
+        const imageExpandOverlay = document.getElementById('imageExpandOverlay');
+        const expandedImage = document.getElementById('expandedImage');
+        const closeModal = document.querySelector('.close-modal');
+        const closeExpanded = document.querySelector('.close-expanded');
+
+        // Function to open founder modal (you'll call this from your button click)
+        function openFounderModal() {
+            founderModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close founder modal
+        closeModal.addEventListener('click', () => {
+            founderModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+
+        // Click image to expand
+        founderImage.addEventListener('click', (e) => {
+            const imgSrc = e.currentTarget.querySelector('img').src;
+            expandedImage.src = imgSrc;
+            imageExpandOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        // Close expanded image
+        closeExpanded.addEventListener('click', () => {
+            imageExpandOverlay.classList.remove('active');
+            document.body.style.overflow = founderModal.classList.contains('active') ? 'hidden' : 'auto';
+        });
+
+        // Close expanded image when clicking outside
+        imageExpandOverlay.addEventListener('click', (e) => {
+            if (e.target === imageExpandOverlay) {
+                imageExpandOverlay.classList.remove('active');
+                document.body.style.overflow = founderModal.classList.contains('active') ? 'hidden' : 'auto';
+            }
+        });
+    </script>
+     <script>
+        // Newsletter Popup Functionality
+        const newsletterBtn = document.getElementById('newsletterBtn');
+        const newsletterPopup = document.getElementById('newsletterPopup');
+        const closePopup = document.getElementById('closePopup');
+        const newsletterForm = document.getElementById('newsletterForm');
+        const subscriptionForm = document.getElementById('subscriptionForm');
+        const successMessage = document.getElementById('successMessage');
+
+        // Show popup
+        newsletterBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            newsletterPopup.classList.add('active');
+        });
+
+        // Close popup
+        closePopup.addEventListener('click', () => {
+            newsletterPopup.classList.remove('active');
+        });
+
+        // Form submission
+        newsletterForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Simulate form submission
+            setTimeout(() => {
+                subscriptionForm.style.display = 'none';
+                successMessage.style.display = 'block';
+                
+                // Create confetti effect
+                createConfetti();
+                
+                // Close popup after 3 seconds
+                setTimeout(() => {
+                    newsletterPopup.classList.remove('active');
+                    subscriptionForm.style.display = 'block';
+                    successMessage.style.display = 'none';
+                }, 3000);
+            }, 1000);
+        });
+
+        // Create confetti animation
+        function createConfetti() {
+            const colors = ['#FFD700', '#003366', '#8B4513', '#FFFFFF'];
+            const popupContent = document.querySelector('.popup-content');
+            
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.top = -10 + 'px';
+                confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+                
+                popupContent.appendChild(confetti);
+                
+                const animationDuration = Math.random() * 3 + 2;
+                
+                confetti.style.animation = `confettiFall ${animationDuration}s ease-in forwards`;
+                
+                // Create keyframes dynamically
+                const keyframes = `
+                    @keyframes confettiFall {
+                        to {
+                            transform: translateY(300px) rotate(${Math.random() * 360}deg);
+                            opacity: 0;
+                        }
+                    }
+                `;
+                
+                const style = document.createElement('style');
+                style.innerHTML = keyframes;
+                document.head.appendChild(style);
+                
+                // Remove confetti after animation
+                setTimeout(() => {
+                    confetti.remove();
+                    style.remove();
+                }, animationDuration * 1000);
+            }
+        }
+    </script>
+      <script>
+        // DOM Elements
+        const mapBtn = document.getElementById('mapBtn');
+        const mapPopup = document.getElementById('mapPopup');
+        const mapPopupClose = document.getElementById('mapPopupClose');
+        const mapImage = document.getElementById('mapImage');
+
+        // Show Popup
+        mapBtn.addEventListener('click', () => {
+            mapPopup.classList.add('active');
+            
+            // Add a slight delay for the image to fade in after the popup
+            setTimeout(() => {
+                mapImage.style.animation = 'fadeIn 0.5s ease forwards';
+            }, 300);
+        });
+
+        // Hide Popup
+        mapPopupClose.addEventListener('click', () => {
+            mapPopup.classList.remove('active');
+            mapImage.style.animation = 'none';
+        });
+
+        // Close when clicking outside the content
+        mapPopup.addEventListener('click', (e) => {
+            if (e.target === mapPopup) {
+                mapPopup.classList.remove('active');
+                mapImage.style.animation = 'none';
+            }
+        });
+
+        // Close with ESC key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && mapPopup.classList.contains('active')) {
+                mapPopup.classList.remove('active');
+                mapImage.style.animation = 'none';
+            }
+        });
+    </script>
+     
+  
+</body>
+</html>

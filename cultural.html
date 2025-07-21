@@ -1,0 +1,2762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kiziba Kingdom - Cultural Heritage</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    /* COPY THE EXACT SAME CSS FROM index.html HERE */
+    * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: #f5f5f5;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Navbar Styles */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #fff;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logo-icon {
+  width: 40px;
+  height: 40px;
+  background-color: #8B4513;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.2rem;
+}
+
+.logo-text h1 {
+  font-size: 1.5rem;
+  color: #8B4513;
+  font-weight: 600;
+}
+
+.logo-text h1 span {
+  font-weight: 800;
+}
+
+.logo-text p {
+  font-size: 0.8rem;
+  color: #A0522D;
+  margin-top: 0.2rem;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 1.5rem;
+}
+
+.nav-links li a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.nav-links li a:hover {
+  color: #8B4513;
+}
+
+.nav-links li a::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background-color: #8B4513;
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.nav-links li a:hover::after,
+.nav-links li a.active::after {
+  width: 70%;
+}
+
+.nav-links li a.active {
+  color: #8B4513;
+  font-weight: 600;
+}
+
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #8B4513;
+  cursor: pointer;
+}
+
+/* Mobile Drawer */
+.mobile-drawer {
+  position: fixed;
+  top: 0;
+  left: -100%;
+  width: 70%;
+  max-width: 300px;
+  height: 100vh;
+  background-color: #fff;
+  box-shadow: 2px 0 15px rgba(0, 0, 0, 0.15);
+  z-index: 1001;
+  transition: all 0.4s ease;
+  overflow-y: auto;
+}
+
+.mobile-drawer.show {
+  left: 0;
+}
+
+.drawer-header {
+  padding: 1.5rem;
+  background-color: #8B4513;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.drawer-header .logo {
+  gap: 0.8rem;
+}
+
+.drawer-header .logo-icon {
+  background-color: white;
+  color: #8B4513;
+}
+
+.drawer-header .logo-text h1 {
+  color: white;
+}
+
+.drawer-header .logo-text p {
+  color: #f0f0f0;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.drawer-links {
+  list-style: none;
+  padding: 1rem 0;
+}
+
+.drawer-links li a {
+  display: block;
+  padding: 1rem 1.5rem;
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border-left: 4px solid transparent;
+}
+
+.drawer-links li a:hover,
+.drawer-links li a.active {
+  background-color: #f9f9f9;
+  color: #8B4513;
+  border-left: 4px solid #8B4513;
+  padding-left: 2rem;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.overlay.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Page Content */
+.page-content {
+  flex: 1;
+  padding: 2rem;
+  animation: fadeIn 0.5s ease;
+}
+
+.page-header {
+  color: #8B4513;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #8B4513;
+}
+
+.page-text {
+  line-height: 1.6;
+  color: #555;
+  margin-bottom: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .navbar {
+    padding: 1rem;
+  }
+  
+  .page-content {
+    padding: 1.5rem;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+        :root {
+            --royal-gold: #D4AF37;
+            --royal-brown: #8B4513;
+            --ivory: #FFFFF0;
+            --shadow: rgba(139, 69, 19, 0.3);
+        }
+        
+        body {
+            font-family: 'Playfair Display', serif;
+            background-color: #f9f5e9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            background-image: url('https://example.com/parchment-texture.jpg');
+            background-attachment: fixed;
+        }
+        
+        .cultural-hero {
+            height: 100vh;
+            min-height: 600px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(139, 69, 19, 0.2), rgba(0, 0, 0, 0.5));
+            z-index: 1;
+        }
+        
+        .hero-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+        }
+        
+        .cultural-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            margin: 0 auto;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease;
+        }
+        
+        .cultural-content.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .cultural-title {
+            font-family: 'Cinzel', serif;
+            font-size: 4rem;
+            color: var(--ivory);
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .cultural-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 3px;
+            background: var(--royal-gold);
+        }
+        
+        .cultural-subtitle {
+            font-size: 1.5rem;
+            color: var(--ivory);
+            max-width: 700px;
+            margin: 0 auto 2rem auto;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+            line-height: 1.6;
+        }
+        
+        .scroll-prompt {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--ivory);
+            font-size: 1.2rem;
+            animation: bounce 2s infinite;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .scroll-prompt i {
+            font-size: 1.8rem;
+            margin-top: 0.5rem;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
+            40% { transform: translateY(-20px) translateX(-50%); }
+            60% { transform: translateY(-10px) translateX(-50%); }
+        }
+        
+        .cultural-sections {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+        
+        .culture-card {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5rem;
+            background-color: var(--ivory);
+            border-radius: 10px;
+            box-shadow: 0 15px 40px var(--shadow);
+            overflow: hidden;
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s ease;
+        }
+        
+        .culture-card:nth-child(even) {
+            flex-direction: row-reverse;
+            transform: translateX(50px);
+        }
+        
+        .culture-card.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .culture-image {
+            flex: 1;
+            min-height: 400px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .culture-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(139, 69, 19, 0.3), transparent);
+        }
+        
+        .culture-card:nth-child(even) .culture-image::before {
+            background: linear-gradient(to left, rgba(139, 69, 19, 0.3), transparent);
+        }
+        
+        .culture-text {
+            flex: 1;
+            padding: 3rem;
+        }
+        
+        .culture-category {
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
+            color: var(--royal-gold);
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+        }
+        
+        .culture-heading {
+            font-family: 'Cinzel', serif;
+            font-size: 2.5rem;
+            color: var(--royal-brown);
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .culture-heading::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 80px;
+            height: 3px;
+            background: var(--royal-gold);
+        }
+        
+        .culture-description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 2rem;
+        }
+        
+        .culture-btn {
+            display: inline-block;
+            padding: 0.8rem 1.8rem;
+            background-color: var(--royal-brown);
+            color: var(--ivory);
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: 2px solid var(--royal-brown);
+        }
+        
+        .culture-btn:hover {
+            background-color: transparent;
+            color: var(--royal-brown);
+        }
+        
+        .floating-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 3;
+        }
+        
+        .floating-element {
+            position: absolute;
+            color: rgba(212, 175, 55, 0.2);
+            font-size: 2rem;
+            animation: float 15s linear infinite;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            20% {
+                opacity: 0.3;
+            }
+            80% {
+                opacity: 0.3;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .cultural-title {
+                font-size: 3rem;
+            }
+            
+            .cultural-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .culture-card {
+                flex-direction: column;
+                transform: translateY(50px) !important;
+            }
+            
+            .culture-card:nth-child(even) {
+                flex-direction: column;
+            }
+            
+            .culture-image {
+                width: 100%;
+                min-height: 300px;
+            }
+            
+            .culture-text {
+                padding: 2rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .cultural-title {
+                font-size: 2.5rem;
+            }
+            
+            .culture-heading {
+                font-size: 2rem;
+            }
+        }
+             :root {
+            --royal-gold: #D4AF37;
+            --royal-brown: #8B4513;
+            --ivory: #FFFFF0;
+            --shadow: rgba(139, 69, 19, 0.3);
+        }
+        
+        body {
+            font-family: 'Playfair Display', serif;
+            background-color: #f9f5e9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://example.com/parchment-texture.jpg');
+            background-attachment: fixed;
+        }
+        
+        .wisdom-container {
+            max-width: 900px;
+            margin: 4rem auto;
+            padding: 2rem;
+            position: relative;
+        }
+        
+        .wisdom-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+        
+        .wisdom-header.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .wisdom-title {
+            font-family: 'Cinzel', serif;
+            font-size: 3rem;
+            color: var(--royal-brown);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .wisdom-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 3px;
+            background: linear-gradient(to right, transparent, var(--royal-gold), transparent);
+        }
+        
+        .wisdom-subtitle {
+            font-size: 1.3rem;
+            color: var(--royal-brown);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        .proverb-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .proverb-card {
+            background-color: var(--ivory);
+            border-radius: 10px;
+            padding: 2rem;
+            flex: 1;
+            min-width: 300px;
+            max-width: 400px;
+            box-shadow: 0 10px 30px var(--shadow);
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: scale(0.9);
+            transition: all 0.6s ease;
+            border-top: 4px solid var(--royal-gold);
+        }
+        
+        .proverb-card.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        .proverb-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.05) 0%, rgba(139, 69, 19, 0.05) 100%);
+            z-index: 0;
+        }
+        
+        .proverb-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 40px var(--shadow);
+        }
+        
+        .proverb-original {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--royal-brown);
+            font-weight: bold;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+            line-height: 1.4;
+        }
+        
+        .proverb-translation {
+            font-style: italic;
+            color: #666;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+            padding-left: 1.5rem;
+            border-left: 3px solid var(--royal-gold);
+        }
+        
+        .proverb-meaning {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #555;
+            position: relative;
+            z-index: 1;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .proverb-meaning::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 10px;
+            width: 8px;
+            height: 8px;
+            background-color: var(--royal-gold);
+            border-radius: 50%;
+        }
+        
+        .language-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: var(--royal-brown);
+            color: var(--ivory);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            z-index: 2;
+        }
+        
+        .floating-symbols {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+        
+        .floating-symbol {
+            position: absolute;
+            color: rgba(139, 69, 19, 0.1);
+            font-size: 2rem;
+            animation: float 15s linear infinite;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            20% {
+                opacity: 0.3;
+            }
+            80% {
+                opacity: 0.3;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .language-info {
+            max-width: 800px;
+            margin: 4rem auto;
+            padding: 2rem;
+            background-color: var(--ivory);
+            border-radius: 10px;
+            box-shadow: 0 10px 30px var(--shadow);
+            opacity: 0;
+            transition: all 0.8s ease 0.4s;
+        }
+        
+        .language-info.visible {
+            opacity: 1;
+        }
+        
+        .language-info-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.8rem;
+            color: var(--royal-brown);
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        
+        .language-info-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 1.5rem;
+        }
+        
+        .language-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            justify-content: center;
+        }
+        
+        .language-feature {
+            flex: 1;
+            min-width: 200px;
+            background: rgba(212, 175, 55, 0.1);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+        
+        .language-feature-title {
+            font-weight: bold;
+            color: var(--royal-brown);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .language-feature-title i {
+            margin-right: 10px;
+            color: var(--royal-gold);
+        }
+        
+        @media (max-width: 768px) {
+            .wisdom-container {
+                padding: 1.5rem;
+            }
+            
+            .wisdom-title {
+                font-size: 2.2rem;
+            }
+            
+            .wisdom-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .proverb-card {
+                min-width: 100%;
+            }
+        }
+        :root {
+            --primary: #8B4513;
+            --secondary: #D2B48C;
+            --accent: #A0522D;
+            --light: #F5DEB3;
+            --dark: #4B3621;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Georgia', serif;
+        }
+        
+        body {
+            background-color: #f9f5e9;
+            color: #333;
+            line-height: 1.6;
+            background-image: url('https://images.unsplash.com/photo-1605000797499-95a51c5269ae?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(249, 245, 233, 0.85);
+            z-index: -1;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--dark));
+            color: var(--light);
+            text-align: center;
+            padding: 3rem 1rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 2;
+            animation: fadeInDown 1.5s ease;
+        }
+        
+        header p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            animation: fadeInUp 1.5s ease;
+        }
+        
+        .header-decoration {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            opacity: 0.1;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="%23F5DEB3"><path d="M30,10 Q50,5 70,10 T90,30 Q95,50 90,70 T70,90 Q50,95 30,90 T10,70 Q5,50 10,30 T30,10Z"/></svg>');
+            background-size: 100px;
+            z-index: 1;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+        
+        .ceremony-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 3rem;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .ceremony-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .ceremony-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+        
+        .ceremony-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+        }
+        
+        .ceremony-header {
+            background: linear-gradient(135deg, var(--secondary), var(--light));
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid rgba(139, 69, 19, 0.2);
+        }
+        
+        .ceremony-header h2 {
+            color: var(--dark);
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .ceremony-header h2 i {
+            margin-right: 15px;
+            color: var(--primary);
+        }
+        
+        .ceremony-content {
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .ceremony-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.5s ease;
+        }
+        
+        .ceremony-image:hover {
+            transform: scale(1.02);
+        }
+        
+        .ceremony-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .detail-item {
+            flex: 1;
+            min-width: 200px;
+            background-color: var(--light);
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .detail-item h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+            border-bottom: 1px dashed var(--primary);
+            padding-bottom: 0.3rem;
+        }
+        
+        .ceremony-description {
+            line-height: 1.7;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .floating-element {
+            position: absolute;
+            background-size: contain;
+            background-repeat: no-repeat;
+            opacity: 0.1;
+            animation: float 15s infinite linear;
+        }
+        
+        footer {
+            background: linear-gradient(135deg, var(--dark), var(--primary));
+            color: var(--light);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(5deg);
+            }
+            100% {
+                transform: translateY(0) rotate(0deg);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .ceremony-details {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .ceremony-image {
+                height: 200px;
+            }
+        }
+        
+        /* Special animation for coronation card */
+        .coronation-card {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .coronation-card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,215,0,0.2) 0%, rgba(255,215,0,0) 70%);
+            animation: shine 8s infinite;
+            pointer-events: none;
+        }
+        
+        @keyframes shine {
+            0% {
+                transform: translate(-30%, -30%) rotate(0deg);
+            }
+            100% {
+                transform: translate(30%, 30%) rotate(360deg);
+            }
+        }
+         :root {
+            --primary: #5D4037;
+            --secondary: #8D6E63;
+            --accent: #A1887F;
+            --light: #EFEBE9;
+            --dark: #3E2723;
+            --gold: #FFD700;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        .artifacts-header {
+            background: linear-gradient(rgba(61, 39, 35, 0.85), rgba(61, 39, 35, 0.9)), url('https://images.unsplash.com/photo-1605000797499-95a51c5269ae?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80');
+            background-size: cover;
+            background-position: center;
+            color: var(--light);
+            text-align: center;
+            padding: 4rem 1rem;
+            position: relative;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .artifacts-header h1 {
+            font-size: 3.8rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+            position: relative;
+            animation: fadeInDown 1s ease-out;
+            letter-spacing: 1px;
+        }
+        
+        .artifacts-header p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease-out 0.3s forwards;
+            position: relative;
+        }
+        
+        .artifacts-container {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+            position: relative;
+        }
+        
+        .artifact-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            margin-bottom: 3rem;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            position: relative;
+            opacity: 0;
+            transform: translateY(30px);
+            border-top: 4px solid var(--primary);
+        }
+        
+        .artifact-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .artifact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        .artifact-header {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            padding: 1.5rem 2rem;
+            position: relative;
+        }
+        
+        .artifact-header h2 {
+            font-size: 2.2rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .artifact-content {
+            padding: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+        
+        .artifact-image-container {
+            flex: 1;
+            min-width: 300px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 6px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            height: 350px;
+        }
+        
+        .artifact-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+        
+        .artifact-image:hover {
+            transform: scale(1.05);
+        }
+        
+        .artifact-details {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .detail-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .detail-group h3 {
+            color: var(--primary);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            border-bottom: 1px dashed var(--accent);
+            padding-bottom: 0.3rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .detail-group h3 i {
+            margin-right: 10px;
+        }
+        
+        .artifact-description {
+            line-height: 1.7;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        /* Special floating particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .particle {
+            position: absolute;
+            background-color: var(--primary);
+            border-radius: 50%;
+            opacity: 0.1;
+            animation: floatParticle linear infinite;
+        }
+        
+        /* Gold overlay effect for royal items */
+        .royal-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255,215,0,0.1) 0%, rgba(255,215,0,0) 70%);
+            pointer-events: none;
+            animation: goldPulse 8s infinite alternate;
+        }
+        
+        /* 3D rotation effect on hover */
+        .artifact-card.royal:hover {
+            transform: perspective(1000px) rotateX(5deg) rotateY(5deg) translateY(-10px);
+        }
+        
+        /* Special badge for ancient items */
+        .ancient-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: var(--gold);
+            color: var(--dark);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: bold;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            transform: rotate(15deg);
+            z-index: 3;
+            animation: badgePulse 2s infinite alternate;
+        }
+        
+        /* Timeline connector */
+        .timeline-connector {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary));
+            transform: translateX(-50%);
+            z-index: -1;
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes floatParticle {
+            0% {
+                transform: translateY(0) translateX(0);
+            }
+            100% {
+                transform: translateY(-100vh) translateX(20px);
+            }
+        }
+        
+        @keyframes goldPulse {
+            0% {
+                opacity: 0.1;
+            }
+            100% {
+                opacity: 0.3;
+            }
+        }
+        
+        @keyframes badgePulse {
+            0% {
+                transform: rotate(15deg) scale(1);
+                box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            }
+            100% {
+                transform: rotate(15deg) scale(1.1);
+                box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+            }
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .artifacts-header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .artifact-content {
+                flex-direction: column;
+            }
+            
+            .artifact-image-container {
+                min-width: 100%;
+                height: 250px;
+            }
+        }
+        
+        /* Special artifact animations */
+        .pottery-spin {
+            transition: transform 1.5s ease;
+        }
+        
+        .pottery-spin:hover {
+            transform: rotateY(180deg);
+        }
+        
+        .woven-mats-effect::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+        
+        .woven-mats-effect:hover::before {
+            transform: translateX(100%);
+        }
+         :root {
+            --primary: #8B4513;
+            --secondary: #D2B48C;
+            --accent: #A0522D;
+            --light: #F5DEB3;
+            --dark: #4B3621;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Georgia', serif;
+        }
+        
+        body {
+            background-color: #f9f5e9;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .culture-footer {
+            background: linear-gradient(135deg, var(--dark), var(--primary));
+            color: var(--light);
+            text-align: center;
+            padding: 3rem 1rem;
+            margin-top: auto;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .culture-footer h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .culture-footer p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            opacity: 0.9;
+        }
+        
+        .footer-icons {
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .icon-container {
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .icon-container:hover {
+            transform: translateY(-5px);
+        }
+        
+        .footer-icon {
+            font-size: 3.5rem;
+            color: var(--light);
+            background: rgba(0, 0, 0, 0.2);
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .icon-container:hover .footer-icon {
+            background: rgba(210, 180, 140, 0.3);
+            transform: scale(1.1);
+        }
+        
+        .icon-label {
+            margin-top: 1rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        
+        /* Popup animations */
+       /* Popup Styles */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.popup-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.popup-container {
+  background-color: #fff;
+  width: 80%;
+  max-width: 800px;
+  padding: 30px;
+  border-radius: 8px;
+  position: relative;
+  transform: translateY(50px);
+  transition: transform 0.3s ease;
+}
+
+.popup-overlay.active .popup-container {
+  transform: translateY(0);
+}
+
+.popup-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #333;
+}
+
+.popup-title {
+  color: #8b0000; /* Dark red similar to your theme */
+  margin-bottom: 20px;
+  font-size: 28px;
+}
+
+.popup-body {
+  line-height: 1.6;
+  font-size: 16px;
+}
+        
+        /* Balloon animation */
+        .balloon {
+            position: absolute;
+            background-size: contain;
+            background-repeat: no-repeat;
+            opacity: 0;
+            animation: floatBalloon linear;
+        }
+        
+        @keyframes floatBalloon {
+            0% {
+                transform: translateY(100vh) translateX(var(--start-x));
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) translateX(var(--end-x));
+                opacity: 0.8;
+            }
+        }
+        
+        /* Safari animation */
+        .safari-animation {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            opacity: 0;
+        }
+        
+        .safari-visible {
+            animation: safariMove 4s linear;
+        }
+        
+        @keyframes safariMove {
+            0% {
+                transform: translateX(-100px) translateY(50px);
+                opacity: 0;
+            }
+            20% {
+                opacity: 1;
+            }
+            80% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(calc(100vw + 100px)) translateY(-50px);
+                opacity: 0;
+            }
+        }
+        
+        .footer-decoration {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            opacity: 0.1;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="%23F5DEB3"><path d="M30,10 Q50,5 70,10 T90,30 Q95,50 90,70 T70,90 Q50,95 30,90 T10,70 Q5,50 10,30 T30,10Z"/></svg>');
+            background-size: 100px;
+            z-index: 1;
+        }
+        
+        @media (max-width: 768px) {
+            .culture-footer h1 {
+                font-size: 2rem;
+            }
+            
+            .footer-icons {
+                gap: 2rem;
+            }
+            
+            .footer-icon {
+                width: 80px;
+                height: 80px;
+                font-size: 2.5rem;
+            }
+        }
+  </style>
+</head>
+<body>
+
+  <!-- COPY THE EXACT SAME NAVBAR FROM index.html HERE -->
+  <nav class="navbar">
+    <div class="logo">
+      <div class="logo-icon">
+        <i class="fas fa-crown"></i>
+      </div>
+      <div class="logo-text">
+        <h1>Kiziba <span>Kingdom</span></h1>
+        <p>Heritage Portal</p>
+      </div>
+    </div>
+
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="leadership.html">Leadership</a></li>
+      <li><a href="cultural.html">Cultural Heritage</a></li>
+      <li><a href="livelihood.html">Livelihood & Economy</a></li>
+      <li><a href="land.html">Land & Environment</a></li>
+      <li><a href="media.html">Media</a></li>
+    </ul>
+
+    <button class="menu-toggle" id="menuToggle">
+      <i class="fas fa-bars"></i>
+    </button>
+  </nav>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-drawer" id="mobileDrawer">
+    <div class="drawer-header">
+      <div class="logo">
+        <div class="logo-icon">
+          <i class="fas fa-crown"></i>
+        </div>
+        <div class="logo-text">
+          <h1>Kiziba <span>Kingdom</span></h1>
+          <p>Heritage Portal</p>
+        </div>
+      </div>
+      <button class="close-btn" id="closeDrawer">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+
+    <ul class="drawer-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="leadership.html">Leadership</a></li>
+      <li><a href="cultural.html">Cultural Heritage</a></li>
+      <li><a href="livelihood.html">Livelihood & Economy</a></li>
+      <li><a href="land.html">Land & Environment</a></li>
+      <li><a href="media.html">Media</a></li>
+    </ul>
+  </div>
+  <div class="overlay" id="overlay"></div>
+
+  <!-- Page Content -->
+  <section class="cultural-hero">
+        <video autoplay muted loop class="hero-video">
+            <source src="https://example.com/kiziba-cultural-video.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="hero-overlay"></div>
+        
+        <div class="floating-elements">
+            <!-- Floating elements will be added by JavaScript -->
+        </div>
+        
+        <div class="cultural-content">
+            <h1 class="cultural-title">Cultural Heritage</h1>
+            <p class="cultural-subtitle">Discover the rich traditions, music, dance, and cultural practices that define the soul of Kiziba Kingdom</p>
+        </div>
+        
+        <div class="scroll-prompt">
+            Scroll to explore
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+    
+    <div class="cultural-sections">
+        <!-- Traditional Dance -->
+        <div class="culture-card">
+            <div class="culture-image" style="background-image: url('images/haya.jpg');"></div>
+            <div class="culture-text">
+                <span class="culture-category">Performing Arts</span>
+                <h2 class="culture-heading">Traditional Dances</h2>
+                <p class="culture-description">
+                    The rhythmic movements of Kiziba's traditional dances tell stories of harvest, war, love, and community. 
+                    The <em>Ekitaguriro</em> dance celebrates abundance, while the <em>Ekizino</em> showcases warrior strength. 
+                    Each movement carries generations of meaning, performed to the sacred beat of royal drums.
+                </p>
+                <a href="#" class="culture-btn">Explore Dances</a>
+            </div>
+        </div>
+        
+        <!-- Royal Rituals -->
+        <div class="culture-card">
+            <div class="culture-image" style="background-image: url('images/rituals.jpg');"></div>
+            <div class="culture-text">
+                <span class="culture-category">Sacred Traditions</span>
+                <h2 class="culture-heading">Royal Rituals</h2>
+                <p class="culture-description">
+                    From coronation ceremonies to annual harvest festivals, Kiziba's royal rituals connect the physical 
+                    and spiritual worlds. The <em>Empango</em> anniversary celebration renews the king's sacred mandate, 
+                    while the <em>Omugurusi</em> initiation rites mark the passage of young men into adulthood.
+                </p>
+                <a href="#" class="culture-btn">Learn About Rituals</a>
+            </div>
+        </div>
+        
+        <!-- Artisan Crafts -->
+        <div class="culture-card">
+            <div class="culture-image" style="background-image: url('images/crafts.jpg');"></div>
+            <div class="culture-text">
+                <span class="culture-category">Material Culture</span>
+                <h2 class="culture-heading">Artisan Crafts</h2>
+                <p class="culture-description">
+                    Kiziba's artisans preserve ancient techniques in basket weaving, pottery, blacksmithing, and barkcloth 
+                    making. The distinctive <em>Amakondere</em> pottery and <em>Engaiga</em> woven baskets are not just 
+                    utilitarian objects but carriers of cultural identity and cosmological symbolism.
+                </p>
+                <a href="#" class="culture-btn">Discover Crafts</a>
+            </div>
+        </div>
+        
+        <!-- Oral Traditions -->
+        <div class="culture-card">
+            <div class="culture-image" style="background-image: url('images/oral.jpg');"></div>
+            <div class="culture-text">
+                <span class="culture-category">Intangible Heritage</span>
+                <h2 class="culture-heading">Oral Traditions</h2>
+                <p class="culture-description">
+                    The spoken word carries Kiziba's history, laws, and values through generations. Professional 
+                    storytellers <em>Abasizi</em> perform epic poems, while elders pass down clan histories around 
+                    evening fires. Proverbs and riddles encode wisdom in lyrical language that defines the Kiziba worldview.
+                </p>
+                <a href="#" class="culture-btn">Experience Stories</a>
+            </div>
+        </div>
+    </div>
+    <div class="popup-overlay" id="popupOverlay">
+  <div class="popup-container">
+    <button class="popup-close">&times;</button>
+    <div class="popup-content">
+      <h2 class="popup-title" id="popupTitle">Title</h2>
+      <div class="popup-body" id="popupBody">
+        Content will appear here
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="wisdom-container">
+        <div class="floating-symbols">
+            <!-- Floating symbols will be added by JavaScript -->
+        </div>
+        
+        <div class="wisdom-header">
+            <h1 class="wisdom-title">Language & Wisdom</h1>
+            <p class="wisdom-subtitle">The Kinyarwanda-Kiziba dialect carries profound wisdom through proverbs that guide our daily lives and preserve our heritage</p>
+        </div>
+        
+        <div class="proverb-container">
+            <!-- Kiziba Proverbs -->
+            <div class="proverb-card">
+                <span class="language-badge">Kinyarwanda-Kiziba</span>
+                <p class="proverb-original">"Umuntu ni umuntu ku bantu"</p>
+                <p class="proverb-translation">"A person is a person through other people"</p>
+                <p class="proverb-meaning">Emphasizes the fundamental importance of community and interconnectedness in Kiziba society. This proverb teaches that human identity and dignity are realized through relationships with others.</p>
+            </div>
+            
+            <div class="proverb-card">
+                <span class="language-badge">Kinyarwanda-Kiziba</span>
+                <p class="proverb-original">"Akabando k'imbuto kagira amahoro"</p>
+                <p class="proverb-translation">"The small seed brings peace"</p>
+                <p class="proverb-meaning">Illustrates how small, thoughtful actions can grow into significant positive consequences. This wisdom guides conflict resolution and community building in Kiziba traditions.</p>
+            </div>
+            
+            <div class="proverb-card">
+                <span class="language-badge">Kinyarwanda-Kiziba</span>
+                <p class="proverb-original">"Ihene irya ishaka ntirya iruhanga"</p>
+                <p class="proverb-translation">"The goat eats where it's tethered, not where it desires"</p>
+                <p class="proverb-meaning">Teaches the value of contentment and making the most of available resources rather than coveting what belongs to others.</p>
+            </div>
+            
+            <div class="proverb-card">
+                <span class="language-badge">Kinyarwanda-Kiziba</span>
+                <p class="proverb-original">"Ubupfura bukura mu muryango"</p>
+                <p class="proverb-translation">"Good character grows in the family"</p>
+                <p class="proverb-meaning">Highlights the family's crucial role in instilling moral values and shaping individuals who contribute positively to society.</p>
+            </div>
+            
+            <div class="proverb-card">
+                <span class="language-badge">Kinyarwanda-Kiziba</span>
+                <p class="proverb-original">"Umwana w'umwe atanga ubushake"</p>
+                <p class="proverb-translation">"The child of one becomes the child of all"</p>
+                <p class="proverb-meaning">Expresses the communal approach to child-rearing in Kiziba culture, where the entire community shares responsibility for children's wellbeing.</p>
+            </div>
+            
+            <div class="proverb-card">
+                <span class="language-badge">Kinyarwanda-Kiziba</span>
+                <p class="proverb-original">"Inkuru nziza ihisha ibintu"</p>
+                <p class="proverb-translation">"Good news hides things"</p>
+                <p class="proverb-meaning">A reminder to look beyond surface appearances and pleasant words to understand the full truth of any situation.</p>
+            </div>
+        </div>
+        
+        <div class="language-info">
+            <h3 class="language-info-title">The Kinyarwanda-Kiziba Dialect</h3>
+            <p class="language-info-text">
+                The Kiziba variant of Kinyarwanda preserves unique linguistic features that reflect the kingdom's history and worldview. 
+                As one of the oldest Bantu languages in the Great Lakes region, it carries centuries of wisdom through its structure, 
+                vocabulary, and oral traditions.
+            </p>
+            
+            <div class="language-features">
+                <div class="language-feature">
+                    <div class="language-feature-title"><i class="fas fa-language"></i> Unique Features</div>
+                    <p>Preserved click consonants in ceremonial language, royal vocabulary distinct from common speech, and proverbial tense forms.</p>
+                </div>
+                
+                <div class="language-feature">
+                    <div class="language-feature-title"><i class="fas fa-book"></i> Oral Tradition</div>
+                    <p>Rich tradition of proverbs, royal poetry (ibyivugo), and historical narratives passed down through generations.</p>
+                </div>
+                
+                <div class="language-feature">
+                    <div class="language-feature-title"><i class="fas fa-bullhorn"></i> Revitalization</div>
+                    <p>Current efforts include the Royal Language Academy, school programs, and digital preservation projects.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <header>
+        <div class="header-decoration"></div>
+        <h1>Sacred Ceremonies of Kiziba Kingdom</h1>
+        <p>Ancient traditions connecting the people of Bukoba to their ancestors and the divine</p>
+    </header>
+    
+    <div class="floating-elements" id="floatingElements"></div>
+    
+    <div class="container">
+        <!-- Royal Coronation Ritual -->
+        <div class="ceremony-card coronation-card" id="coronation">
+            <div class="ceremony-header">
+                <h2><i class="fas fa-crown"></i> Royal Coronation Ritual (Okwikara)</h2>
+            </div>
+            <div class="ceremony-content">
+                <img src="images/crown.jpg" alt="Royal Coronation" class="ceremony-image">
+                <div class="ceremony-details">
+                    <div class="detail-item">
+                        <h3>Frequency</h3>
+                        <p>Once per generation</p>
+                    </div>
+                    <div class="detail-item">
+                        <h3>Duration</h3>
+                        <p>7 days and nights</p>
+                    </div>
+                    <div class="detail-item">
+                        <h3>Participants</h3>
+                        <p>Royal family, clan elders, spiritual leaders</p>
+                    </div>
+                </div>
+                <div class="ceremony-description">
+                    <p>The Okwikara is the most sacred ceremony in the Kiziba Kingdom, marking the transition of power from one ruler to the next. This elaborate seven-day ritual involves purification rites, ancestral invocations, and the symbolic marriage of the new king to the land. The climax occurs when the Omukama (king) is anointed with sacred oils and presented with the royal regalia, including the ancient iron crown said to contain spiritual powers from the kingdom's founders.</p>
+                    <p>Historical records from early 20th century ethnographers describe how the ceremony creates a spiritual bond between the king and his ancestors, legitimizing his authority to rule. The ritual includes the symbolic "eating of the soil" where the new monarch tastes earth from different parts of the kingdom, pledging to protect all his territory.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Harvest Festival -->
+        <div class="ceremony-card" id="harvest">
+            <div class="ceremony-header">
+                <h2><i class="fas fa-wheat-awn"></i> Harvest Festival (Enkuka Y'Omwaka)</h2>
+            </div>
+            <div class="ceremony-content">
+                <img src="https://images.unsplash.com/photo-1605000797499-95a51c5269ae?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80" alt="Harvest Festival" class="ceremony-image">
+                <div class="ceremony-details">
+                    <div class="detail-item">
+                        <h3>Frequency</h3>
+                        <p>Annual</p>
+                    </div>
+                    <div class="detail-item">
+                        <h3>Timing</h3>
+                        <p>First full moon after harvest</p>
+                    </div>
+                    <div class="detail-item">
+                        <h3>Participants</h3>
+                        <p>Entire community</p>
+                    </div>
+                </div>
+                <div class="ceremony-description">
+                    <p>Enkuka Y'Omwaka is the joyous celebration marking the end of the agricultural year and giving thanks to the ancestors for the harvest. The festival begins with the offering of the first fruits to the royal household and local shrines. Traditional dances like the Omutoro (harvest dance) are performed, accompanied by drumming and singing that continues for three days.</p>
+                    <p>According to oral traditions collected by researchers from the University of Dar es Salaam, the festival dates back to the 16th century when the Kiziba Kingdom first became an agricultural society. The highlight is the communal feast where a special brew made from bananas (the region's staple crop) is shared, symbolizing unity and abundance.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Ancestral Commemoration -->
+        <div class="ceremony-card" id="ancestors">
+            <div class="ceremony-header">
+                <h2><i class="fas fa-mountain-sun"></i> Ancestral Commemoration (Ebyago By'Abazukulu)</h2>
+            </div>
+            <div class="ceremony-content">
+                <img src="https://images.unsplash.com/photo-1519817650390-64a93db51149?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Ancestral Commemoration" class="ceremony-image">
+                <div class="ceremony-details">
+                    <div class="detail-item">
+                        <h3>Frequency</h3>
+                        <p>Biannual</p>
+                    </div>
+                    <div class="detail-item">
+                        <h3>Location</h3>
+                        <p>Royal tombs and family shrines</p>
+                    </div>
+                    <div class="detail-item">
+                        <h3>Participants</h3>
+                        <p>Family members and descendants</p>
+                    </div>
+                </div>
+                <div class="ceremony-description">
+                    <p>This solemn ceremony honors the ancestors who are believed to guide and protect the living. Families gather at burial sites to clean the graves, offer food and drink, and communicate with their departed through specially appointed mediums. The royal family conducts elaborate rites at the sacred burial grounds of past kings, seeking their wisdom for current challenges.</p>
+                    <p>Ethnographic studies from the 1930s document how these ceremonies maintain the connection between past and present, with specific rituals to "cool" any angry spirits and "awaken" benevolent ancestors. The ceremony includes the lighting of sacred fires that must burn continuously for three days, representing the enduring presence of the ancestors.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Rain Making Ceremony -->
+        <div class="ceremony-card" id="rain">
+            <div class="ceremony-header">
+                <h2><i class="fas fa-cloud-rain"></i> Rain Making Ceremony (Okushaba Enjura)</h2>
+            </div>
+            <div class="ceremony-content">
+                <img src="https://images.unsplash.com/photo-1515694346937-94d85e41e6f0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1587&q=80" alt="Rain Making Ceremony" class="ceremony-image">
+                <div class="ceremony-details">
+                    <div class="detail-item">
+                        <h3>Frequency</h3>
+                        <p>As needed during drought</p>
+                    </div>
+                    <div class="detail-item">
+                        <h3>Duration</h3>
+                        <p>Until rains come (typically 3-7 days)</p>
+                    </div>
+                    <div class="detail-item">
+                        <h3>Participants</h3>
+                        <p>Rain priests, royal representatives</p>
+                    </div>
+                </div>
+                <div class="ceremony-description">
+                    <p>Conducted during periods of prolonged drought, this powerful ritual calls upon the ancestors and nature spirits to bring life-giving rain. The ceremony involves special chants, the sacrifice of black animals (traditionally goats), and the manipulation of sacred stones believed to control weather patterns. Participants wear specific plant fibers and abstain from certain foods during the ritual period.</p>
+                    <p>Early colonial administrators documented these ceremonies with fascination, noting in 1912 that rains often followed within days of the ritual's completion. Modern anthropologists suggest the ceremonies may be timed to coincide with natural weather patterns, while acknowledging their profound psychological and social importance for agricultural communities.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Initiation Rites -->
+        <div class="ceremony-card" id="initiation">
+            <div class="ceremony-header">
+                <h2><i class="fas fa-people-arrows"></i> Initiation Rites (Ebigyendanwa)</h2>
+            </div>
+            <div class="ceremony-content">
+                <img src="images/faith.jpg" alt="Initiation Rites" class="ceremony-image">
+                <div class="ceremony-details">
+                    <div class="detail-item">
+                        <h3>Frequency</h3>
+                        <p>Every 3-5 years</p>
+                    </div>
+                    <div class="detail-item">
+                        <h3>Duration</h3>
+                        <p>1 lunar month</p>
+                    </div>
+                    <div class="detail-item">
+                        <h3>Participants</h3>
+                        <p>Youth aged 12-18</p>
+                    </div>
+                </div>
+                <div class="ceremony-description">
+                    <p>These elaborate rites of passage mark the transition from childhood to adulthood. Boys and girls undergo separate but parallel ceremonies involving instruction in traditional knowledge, tests of endurance, and symbolic death/rebirth rituals. Participants receive new names and are introduced to secret knowledge reserved for adults in the society.</p>
+                    <p>Research by Tanzanian cultural historians shows these ceremonies were crucial for maintaining social order and transmitting cultural values. The rituals include the imparting of clan histories, moral instruction through proverbs and stories, and physical markings (scarification in earlier times, now symbolic) that identify individuals as full members of the community.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <header class="artifacts-header">
+        <h1>Artifacts & Crafts</h1>
+        <p>Precious artifacts that preserve our history and showcase the exceptional craftsmanship of our people</p>
+    </header>
+    
+    <div class="particles" id="particles"></div>
+    
+    <div class="artifacts-container">
+        <!-- Timeline connector -->
+        <div class="timeline-connector"></div>
+        
+        <!-- Royal Regalia Collection -->
+        <div class="artifact-card royal" id="royal-regalia">
+            <div class="ancient-badge">Ancient Treasure</div>
+            <div class="royal-overlay"></div>
+            <div class="artifact-header">
+                <h2>Royal Regalia Collection</h2>
+            </div>
+            <div class="artifact-content">
+                <div class="artifact-image-container">
+                    <img src="images/beads.jpg" alt="Royal Regalia" class="artifact-image">
+                </div>
+                <div class="artifact-details">
+                    <div class="detail-group">
+                        <h3><i class="fas fa-gem"></i> Materials</h3>
+                        <p>Gold, ivory, sacred woods, traditional beads, iron ore from Mount Rwampara</p>
+                    </div>
+                    <div class="detail-group">
+                        <h3><i class="fas fa-hourglass-half"></i> Age</h3>
+                        <p>300-500 years (some pieces dating to 16th century)</p>
+                    </div>
+                    <div class="detail-group">
+                        <h3><i class="fas fa-landmark"></i> Location</h3>
+                        <p>Royal Palace of Kiziba, Bukoba (carefully guarded in sacred chambers)</p>
+                    </div>
+                    <div class="artifact-description">
+                        <p>The sacred royal regalia of Kiziba Kingdom includes the legendary "Ruhanga Crown" made of woven gold threads and imbued with spiritual significance. According to oral traditions recorded by German ethnographers in 1898, the crown contains fragments of meteorite iron believed to confer divine authority. The collection also features the "Ebihimba" staffs - each carved from specific sacred trees and topped with intricate metalwork representing different aspects of kingship (justice, warfare, prosperity).</p>
+                        <p>Recent conservation efforts by the Tanzanian Ministry of Culture have documented 47 pieces in the collection, with the oldest being a ceremonial axe-head dated to approximately 1520 CE through metallurgical analysis. The regalia is only displayed during coronations and special spiritual ceremonies.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Traditional Pottery -->
+        <div class="artifact-card" id="pottery">
+            <div class="artifact-header">
+                <h2>Traditional Pottery</h2>
+            </div>
+            <div class="artifact-content">
+                <div class="artifact-image-container">
+                    <img src="images/pots.jpg" alt="Traditional Pottery" class="artifact-image pottery-spin">
+                </div>
+                <div class="artifact-details">
+                    <div class="detail-group">
+                        <h3><i class="fas fa-clay-brick"></i> Materials</h3>
+                        <p>Local clay from Lake Victoria shores, natural ochre pigments, plant-based glazes</p>
+                    </div>
+                    <div class="detail-group">
+                        <h3><i class="fas fa-history"></i> Age</h3>
+                        <p>Contemporary pieces with techniques dating back 800+ years</p>
+                    </div>
+                    <div class="detail-group">
+                        <h3><i class="fas fa-map-marked-alt"></i> Production Center</h3>
+                        <p>Kashozi village (renowned for pottery since pre-colonial times)</p>
+                    </div>
+                    <div class="artifact-description">
+                        <p>Kiziba pottery is distinguished by its unique "Nyakalilo" patterns - intricate geometric designs that encode historical events and clan symbols. Archaeological excavations near Bukoba in 2012 uncovered pottery shards with these patterns dating to the 13th century. The firing technique using banana leaves creates distinctive black and red colorations.</p>
+                        <p>Special ceremonial vessels include the "Endobo" (used in royal beer offerings) and "Ekyanzi" (wedding pots). Each piece is coil-built without wheels, following methods unchanged for centuries. The National Museum of Tanzania holds 94 documented Kiziba pottery pieces in its collection, with the most complete being a 19th century royal beer vessel adorned with cowrie shells.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Woven Royal Mats -->
+        <div class="artifact-card" id="woven-mats">
+            <div class="ancient-badge">Royal Heritage</div>
+            <div class="artifact-header">
+                <h2>Woven Royal Mats (Ehiremba)</h2>
+            </div>
+            <div class="artifact-content">
+                <div class="artifact-image-container woven-mats-effect">
+                    <img src="images/mats.jpg" alt="Woven Royal Mats" class="artifact-image">
+                </div>
+                <div class="artifact-details">
+                    <div class="detail-group">
+                        <h3><i class="fas fa-leaf"></i> Materials</h3>
+                        <p>Papyrus reeds from Kagera River, natural dyes from tree barks and minerals</p>
+                    </div>
+                    <div class="detail-group">
+                        <h3><i class="fas fa-hourglass-end"></i> Age</h3>
+                        <p>Current mats: 5-50 years (tradition dates to kingdom's founding)</p>
+                    </div>
+                    <div class="detail-group">
+                        <h3><i class="fas fa-venus-mars"></i> Artisans</h3>
+                        <p>Exclusively woven by women of the Bahinda clan (royal lineage)</p>
+                    </div>
+                    <div class="artifact-description">
+                        <p>The Ehiremba are more than simple floor coverings - they are sacred textiles that serve as thrones during coronations and important ceremonies. Each mat tells a story through its patterns, with the most complex containing over 30 symbolic elements representing royal history. The weaving process itself is ceremonial, accompanied by specific songs and restricted to daylight hours.</p>
+                        <p>A 1903 British colonial record describes a royal mat measuring 4x6 meters that took three years to complete, incorporating hair from past kings. Today, the oldest preserved mat dates to 1878 and is kept in climate-controlled storage at the Kiziba Royal Museum, only displayed during the annual "Kwibuka" remembrance ceremony.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Sacred Spears and Shields -->
+        <div class="artifact-card royal" id="sacred-weapons">
+            <div class="ancient-badge">Warrior Heritage</div>
+            <div class="royal-overlay"></div>
+            <div class="artifact-header">
+                <h2>Sacred Spears and Shields</h2>
+            </div>
+            <div class="artifact-content">
+                <div class="artifact-image-container">
+                    <img src="images/shield.jpg" alt="Sacred Spears and Shields" class="artifact-image">
+                </div>
+                <div class="artifact-details">
+                    <div class="detail-group">
+                        <h3><i class="fas fa-hammer"></i> Materials</h3>
+                        <p>Iron from local mines, buffalo hide, lion mane (royal pieces only)</p>
+                    </div>
+                    <div class="detail-group">
+                        <h3><i class="fas fa-clock"></i> Age</h3>
+                        <p>150-400 years (some ceremonial pieces older)</p>
+                    </div>
+                    <div class="detail-group">
+                        <h3><i class="fas fa-trophy"></i> Significance</h3>
+                        <p>Symbols of warrior ethos and spiritual protection</p>
+                    </div>
+                    <div class="artifact-description">
+                        <p>These are not mere weapons but sacred objects imbued with spiritual power. The "Engaabo" (royal shields) are particularly revered, each marked with clan insignia and consecrated with sacrificial rites. The spears feature distinctive leaf-shaped blades and are classified by purpose: hunting, warfare, or ceremonial use.</p>
+                        <p>German ethnologist Franz Stuhlmann recorded in 1894 that certain spears were believed to summon lightning when thrown in battle. Modern analysis suggests some contain unusual metal alloys that may produce electrical effects in storms. The most famous is the "Ruhondo" spear, kept in the royal armory and only displayed during times of national crisis.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Barkcloth Textiles -->
+        <div class="artifact-card" id="barkcloth">
+            <div class="artifact-header">
+                <h2>Barkcloth Textiles (Engoye)</h2>
+            </div>
+            <div class="artifact-content">
+                <div class="artifact-image-container">
+                    <img src="images/bark.jpg" alt="Barkcloth Textiles" class="artifact-image">
+                </div>
+                <div class="artifact-details">
+                    <div class="detail-group">
+                        <h3><i class="fas fa-tree"></i> Materials</h3>
+                        <p>Mutuba tree bark, natural dyes from roots and berries</p>
+                    </div>
+                    <div class="detail-group">
+                        <h3><i class="fas fa-calendar-alt"></i> Age</h3>
+                        <p>Tradition dates back 600+ years</p>
+                    </div>
+                    <div class="detail-group">
+                        <h3><i class="fas fa-tshirt"></i> Uses</h3>
+                        <p>Royal garments, burial shrouds, sacred ceremonies</p>
+                    </div>
+                    <div class="artifact-description">
+                        <p>This ancient fabric is made by pounding the inner bark of fig trees into soft, durable cloth. The process was documented by early 20th century anthropologists as taking up to three months for a single royal garment. Patterns are created using resist-dye techniques with mud and plant extracts.</p>
+                        <p>The most sacred examples are the "Ekitambiro" robes worn by kings during coronation - these incorporate barkcloth strips from previous rulers' garments, creating a physical lineage. In 2018, UNESCO recognized Kiziba barkcloth techniques as Intangible Cultural Heritage, noting their ecological sustainability and cultural continuity.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="culture-footer">
+        <div class="footer-decoration"></div>
+        <h1>Experience Our Culture</h1>
+        <p>Join us for our cultural events and festivals to experience the living traditions of Kiziba Kingdom</p>
+        
+        <div class="footer-icons">
+            <div class="icon-container" id="events-icon">
+                <div class="footer-icon">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <div class="icon-label">Upcoming Events</div>
+            </div>
+            
+            <div class="icon-container" id="tours-icon">
+                <div class="footer-icon">
+                    <i class="fas fa-map-marked-alt"></i>
+                </div>
+                <div class="icon-label">Cultural Tours</div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Events Popup -->
+    <div class="popup-overlay" id="events-popup">
+        <div class="popup-content">
+            <span class="popup-close">&times;</span>
+            <h2 class="popup-title">Upcoming Events</h2>
+            <p class="popup-message">Exciting cultural events are coming soon! We're preparing traditional celebrations that will transport you to the heart of Kiziba Kingdom's heritage. Stay tuned for announcements about our annual festivals and special ceremonies.</p>
+            <div id="balloons-container"></div>
+        </div>
+    </div>
+    
+    <!-- Tours Popup -->
+    <div class="popup-overlay" id="tours-popup">
+        <div class="popup-content">
+            <span class="popup-close">&times;</span>
+            <h2 class="popup-title">Cultural Tours</h2>
+            <p class="popup-message">Our immersive cultural tours will guide you through the living history of Kiziba Kingdom. Experience authentic traditions, meet local artisans, and witness ceremonies that have been preserved for generations. Tour packages will be available soon!</p>
+            <div id="safari-container"></div>
+        </div>
+    </div>
+    
+
+  <script>
+    // DOM Elements
+const menuToggle = document.getElementById('menuToggle');
+const mobileDrawer = document.getElementById('mobileDrawer');
+const closeDrawer = document.getElementById('closeDrawer');
+const overlay = document.getElementById('overlay');
+
+// Toggle Drawer
+function toggleDrawer() {
+  mobileDrawer.classList.toggle('show');
+  overlay.classList.toggle('show');
+  document.body.style.overflow = mobileDrawer.classList.contains('show') ? 'hidden' : 'auto';
+}
+
+// Event Listeners
+menuToggle.addEventListener('click', toggleDrawer);
+closeDrawer.addEventListener('click', toggleDrawer);
+overlay.addEventListener('click', toggleDrawer);
+
+// Highlight active link based on current page
+function setActiveLink() {
+  const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+  
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.classList.remove('active');
+    if (link.getAttribute('href') === currentPage) {
+      link.classList.add('active');
+    }
+  });
+  
+  document.querySelectorAll('.drawer-links a').forEach(link => {
+    link.classList.remove('active');
+    if (link.getAttribute('href') === currentPage) {
+      link.classList.add('active');
+    }
+  });
+}
+
+// Initialize
+setActiveLink();
+  </script>
+  <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate hero content
+            const culturalContent = document.querySelector('.cultural-content');
+            setTimeout(() => {
+                culturalContent.classList.add('visible');
+            }, 500);
+            
+            // Create floating cultural symbols
+            const floatingContainer = document.querySelector('.floating-elements');
+            const symbols = ['drum', 'mask', 'hands', 'music', 'book', 'monument', 'torii-gate', 'ankh', 'peace', 'om'];
+            
+            for (let i = 0; i < 15; i++) {
+                const symbol = document.createElement('div');
+                symbol.className = 'floating-element';
+                symbol.style.left = `${Math.random() * 100}%`;
+                symbol.style.animationDuration = `${10 + Math.random() * 20}s`;
+                symbol.style.animationDelay = `${Math.random() * 10}s`;
+                symbol.style.fontSize = `${1 + Math.random() * 3}rem`;
+                symbol.innerHTML = `<i class="fas fa-${symbols[Math.floor(Math.random() * symbols.length)]}"></i>`;
+                floatingContainer.appendChild(symbol);
+            }
+            
+            // Animate culture cards on scroll
+            const animateCards = function() {
+                const cards = document.querySelectorAll('.culture-card');
+                const windowHeight = window.innerHeight;
+                
+                cards.forEach((card, index) => {
+                    const cardPosition = card.getBoundingClientRect().top;
+                    const scrollPosition = windowHeight * 0.8;
+                    
+                    if (cardPosition < scrollPosition) {
+                        setTimeout(() => {
+                            card.classList.add('visible');
+                        }, index * 200);
+                    }
+                });
+            };
+            
+            // Initial animation
+            animateCards();
+            
+            // Animate on scroll
+            window.addEventListener('scroll', animateCards);
+            
+            // Video fallback for mobile
+            if (window.innerWidth < 992) {
+                const video = document.querySelector('.hero-video');
+                video.style.display = 'none';
+                document.querySelector('.cultural-hero').style.backgroundImage = 'url("https://example.com/kiziba-cultural-fallback.jpg")';
+                document.querySelector('.cultural-hero').style.backgroundSize = 'cover';
+                document.querySelector('.cultural-hero').style.backgroundPosition = 'center';
+            }
+            
+            // Interactive elements
+            const cultureImages = document.querySelectorAll('.culture-image');
+            cultureImages.forEach(image => {
+                image.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(1.02)';
+                });
+                
+                image.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1)';
+                });
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate header on load
+            setTimeout(() => {
+                document.querySelector('.wisdom-header').classList.add('visible');
+            }, 300);
+            
+            // Create floating cultural symbols
+            const floatingContainer = document.querySelector('.floating-symbols');
+            const symbols = ['quote-left', 'book', 'scroll', 'comment', 'language', 'lightbulb', 'hands-helping', 'balance-scale'];
+            
+            for (let i = 0; i < 12; i++) {
+                const symbol = document.createElement('div');
+                symbol.className = 'floating-symbol';
+                symbol.style.left = `${Math.random() * 100}%`;
+                symbol.style.animationDuration = `${10 + Math.random() * 20}s`;
+                symbol.style.animationDelay = `${Math.random() * 10}s`;
+                symbol.style.fontSize = `${1 + Math.random() * 3}rem`;
+                symbol.innerHTML = `<i class="fas fa-${symbols[Math.floor(Math.random() * symbols.length)]}"></i>`;
+                floatingContainer.appendChild(symbol);
+            }
+            
+            // Animate proverb cards on scroll
+            const animateCards = function() {
+                const cards = document.querySelectorAll('.proverb-card');
+                const info = document.querySelector('.language-info');
+                const windowHeight = window.innerHeight;
+                
+                cards.forEach((card, index) => {
+                    const cardPosition = card.getBoundingClientRect().top;
+                    const scrollPosition = windowHeight * 0.8;
+                    
+                    if (cardPosition < scrollPosition) {
+                        setTimeout(() => {
+                            card.classList.add('visible');
+                        }, index * 200);
+                    }
+                });
+                
+                // Animate language info
+                if (info.getBoundingClientRect().top < windowHeight * 0.8) {
+                    info.classList.add('visible');
+                }
+            };
+            
+            // Initial animation
+            animateCards();
+            
+            // Animate on scroll
+            window.addEventListener('scroll', animateCards);
+            
+            // Add interactive effects
+            const cards = document.querySelectorAll('.proverb-card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px) scale(1.02)';
+                    this.style.boxShadow = '0 15px 40px rgba(139, 69, 19, 0.4)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                    this.style.boxShadow = '0 10px 30px rgba(139, 69, 19, 0.3)';
+                });
+            });
+            
+            // Load more proverbs when scrolling to bottom (simulated)
+            window.addEventListener('scroll', function() {
+                if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 500) {
+                    // In a real implementation, you would load more proverbs here
+                    console.log('Load more proverbs...');
+                }
+            });
+        });
+    </script>
+    <script>
+        // Create floating decorative elements
+        function createFloatingElements() {
+            const container = document.getElementById('floatingElements');
+            const symbols = [
+                '⚜', '🌾', '👑', '🔥', '🌍', '🌊', '⚡', '🌙', '☀️'
+            ];
+            
+            for (let i = 0; i < 20; i++) {
+                const element = document.createElement('div');
+                element.className = 'floating-element';
+                element.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+                element.style.fontSize = `${Math.random() * 20 + 10}px`;
+                element.style.left = `${Math.random() * 100}%`;
+                element.style.top = `${Math.random() * 100}%`;
+                element.style.animationDuration = `${Math.random() * 20 + 10}s`;
+                element.style.animationDelay = `${Math.random() * 5}s`;
+                container.appendChild(element);
+            }
+        }
+        
+        // Animate cards on scroll
+        function animateOnScroll() {
+            const cards = document.querySelectorAll('.ceremony-card');
+            
+            cards.forEach(card => {
+                const cardPosition = card.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.3;
+                
+                if (cardPosition < screenPosition) {
+                    card.classList.add('visible');
+                }
+            });
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            createFloatingElements();
+            window.addEventListener('scroll', animateOnScroll);
+            animateOnScroll(); // Run once on load
+            
+            // Special effect for coronation card
+            const coronationCard = document.getElementById('coronation');
+            coronationCard.addEventListener('mousemove', (e) => {
+                const x = e.clientX / window.innerWidth;
+                const y = e.clientY / window.innerHeight;
+                coronationCard.style.transform = `rotate3d(${y}, ${x}, 0, 5deg)`;
+            });
+            
+            coronationCard.addEventListener('mouseleave', () => {
+                coronationCard.style.transform = 'rotate3d(0, 0, 0, 0)';
+            });
+        });
+    </script>
+    <script>
+        // Create floating particles
+        function createParticles() {
+            const container = document.getElementById('particles');
+            const colors = ['#5D4037', '#8D6E63', '#A1887F', '#3E2723'];
+            
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.width = `${Math.random() * 10 + 5}px`;
+                particle.style.height = particle.style.width;
+                particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                particle.style.opacity = Math.random() * 0.2 + 0.05;
+                particle.style.animationDuration = `${Math.random() * 30 + 20}s`;
+                particle.style.animationDelay = `${Math.random() * 5}s`;
+                container.appendChild(particle);
+            }
+        }
+        
+        // Animate cards on scroll
+        function animateArtifactsOnScroll() {
+            const cards = document.querySelectorAll('.artifact-card');
+            
+            cards.forEach((card, index) => {
+                const cardPosition = card.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.3;
+                
+                if (cardPosition < screenPosition) {
+                    setTimeout(() => {
+                        card.classList.add('visible');
+                    }, index * 200);
+                }
+            });
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            window.addEventListener('scroll', animateArtifactsOnScroll);
+            animateArtifactsOnScroll(); // Run once on load
+            
+            // Special 3D effect for royal artifacts
+            const royalArtifacts = document.querySelectorAll('.royal');
+            royalArtifacts.forEach(artifact => {
+                artifact.addEventListener('mousemove', (e) => {
+                    const x = e.clientX / window.innerWidth;
+                    const y = e.clientY / window.innerHeight;
+                    
+                    artifact.style.transform = `
+                        perspective(1000px)
+                        rotateX(${(y - 0.5) * 10}deg)
+                        rotateY(${(x - 0.5) * -10}deg)
+                        translateY(-10px)
+                    `;
+                });
+                
+                artifact.addEventListener('mouseleave', () => {
+                    artifact.style.transform = '';
+                });
+            });
+            
+            // Special pottery spin effect
+            const potteryImage = document.querySelector('.pottery-spin');
+            potteryImage.addEventListener('mouseenter', () => {
+                potteryImage.style.transform = 'rotateY(180deg)';
+            });
+            potteryImage.addEventListener('mouseleave', () => {
+                potteryImage.style.transform = 'rotateY(0deg)';
+            });
+        });
+    </script>
+     <script>
+        // Balloon colors for events popup
+        const balloonColors = [
+            'red', 'orange', 'yellow', 'green', 'blue', 
+            'purple', 'pink', 'cyan', 'gold', 'lime'
+        ];
+        
+        // Create balloons animation
+        function createBalloons() {
+            const container = document.getElementById('balloons-container');
+            container.innerHTML = '';
+            
+            for (let i = 0; i < 15; i++) {
+                const balloon = document.createElement('div');
+                balloon.className = 'balloon';
+                
+                // Random balloon properties
+                const size = Math.random() * 60 + 40;
+                const startX = Math.random() * 80 + 10;
+                const endX = (Math.random() * 40 - 20) + startX;
+                const duration = Math.random() * 5 + 5;
+                const delay = Math.random() * 3;
+                const color = balloonColors[Math.floor(Math.random() * balloonColors.length)];
+                
+                balloon.style.setProperty('--start-x', `${startX}%`);
+                balloon.style.setProperty('--end-x', `${endX}px`);
+                balloon.style.width = `${size}px`;
+                balloon.style.height = `${size * 1.2}px`;
+                balloon.style.backgroundImage = `radial-gradient(circle at 30% 30%, white 5%, ${color} 15%, dark${color} 60%)`;
+                balloon.style.borderRadius = '50% 50% 50% 50% / 60% 60% 40% 40%';
+                balloon.style.animationDuration = `${duration}s`;
+                balloon.style.animationDelay = `${delay}s`;
+                
+                // Add string
+                balloon.innerHTML = `<div style="position: absolute; bottom: -15px; left: 50%; width: 2px; height: 15px; background: #333; transform: translateX(-50%);"></div>`;
+                
+                container.appendChild(balloon);
+            }
+        }
+        
+        // Create safari animation
+        function createSafariAnimation() {
+            const container = document.getElementById('safari-container');
+            container.innerHTML = '';
+            
+            const safari = document.createElement('div');
+            safari.className = 'safari-animation';
+            safari.innerHTML = `
+                <svg viewBox="0 0 100 100" style="width: 100%; height: 100%;">
+                    <path d="M10,50 Q25,20 40,50 T70,50 T90,30 L70,50 L90,70 T70,50 T40,50 T10,50 Z" fill="#8B4513"/>
+                    <circle cx="25" cy="40" r="5" fill="black"/>
+                    <circle cx="35" cy="40" r="5" fill="black"/>
+                    <path d="M20,60 Q30,65 40,60" stroke="black" stroke-width="1" fill="none"/>
+                </svg>
+            `;
+            
+            container.appendChild(safari);
+            setTimeout(() => {
+                safari.classList.add('safari-visible');
+            }, 100);
+        }
+        
+        // Event listeners for popups
+        document.getElementById('events-icon').addEventListener('click', () => {
+            const popup = document.getElementById('events-popup');
+            popup.classList.add('active');
+            createBalloons();
+        });
+        
+        document.getElementById('tours-icon').addEventListener('click', () => {
+            const popup = document.getElementById('tours-popup');
+            popup.classList.add('active');
+            createSafariAnimation();
+        });
+        
+        // Close popups
+        document.querySelectorAll('.popup-close').forEach(closeBtn => {
+            closeBtn.addEventListener('click', (e) => {
+                e.target.closest('.popup-overlay').classList.remove('active');
+            });
+        });
+        
+        // Close when clicking outside content
+        document.querySelectorAll('.popup-overlay').forEach(popup => {
+            popup.addEventListener('click', (e) => {
+                if (e.target === popup) {
+                    popup.classList.remove('active');
+                }
+            });
+        });
+        
+        // Close with ESC key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.popup-overlay').forEach(popup => {
+                    popup.classList.remove('active');
+                });
+            }
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+  // Content for each popup
+  const popupContents = {
+    'Explore Dances': {
+      title: 'Traditional Dances of Kiziba',
+      content: `
+        <p>The traditional dances of Kiziba Kingdom are vibrant expressions of cultural identity:</p>
+        <ul>
+          <li><strong>Ekitaguriro:</strong> A celebratory dance performed during harvest seasons, characterized by graceful movements mimicking agricultural activities.</li>
+          <li><strong>Ekizino:</strong> The warrior dance showcasing strength and agility, traditionally performed to honor military victories.</li>
+          <li><strong>Amakondere:</strong> A ceremonial dance featuring long trumpet-like instruments, reserved for royal occasions.</li>
+        </ul>
+        <p>These dances are accompanied by intricate drum patterns that vary by occasion, with the royal drums considered sacred objects.</p>
+      `
+    },
+    'Learn About Rituals': {
+      title: 'Sacred Royal Rituals',
+      content: `
+        <p>Kiziba's royal rituals maintain the connection between the people, their king, and the spiritual world:</p>
+        <ul>
+          <li><strong>Empango:</strong> The annual kingship anniversary celebrated with offerings, dances, and renewal of allegiance vows.</li>
+          <li><strong>Omugurusi:</strong> A coming-of-age initiation involving tests of courage, wisdom and endurance for young men.</li>
+          <li><strong>Okubandwa:</strong> The sacred communion with ancestors performed by royal priests during important decisions.</li>
+        </ul>
+        <p>These rituals follow precise protocols passed down through generations of royal custodians.</p>
+      `
+    },
+    'Discover Crafts': {
+      title: 'Artisan Crafts Heritage',
+      content: `
+        <p>Kiziba's material culture reflects deep symbolic meanings:</p>
+        <ul>
+          <li><strong>Amakondere Pottery:</strong> Distinctive blackened pottery fired in special kilns, used for royal ceremonies.</li>
+          <li><strong>Engaiga Baskets:</strong> Intricately woven with geometric patterns representing clan identities.</li>
+          <li><strong>Barkcloth:</strong> Made from mutuba tree bark, used for royal garments and sacred functions.</li>
+          <li><strong>Ironwork:</strong> Traditional blacksmiths create tools, weapons and ceremonial objects.</li>
+        </ul>
+        <p>Each craft has master practitioners who undergo years of apprenticeship.</p>
+      `
+    },
+    'Experience Stories': {
+      title: 'Oral Traditions & Storytelling',
+      content: `
+        <p>Kiziba's intangible heritage lives through spoken word:</p>
+        <ul>
+          <li><strong>Abasizi:</strong> Professional poets who memorize and perform clan histories in epic narratives.</li>
+          <li><strong>Engero:</strong> Folktales featuring animal characters that teach moral lessons.</li>
+          <li><strong>Ebyevugo:</strong> Praise poetry extolling the virtues of heroes and kings.</li>
+          <li><strong>Enanga:</strong> Lyre-accompanied musical storytelling performed at gatherings.</li>
+        </ul>
+        <p>Elders pass down these traditions through nightly storytelling sessions around the fire.</p>
+      `
+    }
+  };
+
+  // Get all culture buttons
+  const cultureBtns = document.querySelectorAll('.culture-btn');
+  const popupOverlay = document.getElementById('popupOverlay');
+  const popupTitle = document.getElementById('popupTitle');
+  const popupBody = document.getElementById('popupBody');
+  const popupClose = document.querySelector('.popup-close');
+
+  // Add click event to each button
+  cultureBtns.forEach(btn => {
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      const btnText = this.textContent.trim();
+      
+      if (popupContents[btnText]) {
+        popupTitle.textContent = popupContents[btnText].title;
+        popupBody.innerHTML = popupContents[btnText].content;
+        popupOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Prevent scrolling
+      }
+    });
+  });
+
+  // Close popup
+  popupClose.addEventListener('click', function() {
+    popupOverlay.classList.remove('active');
+    document.body.style.overflow = 'auto';
+  });
+
+  // Close when clicking outside content
+  popupOverlay.addEventListener('click', function(e) {
+    if (e.target === popupOverlay) {
+      popupOverlay.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+  });
+});
+    </script>
+</body>
+</html>

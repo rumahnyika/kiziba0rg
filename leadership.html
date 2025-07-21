@@ -1,0 +1,2551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kiziba Kingdom - Leadership</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: #f5f5f5;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Navbar Styles */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #fff;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logo-icon {
+  width: 40px;
+  height: 40px;
+  background-color: #8B4513;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.2rem;
+}
+
+.logo-text h1 {
+  font-size: 1.5rem;
+  color: #8B4513;
+  font-weight: 600;
+}
+
+.logo-text h1 span {
+  font-weight: 800;
+}
+
+.logo-text p {
+  font-size: 0.8rem;
+  color: #A0522D;
+  margin-top: 0.2rem;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 1.5rem;
+}
+
+.nav-links li a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.nav-links li a:hover {
+  color: #8B4513;
+}
+
+.nav-links li a::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background-color: #8B4513;
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.nav-links li a:hover::after,
+.nav-links li a.active::after {
+  width: 70%;
+}
+
+.nav-links li a.active {
+  color: #8B4513;
+  font-weight: 600;
+}
+
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #8B4513;
+  cursor: pointer;
+}
+
+/* Mobile Drawer */
+.mobile-drawer {
+  position: fixed;
+  top: 0;
+  left: -100%;
+  width: 70%;
+  max-width: 300px;
+  height: 100vh;
+  background-color: #fff;
+  box-shadow: 2px 0 15px rgba(0, 0, 0, 0.15);
+  z-index: 1001;
+  transition: all 0.4s ease;
+  overflow-y: auto;
+}
+
+.mobile-drawer.show {
+  left: 0;
+}
+
+.drawer-header {
+  padding: 1.5rem;
+  background-color: #8B4513;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.drawer-header .logo {
+  gap: 0.8rem;
+}
+
+.drawer-header .logo-icon {
+  background-color: white;
+  color: #8B4513;
+}
+
+.drawer-header .logo-text h1 {
+  color: white;
+}
+
+.drawer-header .logo-text p {
+  color: #f0f0f0;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.drawer-links {
+  list-style: none;
+  padding: 1rem 0;
+}
+
+.drawer-links li a {
+  display: block;
+  padding: 1rem 1.5rem;
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border-left: 4px solid transparent;
+}
+
+.drawer-links li a:hover,
+.drawer-links li a.active {
+  background-color: #f9f9f9;
+  color: #8B4513;
+  border-left: 4px solid #8B4513;
+  padding-left: 2rem;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.overlay.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Page Content */
+.page-content {
+  flex: 1;
+  padding: 2rem;
+  animation: fadeIn 0.5s ease;
+}
+
+.page-header {
+  color: #8B4513;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #8B4513;
+}
+
+.page-text {
+  line-height: 1.6;
+  color: #555;
+  margin-bottom: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .navbar {
+    padding: 1rem;
+  }
+  
+  .page-content {
+    padding: 1.5rem;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+    /* COPY THE EXACT SAME CSS FROM index.html HERE */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    :root {
+    --gold: #D4AF37;
+    --dark-gold: #996515;
+    --light-gold: #F5DEB3;
+    --royal-purple: #4B0082;
+    --dark-purple: #2E0854;
+    --off-white: #F8F8F8;
+    --text-color: #333;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--off-white);
+    color: var(--text-color);
+    overflow-x: hidden;
+}
+
+.royal-leadership {
+    position: relative;
+    padding: 5rem 2rem;
+    background: linear-gradient(135deg, var(--off-white) 0%, #e6e6e6 100%);
+    text-align: center;
+    overflow: hidden;
+}
+
+.leadership-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+}
+
+.title-container {
+    position: relative;
+    margin-bottom: 2rem;
+    display: inline-block;
+}
+
+.royal-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: var(--royal-purple);
+    margin: 0;
+    position: relative;
+    display: inline-block;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    animation: fadeInDown 1s ease-out;
+}
+
+.crown-animation {
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: floatCrown 4s ease-in-out infinite;
+}
+
+.crown-icon {
+    font-size: 2.5rem;
+    color: var(--gold);
+    filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.7));
+}
+
+.leadership-description {
+    font-size: 1.2rem;
+    max-width: 700px;
+    margin: 0 auto 3rem;
+    line-height: 1.6;
+    color: var(--text-color);
+    opacity: 0;
+    animation: fadeIn 1s ease-out 0.5s forwards;
+}
+
+.leaders-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.leader-card {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    width: 280px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.8s ease-out forwards;
+    animation-delay: calc(var(--order) * 0.2s);
+    position: relative;
+}
+
+.leader-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, var(--gold), var(--royal-purple));
+}
+
+.leader-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+.leader-image {
+    height: 300px;
+    overflow: hidden;
+}
+
+.leader-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.leader-card:hover .leader-image img {
+    transform: scale(1.05);
+}
+
+.leader-info {
+    padding: 1.5rem;
+}
+
+.leader-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    margin: 0 0 0.5rem;
+    color: var(--royal-purple);
+}
+
+.leader-title {
+    font-size: 1rem;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.leader-bio {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: #666;
+}
+
+.royal-ornament {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 4rem auto;
+    max-width: 500px;
+    opacity: 0;
+    animation: fadeIn 1s ease-out 1.5s forwards;
+}
+
+.ornament-line {
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    flex-grow: 1;
+}
+
+.ornament-icon {
+    margin: 0 1.5rem;
+    color: var(--gold);
+    font-size: 1.5rem;
+}
+
+/* Particles background */
+.particles-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.particle {
+    position: absolute;
+    background: var(--gold);
+    border-radius: 50%;
+    opacity: 0.3;
+    animation: floatParticle linear infinite;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes floatCrown {
+    0%, 100% {
+        transform: translateX(-50%) translateY(0);
+    }
+    50% {
+        transform: translateX(-50%) translateY(-15px);
+    }
+}
+
+@keyframes floatParticle {
+    to {
+        transform: translateY(-100vh);
+    }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .royal-title {
+        font-size: 2.5rem;
+    }
+    
+    .leadership-description {
+        font-size: 1rem;
+    }
+    
+    .leader-card {
+        width: 100%;
+        max-width: 350px;
+    }
+}
+.leadership-structure {
+    max-width: 900px;
+    margin: 3rem auto;
+    padding: 2rem;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    position: relative;
+    overflow: hidden;
+}
+
+.leadership-structure::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 8px;
+    height: 100%;
+    background: linear-gradient(to bottom, #8B4513, #D4AF37);
+}
+
+.structure-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    color: #8B4513;
+    margin-bottom: 1.5rem;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.structure-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100px;
+    height: 3px;
+    background: linear-gradient(to right, #D4AF37, transparent);
+}
+
+.structure-intro {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #555;
+    margin-bottom: 2.5rem;
+}
+
+.structure-divider {
+    height: 1px;
+    background: linear-gradient(to right, transparent, #D4AF37, transparent);
+    margin: 2rem 0;
+}
+
+.leadership-tier {
+    margin-bottom: 2.5rem;
+}
+
+.tier-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    color: #8B4513;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.tier-title::before {
+    content: '';
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    background-color: #D4AF37;
+    border-radius: 50%;
+    margin-right: 12px;
+    box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.3);
+}
+
+.tier-subtitle {
+    font-size: 1rem;
+    color: #996515;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    padding-left: 27px;
+}
+
+.tier-description {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #555;
+    padding-left: 27px;
+    position: relative;
+}
+
+.tier-description::before {
+    content: '';
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    width: 5px;
+    height: 5px;
+    background-color: #D4AF37;
+    border-radius: 50%;
+}
+
+/* Floating crown decoration */
+.floating-crown {
+    position: absolute;
+    right: 30px;
+    top: 30px;
+    font-size: 2rem;
+    color: rgba(139, 69, 19, 0.1);
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0) rotate(-5deg); }
+    50% { transform: translateY(-15px) rotate(5deg); }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .leadership-structure {
+        padding: 1.5rem;
+    }
+    
+    .structure-title {
+        font-size: 1.8rem;
+    }
+    
+    .tier-title {
+        font-size: 1.5rem;
+    }
+    
+    .floating-crown {
+        display: none;
+    }
+}
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f5f0;
+    color: #333;
+    line-height: 1.6;
+    padding: 0;
+    margin: 0;
+    background-image: radial-gradient(circle at 10% 20%, rgba(212, 175, 55, 0.1) 0%, rgba(212, 175, 55, 0.05) 90%);
+}
+
+.governance-container {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(139, 69, 19, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.governance-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 8px;
+    height: 100%;
+    background: linear-gradient(to bottom, #8B4513, #D4AF37);
+}
+
+.governance-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    position: relative;
+}
+
+.governance-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    color: #8B4513;
+    margin-bottom: 0.5rem;
+    position: relative;
+    display: inline-block;
+}
+
+.crown-icon {
+    position: absolute;
+    top: -15px;
+    right: calc(50% - 100px);
+    font-size: 2rem;
+    color: #D4AF37;
+    transform: rotate(-20deg);
+    animation: crownFloat 4s ease-in-out infinite;
+}
+
+.governance-subtitle {
+    font-size: 1.1rem;
+    color: #996515;
+    font-weight: 300;
+    margin-top: 0;
+}
+
+.governance-section {
+    margin-bottom: 3rem;
+    padding: 1.5rem;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.governance-section:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(139, 69, 19, 0.1);
+}
+
+.governance-section::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(to right, #8B4513, #D4AF37);
+    opacity: 0.7;
+}
+
+.traditional-section::after {
+    background: linear-gradient(to right, #8B4513, #5E2C04);
+}
+
+.modern-section::after {
+    background: linear-gradient(to right, #D4AF37, #996515);
+}
+
+.cultural-section::after {
+    background: linear-gradient(to right, #5E2C04, #8B4513);
+}
+
+.section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    color: #5E2C04;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: #D4AF37;
+}
+
+.governance-item {
+    display: flex;
+    margin-bottom: 1.5rem;
+    padding: 1.2rem;
+    border-radius: 8px;
+    background-color: #faf8f5;
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.governance-item:hover {
+    background-color: #fff9f0;
+    box-shadow: 0 5px 15px rgba(139, 69, 19, 0.08);
+}
+
+.checkbox-container {
+    margin-right: 1.2rem;
+    display: flex;
+    align-items: flex-start;
+    padding-top: 3px;
+}
+
+.checkbox {
+    width: 22px;
+    height: 22px;
+    border: 2px solid #D4AF37;
+    border-radius: 4px;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.checkbox.checked {
+    background-color: #D4AF37;
+}
+
+.checkbox.checked::after {
+    content: '\f00c';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    color: white;
+    font-size: 12px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.item-content {
+    flex: 1;
+}
+
+.item-title {
+    font-size: 1.1rem;
+    color: #8B4513;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.item-description {
+    font-size: 0.95rem;
+    color: #666;
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* Animations */
+@keyframes crownFloat {
+    0%, 100% { transform: rotate(-20deg) translateY(0); }
+    50% { transform: rotate(-15deg) translateY(-10px); }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .governance-container {
+        padding: 1.5rem;
+        margin: 1rem;
+    }
+    
+    .governance-title {
+        font-size: 2rem;
+    }
+    
+    .section-title {
+        font-size: 1.5rem;
+    }
+    
+    .governance-item {
+        flex-direction: column;
+    }
+    
+    .checkbox-container {
+        margin-bottom: 0.5rem;
+    }
+}
+:root {
+            --royal-gold: #D4AF37;
+            --royal-brown: #8B4513;
+            --royal-red: #B22222;
+            --ivory: #FFFFF0;
+        }
+        
+        body {
+            font-family: 'Playfair Display', serif;
+            background-color: #f9f5e9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://example.com/parchment-texture.jpg');
+            background-attachment: fixed;
+        }
+        
+        .timeline-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+        }
+        
+        .timeline-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        
+        .timeline-title {
+            font-family: 'Cinzel', serif;
+            font-size: 3.5rem;
+            color: var(--royal-brown);
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .timeline-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 3px;
+            background: linear-gradient(to right, transparent, var(--royal-gold), transparent);
+        }
+        
+        .timeline-subtitle {
+            font-size: 1.3rem;
+            color: var(--royal-brown);
+            font-style: italic;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .dynasty-tree {
+            position: relative;
+            min-height: 100vh;
+            padding-top: 2rem;
+        }
+        
+        .tree-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(to bottom, var(--royal-brown), var(--royal-gold));
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+        
+        .ruler-card {
+            position: relative;
+            max-width: 500px;
+            margin: 0 auto 4rem auto;
+            padding: 1.5rem;
+            background-color: var(--ivory);
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(139, 69, 19, 0.15);
+            border-left: 5px solid var(--royal-gold);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+            z-index: 2;
+        }
+        
+        .ruler-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .ruler-card::before {
+            content: '';
+            position: absolute;
+            left: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: var(--royal-gold);
+            border: 4px solid var(--royal-brown);
+            z-index: 3;
+        }
+        
+        .ruler-card.current::before {
+            background-color: var(--royal-red);
+            box-shadow: 0 0 0 6px rgba(178, 34, 34, 0.3);
+            animation: pulse 2s infinite;
+        }
+        
+        .ruler-name {
+            font-family: 'Cinzel', serif;
+            font-size: 1.8rem;
+            color: var(--royal-brown);
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+        
+        .ruler-dates {
+            font-style: italic;
+            color: var(--royal-gold);
+            margin-bottom: 1rem;
+            display: inline-block;
+            padding: 0.2rem 0.8rem;
+            background-color: rgba(139, 69, 19, 0.1);
+            border-radius: 20px;
+        }
+        
+        .ruler-achievements {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #555;
+        }
+        
+        .ruler-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid var(--royal-gold);
+            object-fit: cover;
+            position: absolute;
+            right: -60px;
+            top: 50%;
+            transform: translateY(-50%);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            z-index: 4;
+        }
+        
+        .ruler-image:hover {
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+        
+        .alternate {
+            margin-left: auto;
+            margin-right: 0;
+            border-left: none;
+            border-right: 5px solid var(--royal-gold);
+        }
+        
+        .alternate::before {
+            left: auto;
+            right: -20px;
+        }
+        
+        .alternate .ruler-image {
+            right: auto;
+            left: -60px;
+        }
+        
+        .royal-seal {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 80px;
+            height: 80px;
+            opacity: 0.2;
+            z-index: 0;
+            animation: rotate 30s linear infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(178, 34, 34, 0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(178, 34, 34, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(178, 34, 34, 0); }
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        @media (max-width: 768px) {
+            .ruler-card {
+                max-width: 100%;
+                margin-bottom: 3rem;
+            }
+            
+            .alternate {
+                margin-left: 0;
+                margin-right: 0;
+                border-right: none;
+                border-left: 5px solid var(--royal-gold);
+            }
+            
+            .alternate::before {
+                left: -20px;
+                right: auto;
+            }
+            
+            .ruler-image {
+                position: relative;
+                right: auto;
+                left: 50%;
+                transform: translateX(-50%);
+                margin-bottom: 1rem;
+                top: auto;
+            }
+            
+            .alternate .ruler-image {
+                left: 50%;
+                right: auto;
+            }
+            
+            .timeline-title {
+                font-size: 2.5rem;
+            }
+        }
+         :root {
+            --royal-gold: #D4AF37;
+            --royal-brown: #8B4513;
+            --ivory: #FFFFF0;
+            --shadow: rgba(139, 69, 19, 0.3);
+        }
+        
+        body {
+            font-family: 'Playfair Display', serif;
+            background-color: #f9f5e9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://example.com/parchment-texture.jpg');
+            background-attachment: fixed;
+        }
+        
+        .symbols-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .symbols-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        
+        .symbols-title {
+            font-family: 'Cinzel', serif;
+            font-size: 3rem;
+            color: var(--royal-brown);
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px var(--shadow);
+            position: relative;
+        }
+        
+        .symbols-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 3px;
+            background: linear-gradient(to right, transparent, var(--royal-gold), transparent);
+        }
+        
+        .symbols-subtitle {
+            font-size: 1.3rem;
+            color: var(--royal-brown);
+            font-style: italic;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .symbol-section {
+            margin-bottom: 4rem;
+            padding: 2rem;
+            background-color: var(--ivory);
+            border-radius: 10px;
+            box-shadow: 0 10px 30px var(--shadow);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .symbol-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .symbol-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 8px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--royal-brown), var(--royal-gold));
+        }
+        
+        .symbol-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px var(--shadow);
+        }
+        
+        .symbol-name {
+            font-family: 'Cinzel', serif;
+            font-size: 2rem;
+            color: var(--royal-brown);
+            margin-top: 0;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .symbol-name::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--royal-gold);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.5s ease;
+        }
+        
+        .symbol-section:hover .symbol-name::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+        
+        .symbol-description {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #555;
+            margin-bottom: 1.5rem;
+        }
+        
+        .significance-title {
+            font-weight: bold;
+            color: var(--royal-brown);
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+        
+        .significance-title::before {
+            content: '\f06a';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            color: var(--royal-gold);
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .significance-text {
+            font-style: italic;
+            color: #666;
+            padding-left: 25px;
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+        
+        .significance-text::before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 10px;
+            width: 5px;
+            height: 5px;
+            background-color: var(--royal-gold);
+            border-radius: 50%;
+        }
+        
+        .symbol-image {
+            width: 200px;
+            height: 200px;
+            object-fit: contain;
+            float: right;
+            margin-left: 2rem;
+            margin-bottom: 1rem;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px var(--shadow);
+            transition: all 0.5s ease;
+            transform: perspective(1000px) rotateY(20deg);
+            filter: sepia(0.3) brightness(1.05);
+        }
+        
+        .symbol-image:hover {
+            transform: perspective(1000px) rotateY(0deg);
+            filter: sepia(0) brightness(1);
+            box-shadow: 0 10px 25px var(--shadow);
+        }
+        
+        .floating-symbol {
+            position: absolute;
+            font-size: 3rem;
+            color: rgba(139, 69, 19, 0.1);
+            z-index: 0;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .crown-symbol { top: 20px; right: 30px; animation-delay: 0.2s; }
+        .staff-symbol { bottom: 40px; left: 25px; animation-delay: 0.4s; }
+        .drum-symbol { top: 60%; right: 40px; animation-delay: 0.6s; }
+        .flag-symbol { bottom: 20px; right: 50px; animation-delay: 0.8s; }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(-5deg); }
+            50% { transform: translateY(-15px) rotate(5deg); }
+        }
+        
+        @keyframes glow {
+            0% { text-shadow: 0 0 5px var(--royal-gold); }
+            50% { text-shadow: 0 0 20px var(--royal-gold); }
+            100% { text-shadow: 0 0 5px var(--royal-gold); }
+        }
+        
+        @media (max-width: 768px) {
+            .symbols-container {
+                padding: 1rem;
+            }
+            
+            .symbols-title {
+                font-size: 2.2rem;
+            }
+            
+            .symbol-section {
+                padding: 1.5rem;
+            }
+            
+            .symbol-image {
+                float: none;
+                display: block;
+                margin: 0 auto 1.5rem auto;
+                width: 150px;
+                height: 150px;
+            }
+            
+            .floating-symbol {
+                display: none;
+            }
+        }
+        /* Previous styles remain the same */
+        
+        /* Footer Styles */
+        .leadership-footer {
+            background: linear-gradient(to right, #8B4513, #5E2C04);
+            color: #FFFFF0;
+            padding: 3rem 2rem;
+            position: relative;
+            overflow: hidden;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .footer-title {
+            font-family: 'Cinzel', serif;
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #D4AF37;
+            position: relative;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+        
+        .footer-title.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .footer-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 2px;
+            background: #D4AF37;
+        }
+        
+        .quotes-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .quote-card {
+            background: rgba(255, 255, 240, 0.1);
+            backdrop-filter: blur(5px);
+            border-radius: 10px;
+            padding: 1.5rem;
+            flex: 1;
+            min-width: 280px;
+            max-width: 350px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transform: perspective(1000px) rotateX(5deg);
+            transition: all 0.5s ease;
+            opacity: 0;
+        }
+        
+        .quote-card.visible {
+            opacity: 1;
+            transform: perspective(1000px) rotateX(0);
+        }
+        
+        .quote-card:hover {
+            transform: translateY(-10px) perspective(1000px) rotateX(0);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 240, 0.15);
+        }
+        
+        .quote-text {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            font-style: italic;
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .quote-text::before {
+            content: '\201C';
+            font-family: Georgia, serif;
+            font-size: 3rem;
+            position: absolute;
+            left: -1rem;
+            top: -1rem;
+            color: rgba(212, 175, 55, 0.3);
+        }
+        
+        .quote-author {
+            text-align: right;
+            font-weight: bold;
+            color: #D4AF37;
+            font-family: 'Cinzel', serif;
+        }
+        
+        .quote-author::before {
+            content: '— ';
+        }
+        
+        .archive-section {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(212, 175, 55, 0.3);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease 0.3s;
+        }
+        
+        .archive-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .archive-title {
+            font-family: 'Cinzel', serif;
+            color: #D4AF37;
+            margin-bottom: 1rem;
+        }
+        
+        .archive-badge {
+            display: inline-block;
+            background: rgba(212, 175, 55, 0.2);
+            color: #FFFFF0;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            border: 1px solid #D4AF37;
+            transition: all 0.5s ease;
+            cursor: pointer;
+        }
+        
+        .archive-badge:hover {
+            background: rgba(212, 175, 55, 0.4);
+            transform: scale(1.05);
+        }
+        
+        .footer-pattern {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-image: url('https://example.com/royal-pattern.png');
+            opacity: 0.05;
+            z-index: 1;
+        }
+        
+        .floating-symbols {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .floating-symbol {
+            position: absolute;
+            color: rgba(212, 175, 55, 0.1);
+            font-size: 2rem;
+            animation: float 15s linear infinite;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+            }
+        }
+        
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .leadership-footer {
+                padding: 2rem 1rem;
+            }
+            
+            .footer-title {
+                font-size: 1.8rem;
+            }
+            
+            .quote-card {
+                min-width: 100%;
+            }
+            
+            .quote-text {
+                font-size: 1rem;
+            }
+            
+            .archive-badge {
+                padding: 0.6rem 1.2rem;
+                font-size: 1rem;
+            }
+        }
+    /* ... all other CSS rules ... */
+  </style>
+</head>
+<body>
+  <!-- COPY THE EXACT SAME NAVBAR FROM index.html HERE -->
+  <nav class="navbar">
+    <div class="logo">
+      <div class="logo-icon">
+        <i class="fas fa-crown"></i>
+      </div>
+      <div class="logo-text">
+        <h1>Kiziba <span>Kingdom</span></h1>
+        <p>Heritage Portal</p>
+      </div>
+    </div>
+
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="leadership.html">Leadership</a></li>
+      <li><a href="cultural.html">Cultural Heritage</a></li>
+      <li><a href="livelihood.html">Livelihood & Economy</a></li>
+      <li><a href="land.html">Land & Environment</a></li>
+      <li><a href="media.html">Media</a></li>
+    </ul>
+
+    <button class="menu-toggle" id="menuToggle">
+      <i class="fas fa-bars"></i>
+    </button>
+  </nav>
+
+  <!-- COPY THE EXACT SAME MOBILE DRAWER FROM index.html HERE -->
+  <div class="mobile-drawer" id="mobileDrawer">
+    <div class="drawer-header">
+      <div class="logo">
+        <div class="logo-icon">
+          <i class="fas fa-crown"></i>
+        </div>
+        <div class="logo-text">
+          <h1>Kiziba <span>Kingdom</span></h1>
+          <p>Heritage Portal</p>
+        </div>
+      </div>
+      <button class="close-btn" id="closeDrawer">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+
+    <ul class="drawer-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="leadership.html">Leadership</a></li>
+      <li><a href="cultural.html">Cultural Heritage</a></li>
+      <li><a href="livelihood.html">Livelihood & Economy</a></li>
+      <li><a href="land.html">Land & Environment</a></li>
+      <li><a href="media.html">Media</a></li>
+    </ul>
+  </div>
+
+  <!-- Overlay -->
+  <div class="overlay" id="overlay"></div>
+
+  <!-- Page Content -->
+  <section class="royal-leadership">
+        <div class="leadership-container">
+            <div class="title-container">
+                <h1 class="royal-title">Royal Leadership</h1>
+                <div class="crown-animation">
+                    <i class="fas fa-crown crown-icon"></i>
+                </div>
+            </div>
+            
+            <p class="leadership-description">
+                Meet the distinguished leaders who guide Kiziba Kingdom with wisdom, tradition, and vision for the future
+            </p>
+            
+            <div class="leaders-gallery">
+                <!-- Leader cards will be dynamically added here -->
+            </div>
+            
+            <div class="royal-ornament">
+                <div class="ornament-line"></div>
+                <div class="ornament-icon"><i class="fas fa-star"></i></div>
+                <div class="ornament-line"></div>
+            </div>
+        </div>
+        
+        <!-- Floating particles for background effect -->
+        <div class="particles-container"></div>
+    </section>
+    <section class="leadership-structure">
+        <i class="fas fa-crown floating-crown"></i>
+        
+        <h1 class="structure-title">Current Leadership Structure</h1>
+        
+        <p class="structure-intro">
+            Our kingdom is led by a combination of traditional authority and modern governance principles
+        </p>
+        
+        <div class="structure-divider"></div>
+        
+        <div class="leadership-tier">
+            <h2 class="tier-title">Omukama Mutatembwa the second</h2>
+            <p class="tier-subtitle">King of Kiziba</p>
+            <p class="tier-description">
+                His Royal Highness leads the kingdom with wisdom and dedication to preserving our cultural heritage while 
+                embracing progressive development for our people.
+            </p>
+        </div>
+        
+        <div class="structure-divider"></div>
+        
+        <div class="leadership-tier">
+            <h2 class="tier-title">Council of Elders</h2>
+            <p class="tier-subtitle">Traditional Advisory Council</p>
+            <p class="tier-description">
+                Comprised of respected community leaders who provide guidance on traditional matters and cultural 
+                preservation, ensuring our heritage remains intact for future generations.
+            </p>
+        </div>
+        
+        <div class="structure-divider"></div>
+        
+        <div class="leadership-tier">
+            <h2 class="tier-title">Youth Leaders Assembly</h2>
+            <p class="tier-subtitle">Future Leadership Development</p>
+            <p class="tier-description">
+                Young leaders trained in both traditional governance and modern administration, preparing to guide 
+                the kingdom into a prosperous future while honoring our past.
+            </p>
+        </div>
+    </section>
+    <body>
+    <div class="governance-container">
+        <div class="governance-header">
+            <h1 class="governance-title">Kiziba Kingdom Governance System</h1>
+            <div class="crown-icon"><i class="fas fa-crown"></i></div>
+            <p class="governance-subtitle">Balancing Tradition and Modernity for Sustainable Development</p>
+        </div>
+
+        <div class="governance-section traditional-section">
+            <h2 class="section-title">Traditional Council Governance</h2>
+            <div class="governance-item animate-item">
+                <div class="checkbox-container">
+                    <div class="checkbox"></div>
+                </div>
+                <div class="item-content">
+                    <h3 class="item-title">Council Decisions</h3>
+                    <p class="item-description">Major decisions are made through consensus among the council of elders (Abakuru b'Igihugu) in accordance with Kiziba customs</p>
+                </div>
+            </div>
+            <div class="governance-item animate-item">
+                <div class="checkbox-container">
+                    <div class="checkbox checked"></div>
+                </div>
+                <div class="item-content">
+                    <h3 class="item-title">Community Representation</h3>
+                    <p class="item-description">Each village (Umudugudu) has representatives (Abunzi) who voice community concerns at the royal court (Intara)</p>
+                </div>
+            </div>
+            <div class="governance-item animate-item">
+                <div class="checkbox-container">
+                    <div class="checkbox checked"></div>
+                </div>
+                <div class="item-content">
+                    <h3 class="item-title">Dispute Resolution</h3>
+                    <p class="item-description">Traditional courts (Inkiko z'Umuco) handle local disputes using customary law (Amategeko y'Umuco) with royal oversight</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="governance-section modern-section">
+            <h2 class="section-title">Modern Administration</h2>
+            <div class="governance-item animate-item">
+                <div class="checkbox-container">
+                    <div class="checkbox"></div>
+                </div>
+                <div class="item-content">
+                    <h3 class="item-title">District Integration</h3>
+                    <p class="item-description">Working closely with modern district administration systems while preserving Kiziba's autonomy in cultural matters</p>
+                </div>
+            </div>
+            <div class="governance-item animate-item">
+                <div class="checkbox-container">
+                    <div class="checkbox checked"></div>
+                </div>
+                <div class="item-content">
+                    <h3 class="item-title">Development Projects</h3>
+                    <p class="item-description">Implementing modern development initiatives like the Kiziba Heritage Center and agricultural modernization programs</p>
+                </div>
+            </div>
+            <div class="governance-item animate-item">
+                <div class="checkbox-container">
+                    <div class="checkbox checked"></div>
+                </div>
+                <div class="item-content">
+                    <h3 class="item-title">Youth Engagement</h3>
+                    <p class="item-description">Training young leaders through the Intwararumuri program in both traditional governance and modern administration</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="governance-section cultural-section">
+            <h2 class="section-title">Cultural Preservation</h2>
+            <div class="governance-item animate-item">
+                <div class="checkbox-container">
+                    <div class="checkbox checked"></div>
+                </div>
+                <div class="item-content">
+                    <h3 class="item-title">Royal Rituals</h3>
+                    <p class="item-description">Maintaining sacred traditions like Umuganura (harvest festival) and royal ceremonies at the palace in Bukunzi</p>
+                </div>
+            </div>
+            <div class="governance-item animate-item">
+                <div class="checkbox-container">
+                    <div class="checkbox checked"></div>
+                </div>
+                <div class="item-content">
+                    <h3 class="item-title">Language Revitalization</h3>
+                    <p class="item-description">Documenting and teaching Kinyarwanda-Kiziba dialect through community schools and digital platforms</p>
+                </div>
+            </div>
+            <div class="governance-item animate-item">
+                <div class="checkbox-container">
+                    <div class="checkbox"></div>
+                </div>
+                <div class="item-content">
+                    <h3 class="item-title">Heritage Sites</h3>
+                    <p class="item-description">Restoring historical sites including the royal drums sanctuary and ancient settlement patterns</p>
+                </div>
+            </div>
+        </div>
+    </div>
+     <div class="timeline-container">
+        <div class="timeline-header">
+            <h1 class="timeline-title">Kiziba Royal Dynasty</h1>
+            <p class="timeline-subtitle">A sacred lineage of wisdom and leadership spanning centuries</p>
+        </div>
+        
+        <div class="dynasty-tree">
+            <div class="tree-line"></div>
+            
+            <!-- Current Ruler -->
+             <div class="ruler-card current">
+                <h2 class="ruler-name">KIBI (alias NYAKIIRU, KAGANDA, WUNYI)</h2>
+                <span class="ruler-dates">Kanyigo, Kigarama</span>
+                <p class="ruler-achievements">
+                    The son of Kintu and grandson of Kyyoma and a greater cousin of Ruhinda Kibonabagabe, according to the legend Ruhinda's grandfather Ndahura and kibi's grandfather.
+                </p>
+                
+            </div>
+            <div class="ruler-card current">
+                <h2 class="ruler-name">Ishamura-Njobe</h2>
+                <span class="ruler-dates">Kanyigo</span>
+                <p class="ruler-achievements">
+                    The son of KANYAMAISHWA, he ruled for a short time.
+                </p>
+                <img src="images/red.jpg" alt="Omukama Ntare VII" class="ruler-image">
+            </div>
+            
+            <!-- Previous Rulers (alternating sides) -->
+            <div class="ruler-card alternate">
+                <h2 class="ruler-name">Ishamura- Nyakabinga</h2>
+                <span class="ruler-dates">Kanyigo</span>
+                <p class="ruler-achievements">
+                    Self styled son of KIBI. He killed Ishamura-Njobe and took the throne.
+                </p>
+                
+            </div>
+            
+            <div class="ruler-card">
+                <h2 class="ruler-name">Omukama Wanumi</h2>
+                <span class="ruler-dates">Kanyigo-(Nshumba/Byazi)</span>
+                <p class="ruler-achievements">
+                    He had a nervous breakdown and was succeeded by his son MATWI.
+                </p>
+                <img src="images/blue.jpg" alt="Omukama Kahaya IV" class="ruler-image">
+            </div>
+            
+            <div class="ruler-card alternate">
+                <h2 class="ruler-name">Omukama Matwi</h2>
+                <span class="ruler-dates">Bugandika-(Runyabikinde)</span>
+                <p class="ruler-achievements">
+                    He fought and killed his brother BWANAMBA, in order to seize the throne.
+                </p>
+                <img src="images/brown.jpg" alt="Omukama Rwigi III" class="ruler-image">
+            </div>
+            
+            <div class="ruler-card">
+                <h2 class="ruler-name">Omukama Magembe 1</h2>
+                <span class="ruler-dates">Bugandika-(Ruti)</span>
+                <p class="ruler-achievements">
+                    
+                    Master strategist who used diplomacy and military tactics to preserve 
+                    Kiziba's independence longer than neighboring kingdoms.
+                </p>
+                <img src="images/red.jpg" alt="Omukama Ntare VI" class="ruler-image">
+            </div>
+            
+            <div class="ruler-card alternate">
+                <h2 class="ruler-name">Omukama Muzinga</h2>
+                <span class="ruler-dates">Buyango</span>
+                <p class="ruler-achievements">
+                    Expanded Kiziba's territory through strategic alliances. 
+                </p>
+                <img src="images/black.jpg" alt="Omukama Rubambagye II" class="ruler-image">
+            </div>
+            
+            <div class="ruler-card">
+                <h2 class="ruler-name">Omukama Mwigara</h2>
+                <span class="ruler-dates">1Buyango</span>
+                <p class="ruler-achievements">
+                    Reformed the agricultural system, introducing new crops that ended famines. 
+                    
+                </p>
+                <img src="images/purple.jpg" alt="Omukama Ruhinda V" class="ruler-image">
+            </div>
+            
+            <div class="ruler-card alternate">
+                <h2 class="ruler-name">Omukama Burungu 1</h2>
+                <span class="ruler-dates">Buyango-(Ntunda)</span>
+                <p class="ruler-achievements">
+                    Defended Kiziba against multiple invasion attempts.
+                </p>
+                <img src="images/brown.jpg" alt="Omukama Kahaya III" class="ruler-image">
+            </div>
+            
+            <div class="ruler-card">
+                <h2 class="ruler-name">Omukama Magembe II</h2>
+                <span class="ruler-dates">Bwanjai-(Mweyanjale)</span>
+                <p class="ruler-achievements">
+                    He was charismatic, popular but warlike king
+                </p>
+                <img src="images/red.jpg" alt="Omukama Rwigi II" class="ruler-image">
+            </div>
+            
+            <div class="ruler-card alternate">
+                <h2 class="ruler-name">Omukama Mboneko 1</h2>
+                <span class="ruler-dates">Kitoba-(Buganzi)</span>
+                <p class="ruler-achievements">
+                    He was chiefly involved in power struggle with his own brothers...
+                </p>
+                <img src="images/blue.jpg" alt="Omukama Rubambagye I" class="ruler-image">
+            </div>
+            <div class="ruler-card">
+                <h2 class="ruler-name">Omukama Nyarwangu</h2>
+                <span class="ruler-dates">Kitoba (Igoma)</span>
+                <p class="ruler-achievements">
+                    Son of Mboneko, he ruled for onl one month.
+                </p>
+                <img src="images/black.jpg" alt="Omukama Rwigi II" class="ruler-image">
+            </div>
+            <div class="ruler-card alternate">
+                <h2 class="ruler-name">Omukama Ruhangarazi 1</h2>
+                <span class="ruler-dates">Kitobo</span>
+                <p class="ruler-achievements">
+                    Son of Mboneko.
+                </p>
+                <img src="images/brown.jpg" alt="Omukama Rubambagye I" class="ruler-image">
+            </div>
+            <div class="ruler-card">
+                <h2 class="ruler-name">Omukama Rutajwaha</h2>
+                <span class="ruler-dates">Buyango</span>
+                <p class="ruler-achievements">
+                    
+                </p>
+                <img src="images/purple.jpg" alt="Omukama Rwigi II" class="ruler-image">
+            </div>
+            <div class="ruler-card alternate">
+                <h2 class="ruler-name">Omukama Burungu II</h2>
+                <span class="ruler-dates">Kitobo (Bukele)</span>
+                <p class="ruler-achievements">
+                    He was non progressive and of an unreliable character.
+                </p>
+                <img src="images/blue.jpg" alt="Omukama Rubambagye I" class="ruler-image">
+            </div>
+            <div class="ruler-card">
+                <h2 class="ruler-name">Omukama Kibi II (Rutairwa 2)</h2>
+                <span class="ruler-dates">Bwanjai</span>
+                <p class="ruler-achievements">
+                    Cousin of Burungu
+                </p>
+                <img src="images/red.jpg" alt="Omukama Rwigi II" class="ruler-image">
+            </div>
+            <div class="ruler-card alternate">
+                <h2 class="ruler-name">Omukama Ruhangarazi II</h2>
+                <span class="ruler-dates">Bwanjai</span>
+                <p class="ruler-achievements">
+                    He was too peaceful and didnot even try to stop the invaders.
+                </p>
+                <img src="images/black.jpg" alt="Omukama Rubambagye I" class="ruler-image">
+            </div>
+            <div class="ruler-card">
+                <h2 class="ruler-name">Omukama Mutatembwa</h2>
+                <span class="ruler-dates">Bwanjai (Kantale)</span>
+                <p class="ruler-achievements">
+                    The first widely known and documented Mukama of Kiziba. Son of Ruhangarazi 2, he reigned during the period 1870-1903 when the Germans were colonizing the country. He is described as a strong , wise and valiant Mukama.
+                </p>
+                <img src="images/brown.jpg" alt="Omukama Rwigi II" class="ruler-image">
+            </div>
+            <div class="ruler-card alternate">
+                <h2 class="ruler-name">Omukama Mutahangarwa</h2>
+                <span class="ruler-dates">Bwanjai, and then Gera</span>
+                <p class="ruler-achievements">
+                    Son of Mutatembwa , he had to fight a prolonged civil war with his brother  before he could establish himself as a ruler of Kiziba. His rule is closely associated with the increasing influence of German rule in the region.
+                </p>
+                
+            </div>
+            <div class="ruler-card">
+                <h2 class="ruler-name">Omukama Mboneko II (Edward George)</h2>
+                <span class="ruler-dates">Bwanjai (Kantale)</span>
+                <p class="ruler-achievements">
+                    Son of Mutahangarwa, he ruled from 1917 to 1927 when he died. He had a good formal education.
+                </p>
+                
+            </div>
+             <div class="ruler-card alternate">
+                <h2 class="ruler-name">William Mutakubwa</h2>
+                <span class="ruler-dates">Gera</span>
+                <p class="ruler-achievements">
+                    He was still at school when he was appointed to succeed his father, Mboneko in 1927. He was however dethrned by the British administration in 1937.
+                </p>
+                
+            </div>
+            <div class="ruler-card">
+                <h2 class="ruler-name">Omukama Nestor Lutinwa</h2>
+                <span class="ruler-dates">Gera</span>
+                <p class="ruler-achievements">
+                    Son of Mutahangarwa, he was crowned on 3 May 1937 and held the title until he died 1972.
+                </p>
+                
+            </div>
+            <div class="ruler-card">
+                <h2 class="ruler-name">Omukama Titus</h2>
+                <span class="ruler-dates">Gera</span>
+
+                <img src="images/purple.jpg" alt="Omukama Rwigi II" class="ruler-image">
+            </div>
+            <div class="ruler-card">
+                <h2 class="ruler-name">Omukama Mutatembwa II</h2>
+                <span class="ruler-dates">Gera</span>
+                <p class="ruler-achievements">
+                    Son of Nestor Lutinwa, he was crowned on the year 2000. He is the current chief of Kiziba Kingdom to date.
+                </p>
+                
+            </div>
+
+
+
+
+            
+            <img src="https://example.com/royal-seal.png" alt="Royal Seal" class="royal-seal">
+        </div>
+    </div>
+      <div class="symbols-container">
+        <div class="symbols-header">
+            <h1 class="symbols-title">Royal Symbols of Kiziba</h1>
+            <p class="symbols-subtitle">Sacred emblems representing the authority, history, and values of the Kiziba Kingdom</p>
+        </div>
+        
+        <!-- Royal Crown Section -->
+        <div class="symbol-section">
+            <div class="floating-symbol crown-symbol"><i class="fas fa-crown"></i></div>
+            <h2 class="symbol-name">Royal Crown (Engoma)</h2>
+            <img src="images/crown.jpg" alt="Kiziba Royal Crown" class="symbol-image">
+            <p class="symbol-description">
+                Crafted with traditional materials including golden fibers, sacred beads, and ironwood. 
+                Adorned with symbols representing the connection between earth and sky, featuring the 
+                crescent moon of Buhaya and sun disk of Bunyoro influences.
+            </p>
+            <div class="significance-title">Significance:</div>
+            <p class="significance-text">
+                The crown embodies divine authority and the sacred covenant between the ruler and the people. 
+                Its weight symbolizes the burden of leadership, while its height represents the king's vision 
+                for the kingdom's future.
+            </p>
+        </div>
+        
+        <!-- Royal Staff Section -->
+        <div class="symbol-section">
+    <div class="floating-symbol sword-symbol"><i class="fas fa-sword"></i></div>
+    <h2 class="symbol-name">Royal Sword & Shield (Eihumu n'Eihango)</h2>
+    <img src="images/spear.jpg" alt="Kiziba Royal Sword and Shield" class="symbol-image">
+    <p class="symbol-description">
+        The sacred sword forged from Lake Victoria iron ore, with a buffalo-horn hilt representing 
+        the kingdom's strength. The shield is crafted from warrior-tested cowhide stretched over 
+        mgando wood, adorned with royal insignia in ochre and charcoal pigments.
+    </p>
+    <div class="significance-title">Kiziba Kingdom Significance:</div>
+    <p class="significance-text">
+        The sword and shield embody the dual responsibility of Kiziba's rulers - to defend our people 
+        (ihumu) while protecting our traditions (ihango). Used in the enthronement ceremony, they 
+        symbolize the monarch's vow to be both warrior and guardian. The crossed sword and shield 
+        mark royal decrees, and their annual blessing during the Emandwa ceremony renews the 
+        kingdom's spiritual defenses.
+    </p>
+</div>
+        
+        <!-- Sacred Drums Section (New) -->
+        <div class="symbol-section">
+            <div class="floating-symbol drum-symbol"><i class="fas fa-drum"></i></div>
+            <h2 class="symbol-name">Sacred Drums (Engangas)</h2>
+            <img src="images/drums.jpg" alt="Kiziba Sacred Drums" class="symbol-image">
+            <p class="symbol-description">
+                A set of seven royal drums carved from mvule wood and covered with specially prepared cowhide. 
+                The central drum, <em>Karinga</em>, is considered the voice of ancestors, while the six 
+                accompanying drums represent the original clans of Kiziba.
+            </p>
+            <div class="significance-title">Significance:</div>
+            <p class="significance-text">
+                The drums are the heartbeat of the kingdom, played only during coronations, royal funerals, 
+                and times of national importance. Their sound is believed to carry messages to the spirit 
+                world and unite the living with ancestors.
+            </p>
+        </div>
+        
+        <!-- Royal Flag Section (New) -->
+        <div class="symbol-section">
+            <div class="floating-symbol flag-symbol"><i class="fas fa-flag"></i></div>
+            <h2 class="symbol-name">Royal Standard (Endagara)</h2>
+            <img src="images/kizibapicha.jpeg" alt="Kiziba Royal Flag" class="symbol-image">
+            <p class="symbol-description">
+                A crimson banner emblazoned with the golden royal crest featuring the sacred drum flanked by 
+                crossed spears and a bundle of peace. The border contains 28 golden stars representing the 
+                historical provinces of Kiziba.
+            </p>
+            <div class="significance-title">Significance:</div>
+            <p class="significance-text">
+                Symbolizes the unity and sovereignty of the kingdom. The crimson represents the blood of 
+                ancestors, while gold signifies prosperity. Displayed during royal processions and at the 
+                palace entrance, it serves as a reminder of the kingdom's enduring legacy.
+            </p>
+        </div>
+    </div>
+    <footer class="leadership-footer">
+        <div class="footer-pattern"></div>
+        <div class="floating-symbols">
+            <div class="floating-symbol" style="left: 10%; animation-delay: 0s;"><i class="fas fa-crown"></i></div>
+            <div class="floating-symbol" style="left: 25%; animation-delay: 3s;"><i class="fas fa-drum"></i></div>
+            <div class="floating-symbol" style="left: 40%; animation-delay: 6s;"><i class="fas fa-chess-queen"></i></div>
+            <div class="floating-symbol" style="left: 55%; animation-delay: 9s;"><i class="fas fa-landmark"></i></div>
+            <div class="floating-symbol" style="left: 70%; animation-delay: 12s;"><i class="fas fa-scroll"></i></div>
+            <div class="floating-symbol" style="left: 85%; animation-delay: 15s;"><i class="fas fa-shield-alt"></i></div>
+        </div>
+        
+        <div class="footer-content">
+            <h2 class="footer-title">Wisdom of Kiziba's Leaders</h2>
+            
+            <div class="quotes-container">
+                <div class="quote-card">
+                    <p class="quote-text">A true leader plants trees under whose shade they may never sit, but whose fruits will nourish generations yet unborn.</p>
+                    <p class="quote-author">Omukama Kibi (Founder)</p>
+                </div>
+                
+                <div class="quote-card">
+                    <p class="quote-text">The strength of a kingdom lies not in its walls, but in the unity of its people and the wisdom of their traditions.</p>
+                    <p class="quote-author">Omukama Mboneko 1</p>
+                </div>
+                
+                <div class="quote-card">
+                    <p class="quote-text">To lead is to serve twice - first the ancestors who came before us, then the children who will follow after.</p>
+                    <p class="quote-author">Omukama Mutatembwa II</p>
+                </div>
+            </div>
+            
+            <div class="archive-section">
+                <h3 class="archive-title">Kiziba Kingdom Archives</h3>
+                <div class="archive-badge">© Kiziba Kingdom 2025 | All Rights Preserved</div>
+            </div>
+        </div>
+    </footer>
+
+
+  <script>
+    // COPY THE EXACT SAME JAVASCRIPT FROM index.html HERE
+    const menuToggle = document.getElementById('menuToggle');
+    const mobileDrawer = document.getElementById('mobileDrawer');
+    const closeDrawer = document.getElementById('closeDrawer');
+    const overlay = document.getElementById('overlay');
+
+    function toggleDrawer() {
+      mobileDrawer.classList.toggle('show');
+      overlay.classList.toggle('show');
+      document.body.style.overflow = mobileDrawer.classList.contains('show') ? 'hidden' : 'auto';
+    }
+
+    menuToggle.addEventListener('click', toggleDrawer);
+    closeDrawer.addEventListener('click', toggleDrawer);
+    overlay.addEventListener('click', toggleDrawer);
+
+    function setActiveLink() {
+      const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+      
+      document.querySelectorAll('.nav-links a').forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === currentPage) {
+          link.classList.add('active');
+        }
+      });
+      
+      document.querySelectorAll('.drawer-links a').forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === currentPage) {
+          link.classList.add('active');
+        }
+      });
+    }
+
+    setActiveLink();
+  </script>
+  <script>
+        // Extraordinary JavaScript animations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate leadership tiers on scroll
+            const leadershipTiers = document.querySelectorAll('.leadership-tier');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationPlayState = 'running';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            leadershipTiers.forEach(tier => {
+                observer.observe(tier);
+            });
+            
+            // Add floating particles to the structure section
+            const structureSection = document.querySelector('.leadership-structure');
+            if (structureSection) {
+                createFloatingElements(structureSection);
+            }
+            
+            // Add hover effect to tier titles
+            const tierTitles = document.querySelectorAll('.tier-title');
+            tierTitles.forEach(title => {
+                title.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateX(5px)';
+                    const beforeEl = this.querySelector('::before');
+                    if (beforeEl) {
+                        beforeEl.style.transform = 'scale(1.2)';
+                    }
+                });
+                
+                title.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateX(0)';
+                    const beforeEl = this.querySelector('::before');
+                    if (beforeEl) {
+                        beforeEl.style.transform = 'scale(1)';
+                    }
+                });
+            });
+        });
+        
+        function createFloatingElements(container) {
+            const elements = ['👑', '⚜️', '🌿', '🏛️', '⚔️'];
+            
+            for (let i = 0; i < 8; i++) {
+                const floatEl = document.createElement('div');
+                floatEl.textContent = elements[Math.floor(Math.random() * elements.length)];
+                floatEl.style.position = 'absolute';
+                floatEl.style.fontSize = Math.random() * 20 + 10 + 'px';
+                floatEl.style.opacity = Math.random() * 0.3 + 0.1;
+                floatEl.style.left = Math.random() * 100 + '%';
+                floatEl.style.top = Math.random() * 100 + '%';
+                floatEl.style.animation = `float${Math.random() > 0.5 ? '1' : '2'} ${Math.random() * 10 + 10}s linear infinite`;
+                floatEl.style.zIndex = '0';
+                
+                container.appendChild(floatEl);
+            }
+            
+            
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes float1 {
+                    0% { transform: translate(0, 0) rotate(0deg); }
+                    25% { transform: translate(20px, 20px) rotate(90deg); }
+                    50% { transform: translate(40px, 0) rotate(180deg); }
+                    75% { transform: translate(20px, -20px) rotate(270deg); }
+                    100% { transform: translate(0, 0) rotate(360deg); }
+                }
+                
+                @keyframes float2 {
+                    0% { transform: translate(0, 0) rotate(0deg); }
+                    25% { transform: translate(-20px, 15px) rotate(-90deg); }
+                    50% { transform: translate(-40px, 0) rotate(-180deg); }
+                    75% { transform: translate(-20px, -15px) rotate(-270deg); }
+                    100% { transform: translate(0, 0) rotate(-360deg); }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+    </script>
+    <script>
+// Governance System Animation and Interaction Script
+document.addEventListener('DOMContentLoaded', function() {
+    // 1. Animate governance items on page load and scroll
+    const animateGovernanceItems = function() {
+        const animateItems = document.querySelectorAll('.animate-item');
+        const screenPosition = window.innerHeight / 1.2;
+        
+        animateItems.forEach((item, index) => {
+            const itemPosition = item.getBoundingClientRect().top;
+            
+            if (itemPosition < screenPosition) {
+                setTimeout(() => {
+                    item.style.animation = `fadeInUp 0.6s ease-out forwards ${index * 0.1}s`;
+                    item.style.opacity = '1';
+                    item.style.transform = 'translateY(0)';
+                }, 100);
+            }
+        });
+    };
+
+    // Initial animation on page load
+    animateGovernanceItems();
+    
+    // Animate when scrolling
+    window.addEventListener('scroll', animateGovernanceItems);
+
+    // 2. Checkbox interaction with ripple effect
+    const setupCheckboxes = function() {
+        const checkboxes = document.querySelectorAll('.checkbox');
+        
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('click', function() {
+                // Toggle checked state
+                this.classList.toggle('checked');
+                
+                // Create ripple effect
+                const ripple = document.createElement('span');
+                ripple.classList.add('ripple');
+                this.appendChild(ripple);
+                
+                // Remove ripple after animation
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        });
+    };
+    setupCheckboxes();
+
+    // 3. Add decorative elements to each section
+    const addDecorativeElements = function() {
+        const sections = document.querySelectorAll('.governance-section');
+        
+        sections.forEach(section => {
+            const decor = document.createElement('div');
+            decor.className = 'section-decor';
+            
+            // Different icons for different sections
+            if (section.classList.contains('traditional-section')) {
+                decor.innerHTML = '<i class="fas fa-chess-queen"></i>';
+            } else if (section.classList.contains('modern-section')) {
+                decor.innerHTML = '<i class="fas fa-city"></i>';
+            } else {
+                decor.innerHTML = '<i class="fas fa-landmark"></i>';
+            }
+            
+            section.appendChild(decor);
+        });
+    };
+    addDecorativeElements();
+
+    // 4. Dynamic styles for created elements
+    const addDynamicStyles = function() {
+        const style = document.createElement('style');
+        style.textContent = `
+            /* Ripple effect for checkboxes */
+            .ripple {
+                position: absolute;
+                border-radius: 50%;
+                background-color: rgba(212, 175, 55, 0.4);
+                transform: scale(0);
+                animation: ripple 0.6s linear;
+                pointer-events: none;
+                width: 40px;
+                height: 40px;
+                left: -10px;
+                top: -10px;
+            }
+            
+            @keyframes ripple {
+                to {
+                    transform: scale(2.5);
+                    opacity: 0;
+                }
+            }
+            
+            /* Section decorative elements */
+            .section-decor {
+                position: absolute;
+                right: 20px;
+                top: 20px;
+                color: rgba(139, 69, 19, 0.1);
+                font-size: 3rem;
+                z-index: 0;
+                transition: all 0.5s ease;
+            }
+            
+            .governance-section:hover .section-decor {
+                transform: rotate(15deg) scale(1.1);
+                color: rgba(139, 69, 19, 0.15);
+            }
+            
+            /* Additional animations */
+            @keyframes float {
+                0%, 100% { transform: translateY(0); }
+                50% { transform: translateY(-10px); }
+            }
+        `;
+        document.head.appendChild(style);
+    };
+    addDynamicStyles();
+
+    // 5. Make crown icon float continuously
+    const crownFloatAnimation = function() {
+        const crown = document.querySelector('.crown-icon');
+        if (crown) {
+            setInterval(() => {
+                crown.style.transform = `rotate(-20deg) translateY(${5 * Math.sin(Date.now() / 500)}px)`;
+            }, 50);
+        }
+    };
+    crownFloatAnimation();
+});
+</script>
+<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate ruler cards on scroll
+            const animateCards = function() {
+                const cards = document.querySelectorAll('.ruler-card');
+                const windowHeight = window.innerHeight;
+                
+                cards.forEach(card => {
+                    const cardPosition = card.getBoundingClientRect().top;
+                    const scrollPosition = windowHeight * 0.8;
+                    
+                    if (cardPosition < scrollPosition) {
+                        card.classList.add('visible');
+                    }
+                });
+            };
+            
+            // Initial animation
+            animateCards();
+            
+            // Animate on scroll
+            window.addEventListener('scroll', animateCards);
+            
+            // Add interactive elements
+            const images = document.querySelectorAll('.ruler-image');
+            images.forEach(img => {
+                img.addEventListener('mouseenter', function() {
+                    this.style.transform = this.style.transform.includes('scale') 
+                        ? this.style.transform 
+                        : 'translateY(-50%) scale(1.1)';
+                    this.style.boxShadow = '0 8px 25px rgba(0,0,0,0.3)';
+                });
+                
+                img.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(-50%) scale(1)';
+                    this.style.boxShadow = '0 5px 15px rgba(0,0,0,0.2)';
+                });
+            });
+            
+            // Mobile touch events
+            images.forEach(img => {
+                img.addEventListener('touchstart', function() {
+                    this.style.transform = 'translateY(-50%) scale(1.1)';
+                    this.style.boxShadow = '0 8px 25px rgba(0,0,0,0.3)';
+                });
+                
+                img.addEventListener('touchend', function() {
+                    this.style.transform = 'translateY(-50%) scale(1)';
+                    this.style.boxShadow = '0 5px 15px rgba(0,0,0,0.2)';
+                });
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate sections on scroll
+            const animateSections = function() {
+                const sections = document.querySelectorAll('.symbol-section');
+                const windowHeight = window.innerHeight;
+                
+                sections.forEach((section, index) => {
+                    const sectionPosition = section.getBoundingClientRect().top;
+                    const scrollPosition = windowHeight * 0.8;
+                    
+                    if (sectionPosition < scrollPosition) {
+                        setTimeout(() => {
+                            section.classList.add('visible');
+                        }, index * 200);
+                    }
+                });
+            };
+            
+            // Initial animation
+            animateSections();
+            
+            // Animate on scroll
+            window.addEventListener('scroll', animateSections);
+            
+            // Add interactive effects to images
+            const images = document.querySelectorAll('.symbol-image');
+            images.forEach(img => {
+                // Click effect
+                img.addEventListener('click', function() {
+                    this.style.transform = 'scale(1.05)';
+                    this.style.boxShadow = '0 15px 30px rgba(139, 69, 19, 0.4)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                        this.style.boxShadow = '';
+                    }, 500);
+                });
+                
+                // Touch events for mobile
+                img.addEventListener('touchstart', function() {
+                    this.style.transform = 'perspective(1000px) rotateY(0deg) scale(1.05)';
+                    this.style.filter = 'sepia(0) brightness(1)';
+                });
+                
+                img.addEventListener('touchend', function() {
+                    this.style.transform = 'perspective(1000px) rotateY(0deg)';
+                });
+            });
+            
+            // Add decorative animation to significance titles
+            const sigTitles = document.querySelectorAll('.significance-title');
+            sigTitles.forEach(title => {
+                title.addEventListener('mouseenter', function() {
+                    this.style.animation = 'glow 1.5s infinite';
+                });
+                
+                title.addEventListener('mouseleave', function() {
+                    this.style.animation = '';
+                });
+            });
+        });
+    </script>
+     <script>
+        // Previous JavaScript remains the same
+        
+        // Footer Animation Script
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate footer elements on scroll
+            const animateFooter = function() {
+                const footerTitle = document.querySelector('.footer-title');
+                const quoteCards = document.querySelectorAll('.quote-card');
+                const archiveSection = document.querySelector('.archive-section');
+                
+                const footerPosition = document.querySelector('.leadership-footer').getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.5;
+                
+                if (footerPosition < screenPosition) {
+                    footerTitle.classList.add('visible');
+                    
+                    quoteCards.forEach((card, index) => {
+                        setTimeout(() => {
+                            card.classList.add('visible');
+                        }, index * 200);
+                    });
+                    
+                    archiveSection.classList.add('visible');
+                }
+            };
+            
+            // Initial check
+            animateFooter();
+            
+            // Check on scroll
+            window.addEventListener('scroll', animateFooter);
+            
+            // Generate random floating symbols
+            const floatingContainer = document.querySelector('.floating-symbols');
+            const symbols = ['crown', 'drum', 'chess-queen', 'landmark', 'scroll', 'shield-alt', 'star', 'tree', 'book', 'gem'];
+            
+            for (let i = 0; i < 12; i++) {
+                const symbol = document.createElement('div');
+                symbol.className = 'floating-symbol';
+                symbol.style.left = `${Math.random() * 100}%`;
+                symbol.style.animationDuration = `${15 + Math.random() * 20}s`;
+                symbol.style.animationDelay = `${Math.random() * 15}s`;
+                symbol.style.fontSize = `${1 + Math.random() * 2}rem`;
+                symbol.innerHTML = `<i class="fas fa-${symbols[Math.floor(Math.random() * symbols.length)]}"></i>`;
+                floatingContainer.appendChild(symbol);
+            }
+        });
+    </script>
+  
+</body>
+</html>

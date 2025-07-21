@@ -1,0 +1,2920 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kiziba Kingdom - Land & Environment</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    /* COPY THE EXACT SAME CSS FROM index.html HERE */
+    * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: #f5f5f5;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Navbar Styles */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #fff;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logo-icon {
+  width: 40px;
+  height: 40px;
+  background-color: #8B4513;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.2rem;
+}
+
+.logo-text h1 {
+  font-size: 1.5rem;
+  color: #8B4513;
+  font-weight: 600;
+}
+
+.logo-text h1 span {
+  font-weight: 800;
+}
+
+.logo-text p {
+  font-size: 0.8rem;
+  color: #A0522D;
+  margin-top: 0.2rem;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 1.5rem;
+}
+
+.nav-links li a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.nav-links li a:hover {
+  color: #8B4513;
+}
+
+.nav-links li a::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background-color: #8B4513;
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.nav-links li a:hover::after,
+.nav-links li a.active::after {
+  width: 70%;
+}
+
+.nav-links li a.active {
+  color: #8B4513;
+  font-weight: 600;
+}
+
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #8B4513;
+  cursor: pointer;
+}
+
+/* Mobile Drawer */
+.mobile-drawer {
+  position: fixed;
+  top: 0;
+  left: -100%;
+  width: 70%;
+  max-width: 300px;
+  height: 100vh;
+  background-color: #fff;
+  box-shadow: 2px 0 15px rgba(0, 0, 0, 0.15);
+  z-index: 1001;
+  transition: all 0.4s ease;
+  overflow-y: auto;
+}
+
+.mobile-drawer.show {
+  left: 0;
+}
+
+.drawer-header {
+  padding: 1.5rem;
+  background-color: #8B4513;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.drawer-header .logo {
+  gap: 0.8rem;
+}
+
+.drawer-header .logo-icon {
+  background-color: white;
+  color: #8B4513;
+}
+
+.drawer-header .logo-text h1 {
+  color: white;
+}
+
+.drawer-header .logo-text p {
+  color: #f0f0f0;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.drawer-links {
+  list-style: none;
+  padding: 1rem 0;
+}
+
+.drawer-links li a {
+  display: block;
+  padding: 1rem 1.5rem;
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border-left: 4px solid transparent;
+}
+
+.drawer-links li a:hover,
+.drawer-links li a.active {
+  background-color: #f9f9f9;
+  color: #8B4513;
+  border-left: 4px solid #8B4513;
+  padding-left: 2rem;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.overlay.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Page Content */
+.page-content {
+  flex: 1;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(to bottom, #f9f5e9, #fffdf8);
+  animation: 
+    fadeIn 0.8s ease,
+    contentGlow 12s infinite alternate;
+}
+
+/* Floating Nature Particles */
+.page-content::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(circle at 20% 30%, rgba(139, 69, 19, 0.08) 0%, transparent 25%),
+    radial-gradient(circle at 80% 70%, rgba(93, 140, 43, 0.08) 0%, transparent 25%);
+  animation: particleFlow 40s linear infinite;
+  z-index: 0;
+}
+
+.page-header {
+  color: #8B4513;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  font-size: 2.8rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  position: relative;
+  display: inline-block;
+  animation: 
+    textReveal 1.2s cubic-bezier(0.19, 1, 0.22, 1) forwards,
+    textShadowPulse 8s infinite alternate;
+  transform-style: preserve-3d;
+}
+
+.page-header::after {
+  content: "";
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, #8B4513, #5D8C2B, #8B4513);
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: underlineGrow 1.5s 0.6s cubic-bezier(0.87, 0, 0.13, 1) forwards;
+}
+
+.page-text {
+  line-height: 1.8;
+  color: #555;
+  margin-bottom: 1.8rem;
+  font-size: 1.1rem;
+  position: relative;
+  padding-left: 2rem;
+  animation: 
+    textBloom 1s var(--delay) forwards,
+    gentleFloat 15s infinite;
+  opacity: 0;
+}
+
+.page-text:nth-child(1) { --delay: 0.3s; }
+.page-text:nth-child(2) { --delay: 0.6s; }
+.page-text:nth-child(3) { --delay: 0.9s; }
+
+.page-text::before {
+  content: "❀";
+  position: absolute;
+  left: 0;
+  top: 0.2em;
+  color: #5D8C2B;
+  animation: 
+    floralSpin 8s infinite linear,
+    floralPulse 3s infinite alternate;
+}
+
+/* Keyframe Animations */
+@keyframes textReveal {
+  0% {
+    clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%);
+    opacity: 0;
+    transform: translateY(20px) rotateX(45deg);
+  }
+  100% {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+    opacity: 1;
+    transform: translateY(0) rotateX(0);
+  }
+}
+
+@keyframes textBloom {
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+  from {
+    opacity: 0;
+    filter: blur(5px);
+    transform: translateY(15px);
+  }
+}
+
+@keyframes underlineGrow {
+  to { transform: scaleX(1); }
+}
+
+@keyframes gentleFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+@keyframes floralSpin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes floralPulse {
+  to { transform: scale(1.2); opacity: 0.8; }
+}
+
+@keyframes particleFlow {
+  to { background-position: 1000px 500px, -800px -300px; }
+}
+
+@keyframes contentGlow {
+  0%, 100% { box-shadow: 0 0 0 rgba(245, 240, 230, 0); }
+  50% { box-shadow: 0 0 50px rgba(245, 240, 230, 0.6); }
+}
+
+@keyframes textShadowPulse {
+  0% { text-shadow: 0 0 0 rgba(139, 69, 19, 0.3); }
+  50% { 
+    text-shadow: 
+      0 0 10px rgba(139, 69, 19, 0.4),
+      0 0 20px rgba(93, 140, 43, 0.3);
+  }
+  100% { text-shadow: 0 0 5px rgba(139, 69, 19, 0.2); }
+}
+
+/* Hover Effects */
+.page-header:hover {
+  animation: 
+    textJiggle 0.3s ease,
+    textShadowPulse 4s infinite alternate;
+}
+
+@keyframes textJiggle {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-3px); }
+  75% { transform: translateX(3px); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .page-header {
+    font-size: 2.2rem;
+    animation: 
+      textReveal 1s forwards,
+      textShadowPulse 8s infinite alternate;
+  }
+  
+  .page-text {
+    padding-left: 1.5rem;
+    font-size: 1rem;
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .navbar {
+    padding: 1rem;
+  }
+  
+  .page-content {
+    padding: 1.5rem;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+:root {
+            --earth-brown: #8B4513;
+            --forest-green: #228B22;
+            --water-blue: #1E90FF;
+            --sun-gold: #FFD700;
+            --text-dark: #333;
+            --text-light: #f5f5f5;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f9f8f5;
+            overflow-x: hidden;
+        }
+        
+        /* Geography Section - Mind Blowing Container */
+        .geography-section {
+            position: relative;
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+        
+        /* Animated Background Elements */
+        .geography-bg-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .bg-hill {
+            position: absolute;
+            bottom: 0;
+            width: 300px;
+            height: 150px;
+            background: linear-gradient(to right, var(--earth-brown), #a67c52);
+            border-radius: 50% 50% 0 0;
+            animation: float 15s infinite ease-in-out;
+        }
+        
+        .bg-hill:nth-child(1) {
+            left: -50px;
+            width: 400px;
+            height: 200px;
+            animation-delay: 0s;
+        }
+        
+        .bg-hill:nth-child(2) {
+            left: 30%;
+            width: 350px;
+            height: 180px;
+            animation-delay: 2s;
+        }
+        
+        .bg-hill:nth-child(3) {
+            right: -50px;
+            width: 450px;
+            height: 220px;
+            animation-delay: 4s;
+        }
+        
+        .water-wave {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(to bottom, transparent, rgba(30, 144, 255, 0.2));
+            animation: wave 12s infinite linear;
+        }
+        
+        /* Section Header */
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        
+        .section-header h1 {
+            font-size: 3rem;
+            color: var(--earth-brown);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            position: relative;
+            display: inline-block;
+            animation: titleReveal 1.5s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+            opacity: 0;
+        }
+        
+        .section-header p {
+            font-size: 1.2rem;
+            color: var(--text-dark);
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+            animation: fadeInUp 1s 0.5s forwards;
+            opacity: 0;
+        }
+        
+        /* Geography Features Grid */
+        .geography-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .geography-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.5s ease;
+            position: relative;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            animation: cardReveal 1s var(--delay) forwards;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .geography-card:nth-child(1) { --delay: 0.3s; --card-color: var(--earth-brown); }
+        .geography-card:nth-child(2) { --delay: 0.6s; --card-color: var(--water-blue); }
+        .geography-card:nth-child(3) { --delay: 0.9s; --card-color: #5F9EA0; }
+        .geography-card:nth-child(4) { --delay: 1.2s; --card-color: var(--forest-green); }
+        
+        .geography-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--card-color);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.5s ease;
+        }
+        
+        .geography-card:hover {
+            transform: translateY(-10px) rotateX(5deg);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        .geography-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .card-icon {
+            font-size: 3rem;
+            color: var(--card-color);
+            margin-bottom: 1rem;
+            transition: all 0.5s ease;
+        }
+        
+        .geography-card:hover .card-icon {
+            transform: scale(1.2) rotate(10deg);
+        }
+        
+        .card-content {
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .card-content h2 {
+            font-size: 1.5rem;
+            color: var(--card-color);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .card-content h2::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--card-color);
+            transition: width 0.5s ease;
+        }
+        
+        .geography-card:hover .card-content h2::after {
+            width: 100%;
+        }
+        
+        .card-content p {
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+        
+        /* Mobile Navigation */
+        .mobile-nav {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50px;
+            padding: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            display: none;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+        
+        .mobile-nav ul {
+            display: flex;
+            list-style: none;
+            gap: 15px;
+        }
+        
+        .mobile-nav a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--earth-brown);
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .mobile-nav a:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 5px 15px rgba(139, 69, 19, 0.4);
+        }
+        
+        /* Animations */
+        @keyframes titleReveal {
+            0% {
+                clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%);
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+        }
+        
+        @keyframes cardReveal {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+        
+        @keyframes wave {
+            0% {
+                background-position-x: 0;
+            }
+            100% {
+                background-position-x: 1000px;
+            }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .geography-section {
+                padding: 3rem 1rem;
+            }
+            
+            .section-header h1 {
+                font-size: 2rem;
+            }
+            
+            .section-header p {
+                font-size: 1rem;
+            }
+            
+            .geography-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .mobile-nav {
+                display: block;
+            }
+        }
+        /* Natural Resources Color Scheme */
+        :root {
+            --medicine-purple: #9370DB;
+            --timber-brown: #A0522D;
+            --fish-blue: #4682B4;
+            --soil-gold: #DAA520;
+            --text-dark: #333;
+            --text-light: #f5f5f5;
+            --bg-ivory: #FFFFF0;
+        }
+        
+        /* Natural Resources Section */
+        .resources-section {
+            position: relative;
+            padding: 5rem 2rem;
+            background-color: var(--bg-ivory);
+            overflow: hidden;
+        }
+        
+        /* Animated Nature Background */
+        .resources-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.1;
+            background: 
+                radial-gradient(circle at 20% 30%, var(--medicine-purple), transparent 30%),
+                radial-gradient(circle at 80% 70%, var(--timber-brown), transparent 30%),
+                radial-gradient(circle at 50% 20%, var(--fish-blue), transparent 30%),
+                radial-gradient(circle at 30% 80%, var(--soil-gold), transparent 30%);
+            animation: bgPulse 20s infinite alternate;
+        }
+        
+        /* Section Header */
+        .resources-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .resources-header h2 {
+            font-size: 3rem;
+            color: var(--timber-brown);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            position: relative;
+            display: inline-block;
+            animation: 
+                textReveal 1.5s cubic-bezier(0.19, 1, 0.22, 1) forwards,
+                textGlow 8s infinite alternate;
+            opacity: 0;
+        }
+        
+        .resources-header p {
+            font-size: 1.2rem;
+            color: var(--text-dark);
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+            animation: fadeInUp 1s 0.5s forwards;
+            opacity: 0;
+        }
+        
+        /* Resources Grid */
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .resource-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.5s ease;
+            position: relative;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            animation: cardReveal 1s var(--delay) forwards;
+            opacity: 0;
+            transform: translateY(30px);
+            border-top: 5px solid var(--card-color);
+        }
+        
+        .resource-card:nth-child(1) { --delay: 0.3s; --card-color: var(--medicine-purple); }
+        .resource-card:nth-child(2) { --delay: 0.6s; --card-color: var(--timber-brown); }
+        .resource-card:nth-child(3) { --delay: 0.9s; --card-color: var(--fish-blue); }
+        .resource-card:nth-child(4) { --delay: 1.2s; --card-color: var(--soil-gold); }
+        
+        .resource-card:hover {
+            transform: translateY(-10px) rotateX(5deg);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        .card-header {
+            padding: 1.5rem;
+            background: linear-gradient(to right, rgba(255,255,255,0.9), rgba(255,255,255,0.7));
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--card-color), transparent);
+            opacity: 0.1;
+            z-index: 0;
+        }
+        
+        .card-icon {
+            font-size: 2.5rem;
+            color: var(--card-color);
+            margin-bottom: 1rem;
+            transition: all 0.5s ease;
+            display: inline-block;
+        }
+        
+        .resource-card:hover .card-icon {
+            transform: scale(1.2) rotate(10deg);
+            filter: drop-shadow(0 0 5px rgba(0,0,0,0.2));
+        }
+        
+        .card-title {
+            font-size: 1.5rem;
+            color: var(--card-color);
+            margin-bottom: 0.5rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .card-title::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--card-color);
+            transition: width 0.5s ease;
+        }
+        
+        .resource-card:hover .card-title::after {
+            width: 100%;
+        }
+        
+        .card-body {
+            padding: 0 1.5rem 1.5rem;
+        }
+        
+        .card-description {
+            color: var(--text-dark);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        
+        .card-details {
+            margin-top: 1rem;
+        }
+        
+        .detail-item {
+            margin-bottom: 0.8rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .detail-item::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--card-color);
+            font-weight: bold;
+        }
+        
+        .detail-label {
+            font-weight: bold;
+            color: var(--card-color);
+        }
+        
+        /* Floating Particles */
+        .particle {
+            position: absolute;
+            background: var(--particle-color);
+            border-radius: 50%;
+            animation: floatParticle var(--duration) infinite linear;
+            opacity: 0.6;
+        }
+        
+        /* Mobile Navigation */
+        .mobile-nav {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 50px;
+            padding: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            display: none;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+        
+        .mobile-nav ul {
+            display: flex;
+            list-style: none;
+            gap: 15px;
+        }
+        
+        .mobile-nav a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--timber-brown);
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .mobile-nav a:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 5px 15px rgba(139, 69, 19, 0.4);
+        }
+        
+        /* Animations */
+        @keyframes textReveal {
+            0% {
+                clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%);
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes textGlow {
+            0% { text-shadow: 0 0 5px rgba(160, 82, 45, 0.3); }
+            50% { text-shadow: 0 0 15px rgba(160, 82, 45, 0.5), 0 0 20px rgba(218, 165, 32, 0.4); }
+            100% { text-shadow: 0 0 10px rgba(160, 82, 45, 0.4); }
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+        }
+        
+        @keyframes cardReveal {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes bgPulse {
+            0% { transform: scale(1); opacity: 0.1; }
+            50% { transform: scale(1.05); opacity: 0.15; }
+            100% { transform: scale(1); opacity: 0.1; }
+        }
+        
+        @keyframes floatParticle {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-500px) translateX(100px);
+                opacity: 0;
+            }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .resources-section {
+                padding: 3rem 1rem;
+            }
+            
+            .resources-header h2 {
+                font-size: 2rem;
+            }
+            
+            .resources-header p {
+                font-size: 1rem;
+            }
+            
+            .resources-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .mobile-nav {
+                display: block;
+            }
+        }
+         /* Environmental Protection Color Scheme */
+        :root {
+            --tree-green: #2E8B57;
+            --soil-brown: #A0522D;
+            --water-blue: #1E90FF;
+            --wildlife-gold: #DAA520;
+            --text-dark: #333;
+            --text-light: #f5f5f5;
+            --bg-ecru: #F5F5DC;
+        }
+        
+        /* Environmental Section */
+        .environment-section {
+            position: relative;
+            padding: 5rem 2rem;
+            background-color: var(--bg-ecru);
+            overflow: hidden;
+        }
+        
+        /* Animated Nature Background */
+        .environment-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.08;
+            background: 
+                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M30 80 Q50 60 70 80" stroke="%232E8B57" fill="none" stroke-width="0.5"/><path d="M10 70 Q30 50 50 70" stroke="%232E8B57" fill="none" stroke-width="0.5"/><circle cx="20" cy="20" r="3" fill="%23A0522D" opacity="0.6"/><circle cx="80" cy="30" r="2" fill="%23A0522D" opacity="0.6"/></svg>');
+            animation: bgMove 40s infinite linear;
+        }
+        
+        /* Section Header */
+        .environment-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .environment-header h2 {
+            font-size: 3rem;
+            color: var(--tree-green);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            position: relative;
+            display: inline-block;
+            animation: 
+                textReveal 1.5s cubic-bezier(0.19, 1, 0.22, 1) forwards,
+                textGlow 8s infinite alternate;
+            opacity: 0;
+        }
+        
+        .environment-header p {
+            font-size: 1.2rem;
+            color: var(--text-dark);
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+            animation: fadeInUp 1s 0.5s forwards;
+            opacity: 0;
+        }
+        
+        /* Initiatives Timeline */
+        .initiatives-timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+        
+        .initiatives-timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--tree-green), var(--water-blue));
+            transform: translateX(-50%);
+            animation: lineGrow 2s ease-out forwards;
+        }
+        
+        .initiative-card {
+            position: relative;
+            margin-bottom: 4rem;
+            width: calc(50% - 2rem);
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.5s ease;
+            animation: cardReveal 1s var(--delay) forwards;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .initiative-card:nth-child(odd) {
+            left: 0;
+            --delay: 0.3s;
+            border-left: 5px solid var(--card-color);
+        }
+        
+        .initiative-card:nth-child(even) {
+            left: calc(50% + 2rem);
+            --delay: 0.6s;
+            border-right: 5px solid var(--card-color);
+        }
+        
+        .initiative-card:nth-child(1) { --card-color: var(--tree-green); }
+        .initiative-card:nth-child(2) { --card-color: var(--soil-brown); }
+        .initiative-card:nth-child(3) { --card-color: var(--water-blue); }
+        .initiative-card:nth-child(4) { --card-color: var(--wildlife-gold); }
+        
+        .initiative-card::before {
+            content: '';
+            position: absolute;
+            top: 2rem;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: var(--card-color);
+            box-shadow: 0 0 0 8px rgba(46, 139, 87, 0.2);
+            animation: pulse 2s infinite;
+        }
+        
+        .initiative-card:nth-child(odd)::before {
+            right: -47px;
+        }
+        
+        .initiative-card:nth-child(even)::before {
+            left: -47px;
+        }
+        
+        .initiative-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .initiative-icon {
+            font-size: 2.5rem;
+            color: var(--card-color);
+            margin-bottom: 1rem;
+            transition: all 0.5s ease;
+        }
+        
+        .initiative-card:hover .initiative-icon {
+            transform: scale(1.2) rotate(10deg);
+        }
+        
+        .initiative-title {
+            font-size: 1.5rem;
+            color: var(--card-color);
+            margin-bottom: 1rem;
+            position: relative;
+        }
+        
+        .initiative-title::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--card-color);
+            transition: width 0.5s ease;
+        }
+        
+        .initiative-card:hover .initiative-title::after {
+            width: 100%;
+        }
+        
+        .initiative-description {
+            color: var(--text-dark);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        
+        .initiative-details {
+            margin-top: 1rem;
+        }
+        
+        .detail-item {
+            margin-bottom: 0.8rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .detail-item::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--card-color);
+            font-weight: bold;
+        }
+        
+        .detail-label {
+            font-weight: bold;
+            color: var(--card-color);
+        }
+        
+        /* Progress Visualization */
+        .progress-visual {
+            height: 10px;
+            background: #eee;
+            border-radius: 5px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(to right, var(--card-color), var(--wildlife-gold));
+            width: 0;
+            animation: progressGrow 1.5s 0.5s forwards;
+        }
+        
+        /* Mobile Navigation */
+        .mobile-nav {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 50px;
+            padding: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            display: none;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+        
+        .mobile-nav ul {
+            display: flex;
+            list-style: none;
+            gap: 15px;
+        }
+        
+        .mobile-nav a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--tree-green);
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .mobile-nav a:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 5px 15px rgba(46, 139, 87, 0.4);
+        }
+        
+        /* Animations */
+        @keyframes textReveal {
+            0% {
+                clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%);
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes textGlow {
+            0% { text-shadow: 0 0 5px rgba(46, 139, 87, 0.3); }
+            50% { text-shadow: 0 0 15px rgba(46, 139, 87, 0.5), 0 0 20px rgba(30, 144, 255, 0.4); }
+            100% { text-shadow: 0 0 10px rgba(46, 139, 87, 0.4); }
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+        }
+        
+        @keyframes cardReveal {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes bgMove {
+            to {
+                background-position: 1000px 500px;
+            }
+        }
+        
+        @keyframes lineGrow {
+            from { height: 0; }
+            to { height: 100%; }
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 8px rgba(46, 139, 87, 0.2); }
+            50% { box-shadow: 0 0 0 12px rgba(46, 139, 87, 0.1); }
+            100% { box-shadow: 0 0 0 8px rgba(46, 139, 87, 0.2); }
+        }
+        
+        @keyframes progressGrow {
+            from { width: 0; }
+            to { width: var(--progress); }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .environment-section {
+                padding: 3rem 1rem;
+            }
+            
+            .environment-header h2 {
+                font-size: 2rem;
+            }
+            
+            .environment-header p {
+                font-size: 1rem;
+            }
+            
+            .initiatives-timeline::before {
+                left: 2rem;
+            }
+            
+            .initiative-card {
+                width: calc(100% - 4rem);
+                margin-left: 2rem;
+            }
+            
+            .initiative-card:nth-child(even) {
+                left: 0;
+            }
+            
+            .initiative-card::before {
+                left: -37px !important;
+                right: auto !important;
+            }
+            
+            .mobile-nav {
+                display: block;
+            }
+        }
+          /* Sacred Sites Color Scheme */
+        :root {
+            --forest-green: #228B22;
+            --sacred-gold: #D4AF37;
+            --water-blue: #1E90FF;
+            --earth-brown: #8B4513;
+            --text-dark: #333;
+            --text-light: #f5f5f5;
+            --bg-parchment: #F5ECD7;
+        }
+        
+        /* Sacred Sites Section */
+        .sacred-section {
+            position: relative;
+            padding: 5rem 2rem;
+            background-color: var(--bg-parchment);
+            overflow: hidden;
+        }
+        
+        /* Animated Spiritual Background */
+        .sacred-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.05;
+            background: 
+                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M50 10 L60 40 L90 40 L65 60 L75 90 L50 70 L25 90 L35 60 L10 40 L40 40 Z" fill="%23D4AF37" opacity="0.3"/><path d="M20 20 Q30 10 40 20 T60 20" stroke="%23228B22" fill="none" stroke-width="0.3"/></svg>');
+            animation: sacredFloat 60s infinite linear;
+        }
+        
+        /* Section Header */
+        .sacred-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .sacred-header h2 {
+            font-size: 3rem;
+            color: var(--sacred-gold);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            position: relative;
+            display: inline-block;
+            animation: 
+                textReveal 1.5s cubic-bezier(0.19, 1, 0.22, 1) forwards,
+                textGlow 8s infinite alternate;
+            opacity: 0;
+        }
+        
+        .sacred-header p {
+            font-size: 1.2rem;
+            color: var(--text-dark);
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+            animation: fadeInUp 1s 0.5s forwards;
+            opacity: 0;
+        }
+        
+        /* Sacred Sites Gallery */
+        .sacred-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .sacred-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.5s ease;
+            position: relative;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            animation: cardReveal 1s var(--delay) forwards;
+            opacity: 0;
+            transform: translateY(30px);
+            border-top: 5px solid var(--card-color);
+        }
+        
+        .sacred-card:nth-child(1) { --delay: 0.3s; --card-color: var(--forest-green); }
+        .sacred-card:nth-child(2) { --delay: 0.6s; --card-color: var(--sacred-gold); }
+        .sacred-card:nth-child(3) { --delay: 0.9s; --card-color: var(--water-blue); }
+        .sacred-card:nth-child(4) { --delay: 1.2s; --card-color: var(--earth-brown); }
+        
+        .card-image {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+        
+        .sacred-card:hover .card-image img {
+            transform: scale(1.1);
+        }
+        
+        .card-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.1));
+        }
+        
+        .card-content {
+            padding: 1.5rem;
+        }
+        
+        .sacred-icon {
+            font-size: 2rem;
+            color: var(--card-color);
+            margin-bottom: 1rem;
+            transition: all 0.5s ease;
+        }
+        
+        .sacred-card:hover .sacred-icon {
+            transform: scale(1.3) rotate(15deg);
+        }
+        
+        .sacred-title {
+            font-size: 1.5rem;
+            color: var(--card-color);
+            margin-bottom: 1rem;
+            position: relative;
+        }
+        
+        .sacred-title::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--card-color);
+            transition: width 0.5s ease;
+        }
+        
+        .sacred-card:hover .sacred-title::after {
+            width: 100%;
+        }
+        
+        .sacred-description {
+            color: var(--text-dark);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        
+        .sacred-details {
+            margin-top: 1rem;
+        }
+        
+        .detail-item {
+            margin-bottom: 0.8rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .detail-item::before {
+            content: '❖';
+            position: absolute;
+            left: 0;
+            color: var(--card-color);
+        }
+        
+        .detail-label {
+            font-weight: bold;
+            color: var(--card-color);
+        }
+        
+        /* Floating Spiritual Symbols */
+        .spirit-symbol {
+            position: absolute;
+            font-size: 1.5rem;
+            color: var(--symbol-color);
+            opacity: 0;
+            animation: floatSymbol var(--duration) infinite linear;
+            z-index: 0;
+        }
+        
+        /* Mobile Navigation */
+        .mobile-nav {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 50px;
+            padding: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            display: none;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+        
+        .mobile-nav ul {
+            display: flex;
+            list-style: none;
+            gap: 15px;
+        }
+        
+        .mobile-nav a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--sacred-gold);
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .mobile-nav a:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+        }
+        
+        /* Animations */
+        @keyframes textReveal {
+            0% {
+                clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%);
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes textGlow {
+            0% { text-shadow: 0 0 5px rgba(212, 175, 55, 0.3); }
+            50% { text-shadow: 0 0 15px rgba(212, 175, 55, 0.5), 0 0 20px rgba(34, 139, 34, 0.4); }
+            100% { text-shadow: 0 0 10px rgba(212, 175, 55, 0.4); }
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+        }
+        
+        @keyframes cardReveal {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes sacredFloat {
+            to {
+                background-position: 1000px 500px;
+            }
+        }
+        
+        @keyframes floatSymbol {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .sacred-section {
+                padding: 3rem 1rem;
+            }
+            
+            .sacred-header h2 {
+                font-size: 2rem;
+            }
+            
+            .sacred-header p {
+                font-size: 1rem;
+            }
+            
+            .sacred-gallery {
+                grid-template-columns: 1fr;
+            }
+            
+            .mobile-nav {
+                display: block;
+            }
+        }
+        /* Footer Color Scheme */
+        :root {
+            --conservation-green: #2E8B57;
+            --gold-accent: #D4AF37;
+            --text-light: #f5f5f5;
+            --text-dark: #333;
+        }
+        
+        /* Conservation Footer */
+        .conservation-footer {
+            position: relative;
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, var(--conservation-green), #1E5631);
+            color: var(--text-light);
+            text-align: center;
+            overflow: hidden;
+        }
+        
+        /* Animated Nature Background */
+        .footer-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M30 80 Q50 60 70 80" stroke="%23D4AF37" fill="none" stroke-width="0.5" opacity="0.3"/><circle cx="20" cy="20" r="2" fill="%23D4AF37" opacity="0.4"/><circle cx="80" cy="30" r="1.5" fill="%23D4AF37" opacity="0.4"/></svg>');
+            opacity: 0.1;
+            animation: bgMove 40s infinite linear;
+            z-index: 0;
+        }
+        
+        .footer-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .footer-title {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: 
+                textReveal 1.5s cubic-bezier(0.19, 1, 0.22, 1) forwards,
+                textGlow 8s infinite alternate;
+            opacity: 0;
+        }
+        
+        .footer-text {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s 0.5s forwards;
+            opacity: 0;
+        }
+        
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .action-btn {
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            animation: btnReveal 1s var(--delay) forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        .volunteer-btn {
+            background-color: var(--gold-accent);
+            color: var(--text-dark);
+            --delay: 0.3s;
+        }
+        
+        .learn-btn {
+            background-color: transparent;
+            color: var(--text-light);
+            border: 2px solid var(--gold-accent);
+            --delay: 0.6s;
+        }
+        
+        .action-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .action-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+        
+        .action-btn:hover::before {
+            transform: translateX(100%);
+        }
+        
+        /* Modal for Learn More */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+            transform: translateY(50px);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        .modal-overlay.active .modal-content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--conservation-green);
+            transition: transform 0.3s ease;
+        }
+        
+        .modal-close:hover {
+            transform: rotate(90deg);
+        }
+        
+        .modal-title {
+            color: var(--conservation-green);
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+        
+        .modal-text {
+            color: var(--text-dark);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        
+        /* Floating Leaves */
+        .floating-leaf {
+            position: absolute;
+            font-size: 1.5rem;
+            color: var(--gold-accent);
+            opacity: 0;
+            animation: floatLeaf var(--duration) infinite linear;
+            z-index: 0;
+        }
+        
+        /* Animations */
+        @keyframes textReveal {
+            0% {
+                clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%);
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes textGlow {
+            0% { text-shadow: 0 0 5px rgba(212, 175, 55, 0.3); }
+            50% { text-shadow: 0 0 15px rgba(212, 175, 55, 0.5), 0 0 20px rgba(46, 139, 87, 0.4); }
+            100% { text-shadow: 0 0 10px rgba(212, 175, 55, 0.4); }
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+        }
+        
+        @keyframes btnReveal {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes bgMove {
+            to {
+                background-position: 1000px 500px;
+            }
+        }
+        
+        @keyframes floatLeaf {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .footer-title {
+                font-size: 2rem;
+            }
+            
+            .footer-text {
+                font-size: 1rem;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .action-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+  </style>
+</head>
+<body>
+  <!-- COPY THE EXACT SAME NAVBAR FROM index.html HERE -->
+   <nav class="navbar">
+    <div class="logo">
+      <div class="logo-icon">
+        <i class="fas fa-crown"></i>
+      </div>
+      <div class="logo-text">
+        <h1>Kiziba <span>Kingdom</span></h1>
+        <p>Heritage Portal</p>
+      </div>
+    </div>
+
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="leadership.html">Leadership</a></li>
+      <li><a href="cultural.html">Cultural Heritage</a></li>
+      <li><a href="livelihood.html">Livelihood & Economy</a></li>
+      <li><a href="land.html">Land & Environment</a></li>
+      <li><a href="media.html">Media</a></li>
+    </ul>
+
+    <button class="menu-toggle" id="menuToggle">
+      <i class="fas fa-bars"></i>
+    </button>
+  </nav>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-drawer" id="mobileDrawer">
+    <div class="drawer-header">
+      <div class="logo">
+        <div class="logo-icon">
+          <i class="fas fa-crown"></i>
+        </div>
+        <div class="logo-text">
+          <h1>Kiziba <span>Kingdom</span></h1>
+          <p>Heritage Portal</p>
+        </div>
+      </div>
+      <button class="close-btn" id="closeDrawer">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+
+    <ul class="drawer-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="leadership.html">Leadership</a></li>
+      <li><a href="cultural.html">Cultural Heritage</a></li>
+      <li><a href="livelihood.html">Livelihood & Economy</a></li>
+      <li><a href="land.html">Land & Environment</a></li>
+      <li><a href="media.html">Media</a></li>
+    </ul>
+  </div>
+
+  
+  <!-- COPY THE EXACT SAME MOBILE DRAWER FROM index.html HERE -->
+
+  <!-- Overlay -->
+  <div class="overlay" id="overlay"></div>
+
+  <!-- Page Content -->
+  <div class="page-content">
+    <h1 class="page-header">Land & Environment</h1>
+    <p class="page-text">Our sacred lands and the environmental conservation efforts that protect them.</p>
+    <p class="page-text">We maintain a deep connection to our ancestral lands and practice sustainable environmental stewardship.</p>
+  </div>
+  <section class="geography-section">
+        <div class="geography-bg-elements">
+            <div class="bg-hill"></div>
+            <div class="bg-hill"></div>
+            <div class="bg-hill"></div>
+            <div class="water-wave"></div>
+        </div>
+        
+        <div class="section-header">
+            <h1>Geography Overview</h1>
+            <p>Our kingdom is blessed with diverse landscapes that provide both beauty and resources for our people.</p>
+        </div>
+        
+        <div class="geography-grid">
+            <div class="geography-card">
+                <div class="card-content">
+                    <i class="fas fa-mountain card-icon"></i>
+                    <h2>Rolling Hills</h2>
+                    <p>Scenic hills and valleys that provide ideal conditions for agriculture and livestock.</p>
+                </div>
+            </div>
+            
+            <div class="geography-card">
+                <div class="card-content">
+                    <i class="fas fa-water card-icon"></i>
+                    <h2>Lake Victoria Access</h2>
+                    <p>Proximity to Africa's largest lake provides fishing opportunities and water resources.</p>
+                </div>
+            </div>
+            
+            <div class="geography-card">
+                <div class="card-content">
+                    <i class="fas fa-river card-icon"></i>
+                    <h2>River Systems</h2>
+                    <p>Multiple rivers flowing through the kingdom provide irrigation and transportation.</p>
+                </div>
+            </div>
+            
+            <div class="geography-card">
+                <div class="card-content">
+                    <i class="fas fa-tree card-icon"></i>
+                    <h2>Forest Reserves</h2>
+                    <p>Protected forest areas that preserve biodiversity and traditional medicinal plants.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Navigation -->
+        <nav class="mobile-nav">
+            <ul>
+                <li><a href="#"><i class="fas fa-home"></i></a></li>
+                <li><a href="#"><i class="fas fa-map-marked-alt"></i></a></li>
+                <li><a href="#"><i class="fas fa-info-circle"></i></a></li>
+                <li><a href="#"><i class="fas fa-envelope"></i></a></li>
+            </ul>
+        </nav>
+    </section>
+     <section class="resources-section">
+        <div class="resources-bg"></div>
+        
+        <!-- Floating Particles -->
+        <div id="particles-container"></div>
+        
+        <div class="resources-header">
+            <h2>Natural Resources</h2>
+            <p>Our land provides abundant resources that we manage sustainably for current and future generations</p>
+        </div>
+        
+        <div class="resources-grid">
+            <div class="resource-card">
+                <div class="card-header">
+                    <i class="fas fa-leaf card-icon"></i>
+                    <h3 class="card-title">Medicinal Plants</h3>
+                </div>
+                <div class="card-body">
+                    <p class="card-description">Over 150 species of traditional medicinal plants used by healers for centuries in Kiziba Kingdom.</p>
+                    <div class="card-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Uses:</span> Traditional medicine, cultural ceremonies, modern pharmacology research
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Conservation:</span> 12 protected cultivation areas established across the kingdom
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Notable Species:</span> Kiziba healing fern, Royal medicinal orchid
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="resource-card">
+                <div class="card-header">
+                    <i class="fas fa-tree card-icon"></i>
+                    <h3 class="card-title">Timber Resources</h3>
+                </div>
+                <div class="card-body">
+                    <p class="card-description">Sustainable forestry providing materials for construction and traditional crafts in Kiziba.</p>
+                    <div class="card-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Uses:</span> Building materials, craft production, fuel, furniture
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Conservation:</span> Regulated harvesting with mandatory replanting programs
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Key Species:</span> Kiziba mahogany, Royal ebony
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="resource-card">
+                <div class="card-header">
+                    <i class="fas fa-fish card-icon"></i>
+                    <h3 class="card-title">Fish Populations</h3>
+                </div>
+                <div class="card-body">
+                    <p class="card-description">Abundant freshwater fish species in Lake Victoria and our river systems.</p>
+                    <div class="card-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Uses:</span> Local consumption, commercial fishing, tourism
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Conservation:</span> Seasonal fishing bans, protected breeding zones
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Key Species:</span> Nile perch, Kiziba tilapia, Royal carp
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="resource-card">
+                <div class="card-header">
+                    <i class="fas fa-seedling card-icon"></i>
+                    <h3 class="card-title">Fertile Soil</h3>
+                </div>
+                <div class="card-body">
+                    <p class="card-description">Rich volcanic soils supporting diverse agriculture across Kiziba Kingdom.</p>
+                    <div class="card-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Uses:</span> Crop cultivation, tea plantations, coffee farms
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Conservation:</span> Crop rotation, terracing, organic farming initiatives
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Key Products:</span> Royal tea, Kiziba coffee, organic vegetables
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Navigation -->
+        <nav class="mobile-nav">
+            <ul>
+                <li><a href="#"><i class="fas fa-home"></i></a></li>
+                <li><a href="#"><i class="fas fa-leaf"></i></a></li>
+                <li><a href="#"><i class="fas fa-water"></i></a></li>
+                <li><a href="#"><i class="fas fa-info-circle"></i></a></li>
+            </ul>
+        </nav>
+    </section>
+    <section class="environment-section">
+        <div class="environment-bg"></div>
+        
+        <div class="environment-header">
+            <h2>Environmental Protection Initiatives</h2>
+            <p>Community-led conservation efforts that protect our environment while supporting livelihoods in Kiziba Kingdom</p>
+        </div>
+        
+        <div class="initiatives-timeline">
+            <!-- Tree Planting Campaign -->
+            <div class="initiative-card">
+                <i class="fas fa-tree initiative-icon"></i>
+                <h3 class="initiative-title">Royal Tree Planting Campaign</h3>
+                <p class="initiative-description">Annual initiative to plant 10,000 native trees across the kingdom to combat deforestation and restore ecosystems.</p>
+                
+                <div class="progress-visual">
+                    <div class="progress-bar" style="--progress: 85%"></div>
+                </div>
+                
+                <div class="initiative-details">
+                    <div class="detail-item">
+                        <span class="detail-label">Impact:</span> 78,500 trees planted since 2018 (157% of target)
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Participants:</span> 120 schools, 45 communities, 8 local organizations
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Key Species:</span> Kiziba mahogany, Royal ebony, Sacred fig
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Future Goal:</span> Establish 5 new urban forests by 2026
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Anti-Erosion Farming -->
+            <div class="initiative-card">
+                <i class="fas fa-mountain initiative-icon"></i>
+                <h3 class="initiative-title">Sustainable Farming Program</h3>
+                <p class="initiative-description">Teaching farmers contour plowing, terracing, and agroforestry to prevent soil erosion and improve yields.</p>
+                
+                <div class="progress-visual">
+                    <div class="progress-bar" style="--progress: 60%"></div>
+                </div>
+                
+                <div class="initiative-details">
+                    <div class="detail-item">
+                        <span class="detail-label">Impact:</span> 60% reduction in soil loss, 25% increase in crop yields
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Participants:</span> 1,200 farmers across 45 cooperatives
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Techniques:</span> Stone terraces, vetiver grass barriers, crop rotation
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Expansion:</span> Training 300 new farmers annually
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Water Conservation -->
+            <div class="initiative-card">
+                <i class="fas fa-tint initiative-icon"></i>
+                <h3 class="initiative-title">River Protection Initiative</h3>
+                <p class="initiative-description">Community monitoring and restoration of Kiziba's river systems to ensure clean water for all.</p>
+                
+                <div class="progress-visual">
+                    <div class="progress-bar" style="--progress: 75%"></div>
+                </div>
+                
+                <div class="initiative-details">
+                    <div class="detail-item">
+                        <span class="detail-label">Impact:</span> 8 rivers cleaned, 12km of riparian buffers established
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Participants:</span> Riverine communities, youth groups, local government
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Achievements:</span> 90% reduction in illegal dumping
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Future Projects:</span> Construct 3 new community water reservoirs
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Wildlife Protection -->
+            <div class="initiative-card">
+                <i class="fas fa-paw initiative-icon"></i>
+                <h3 class="initiative-title">Wildlife Corridor Project</h3>
+                <p class="initiative-description">Creating safe passages for elephants and other wildlife between protected areas.</p>
+                
+                <div class="progress-visual">
+                    <div class="progress-bar" style="--progress: 45%"></div>
+                </div>
+                
+                <div class="initiative-details">
+                    <div class="detail-item">
+                        <span class="detail-label">Impact:</span> 15km of corridors established, 30% reduction in human-wildlife conflict
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Participants:</span> Conservation NGOs, local communities, tourism operators
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Key Species:</span> Forest elephants, Kiziba antelope, Royal leopard
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Future Plans:</span> Expand to connect 3 national parks by 2027
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Navigation -->
+        <nav class="mobile-nav">
+            <ul>
+                <li><a href="#"><i class="fas fa-home"></i></a></li>
+                <li><a href="#"><i class="fas fa-tree"></i></a></li>
+                <li><a href="#"><i class="fas fa-tint"></i></a></li>
+                <li><a href="#"><i class="fas fa-info-circle"></i></a></li>
+            </ul>
+        </nav>
+    </section>
+    <section class="sacred-section">
+        <div class="sacred-bg"></div>
+        
+        <!-- Floating Spiritual Symbols -->
+        <div id="symbols-container"></div>
+        
+        <div class="sacred-header">
+            <h2>Sacred Sites</h2>
+            <p>Special places where spiritual traditions and environmental conservation come together in Kiziba Kingdom</p>
+        </div>
+        
+        <div class="sacred-gallery">
+            <!-- Kiziba Royal Forest -->
+            <div class="sacred-card">
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1448375240586-882707db888b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Kiziba Royal Forest">
+                </div>
+                <div class="card-content">
+                    <i class="fas fa-tree sacred-icon"></i>
+                    <h3 class="sacred-title">Kiziba Royal Forest</h3>
+                    <p class="sacred-description">Ancient 500-hectare forest reserved for royal ceremonies and spiritual practices, home to 27 rare plant species found nowhere else in the world.</p>
+                    <div class="sacred-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Significance:</span> Spiritual center for royal coronations and biodiversity hotspot with 98% endemic species
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Protection:</span> Traditional taboos enforced by royal guards and modern UNESCO World Heritage status
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Unique Feature:</span> Contains the 800-year-old "King's Oak" where coronation rituals are performed
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Access:</span> Restricted to royal family and initiated priests except during annual public blessing ceremony
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sacred Groves -->
+            <div class="sacred-card">
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1476231682828-37e571bc172f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Sacred Groves">
+                </div>
+                <div class="card-content">
+                    <i class="fas fa-place-of-worship sacred-icon"></i>
+                    <h3 class="sacred-title">Sacred Groves Network</h3>
+                    <p class="sacred-description">87 small forests preserved around shrines and burial sites throughout the kingdom, forming an ecological and spiritual network.</p>
+                    <div class="sacred-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Significance:</span> Burial sites of past kings and spiritual leaders, considered portals to the ancestral world
+                        </div>
+                        <div class="detail-label">Protection:</span> Maintained by hereditary guardian families following 12th century traditions
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Ecological Role:</span> Serves as biodiversity corridors between larger protected areas
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Cultural Practice:</span> Annual "Greeting the Ancestors" ceremony performed at each grove
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Ancestral Springs -->
+            <div class="sacred-card">
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1505118380757-91f5f5632de0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Ancestral Springs">
+                </div>
+                <div class="card-content">
+                    <i class="fas fa-water sacred-icon"></i>
+                    <h3 class="sacred-title">Ancestral Springs</h3>
+                    <p class="sacred-description">23 sacred water sources believed to be blessed by ancestors, used for purification rituals and traditional healing ceremonies.</p>
+                    <div class="sacred-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Significance:</span> Spiritual cleansing and traditional healing ceremonies dating back to 10th century
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Protection:</span> Community guardianship system with strict access restrictions
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Healing Properties:</span> Scientifically proven mineral-rich waters with therapeutic benefits
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Annual Ritual:</span> "Waters of Renewal" ceremony attended by thousands
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Ceremonial Hilltops -->
+            <div class="sacred-card">
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Ceremonial Hilltops">
+                </div>
+                <div class="card-content">
+                    <i class="fas fa-mountain sacred-icon"></i>
+                    <h3 class="sacred-title">Royal Ceremonial Hilltops</h3>
+                    <p class="sacred-description">7 elevated sites used for royal ceremonies and astronomical observations, offering panoramic views of the kingdom.</p>
+                    <div class="sacred-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Significance:</span> Venues for royal declarations and celestial observation rituals
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Archaeological Finds:</span> 12th century astronomical carvings aligned with solstices
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Protection:</span> Royal decree prohibits construction within 5km radius
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Notable Site:</span> "Lion's Head" hill where new kings receive ancestral blessings
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Navigation -->
+        <nav class="mobile-nav">
+            <ul>
+                <li><a href="#"><i class="fas fa-home"></i></a></li>
+                <li><a href="#"><i class="fas fa-mountain"></i></a></li>
+                <li><a href="#"><i class="fas fa-water"></i></a></li>
+                <li><a href="#"><i class="fas fa-info-circle"></i></a></li>
+            </ul>
+        </nav>
+    </section>
+     <footer class="conservation-footer">
+        <div class="footer-bg"></div>
+        
+        <!-- Floating Leaves -->
+        <div id="leaves-container"></div>
+        
+        <div class="footer-content">
+            <h2 class="footer-title">Join Our Conservation Efforts</h2>
+            <p class="footer-text">Be part of preserving Kiziba Kingdom's natural heritage for future generations. Every action counts in our mission to protect our environment.</p>
+            
+            <div class="action-buttons">
+                <a href="https://wa.me/+255746210442?text=I%20want%20to%20volunteer%20for%20Kiziba%20Kingdom%20conservation" class="action-btn volunteer-btn">
+                    <i class="fab fa-whatsapp"></i>
+                    Volunteer with Us
+                </a>
+                
+                <button id="learnBtn" class="action-btn learn-btn">
+                    <i class="fas fa-book-open"></i>
+                    Learn More
+                </button>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Learn More Modal -->
+    <div id="learnModal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <h3 class="modal-title">Discover How You Can Help</h3>
+            <p class="modal-text">Our conservation programs offer multiple ways to get involved:</p>
+            <ul style="color: var(--text-dark); line-height: 1.6; margin-bottom: 1.5rem;">
+                <li><strong>Community Education:</strong> Join our outreach programs teaching sustainable practices</li>
+                <li><strong>Eco-Tourism:</strong> Participate in guided conservation tours</li>
+                <li><strong>Research:</strong> Contribute to our biodiversity monitoring initiatives</li>
+                <li><strong>Donations:</strong> Support our work through financial contributions</li>
+            </ul>
+            <p class="modal-text">Sign up for our newsletter to receive updates on upcoming events and volunteer opportunities.</p>
+            <button style="background: var(--conservation-green); color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 50px; font-weight: 600; cursor: pointer; transition: all 0.3s ease;">
+                Subscribe Now
+            </button>
+        </div>
+    </div>
+
+
+  <script>
+    // COPY THE EXACT SAME JAVASCRIPT FROM index.html HERE
+    // DOM Elements
+const menuToggle = document.getElementById('menuToggle');
+const mobileDrawer = document.getElementById('mobileDrawer');
+const closeDrawer = document.getElementById('closeDrawer');
+const overlay = document.getElementById('overlay');
+
+// Toggle Drawer
+function toggleDrawer() {
+  mobileDrawer.classList.toggle('show');
+  overlay.classList.toggle('show');
+  document.body.style.overflow = mobileDrawer.classList.contains('show') ? 'hidden' : 'auto';
+}
+
+// Event Listeners
+menuToggle.addEventListener('click', toggleDrawer);
+closeDrawer.addEventListener('click', toggleDrawer);
+overlay.addEventListener('click', toggleDrawer);
+
+// Highlight active link based on current page
+function setActiveLink() {
+  const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+  
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.classList.remove('active');
+    if (link.getAttribute('href') === currentPage) {
+      link.classList.add('active');
+    }
+  });
+  
+  document.querySelectorAll('.drawer-links a').forEach(link => {
+    link.classList.remove('active');
+    if (link.getAttribute('href') === currentPage) {
+      link.classList.add('active');
+    }
+  });
+}
+
+// Initialize
+setActiveLink();
+  </script>
+  
+    <script>
+        // Enhanced Interactive Elements
+        document.addEventListener('DOMContentLoaded', function() {
+            // Parallax effect for background elements
+            window.addEventListener('scroll', function() {
+                const scrollPosition = window.scrollY;
+                const bgElements = document.querySelector('.geography-bg-elements');
+                bgElements.style.transform = `translateY(${scrollPosition * 0.3}px)`;
+            });
+            
+            // Card hover effects with GSAP-like animation
+            const cards = document.querySelectorAll('.geography-card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transition = 'all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transition = 'all 0.5s ease';
+                });
+            });
+            
+            // Mobile navigation active state
+            const navLinks = document.querySelectorAll('.mobile-nav a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    navLinks.forEach(l => l.style.backgroundColor = 'var(--earth-brown)');
+                    this.style.backgroundColor = 'var(--sun-gold)';
+                    this.style.color = 'var(--text-dark)';
+                    
+                    // Add a ripple effect
+                    const ripple = document.createElement('span');
+                    ripple.classList.add('ripple');
+                    this.appendChild(ripple);
+                    
+                    setTimeout(() => {
+                        ripple.remove();
+                    }, 600);
+                });
+            });
+            
+            // Animate cards when they come into view
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationPlayState = 'running';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            cards.forEach(card => {
+                card.style.animationPlayState = 'paused';
+                observer.observe(card);
+            });
+        });
+    </script>
+    <script>
+        // Create floating particles
+        function createParticles() {
+            const container = document.getElementById('particles-container');
+            const colors = ['#9370DB', '#A0522D', '#4682B4', '#DAA520'];
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random properties
+                const size = Math.random() * 8 + 2;
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100 + 100;
+                const duration = Math.random() * 20 + 10;
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${posX}%`;
+                particle.style.top = `${posY}%`;
+                particle.style.setProperty('--particle-color', color);
+                particle.style.setProperty('--duration', `${duration}s`);
+                
+                container.appendChild(particle);
+            }
+        }
+        
+        // Initialize everything when DOM loads
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            
+            // Parallax effect
+            window.addEventListener('scroll', function() {
+                const scrollPosition = window.scrollY;
+                const bg = document.querySelector('.resources-bg');
+                bg.style.transform = `translateY(${scrollPosition * 0.2}px)`;
+            });
+            
+            // Card hover effects
+            const cards = document.querySelectorAll('.resource-card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transition = 'all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transition = 'all 0.5s ease';
+                });
+            });
+            
+            // Mobile navigation active state
+            const navLinks = document.querySelectorAll('.mobile-nav a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    navLinks.forEach(l => l.style.backgroundColor = 'var(--timber-brown)');
+                    this.style.backgroundColor = 'var(--soil-gold)';
+                    this.style.color = 'var(--text-dark)';
+                    
+                    // Ripple effect
+                    const ripple = document.createElement('span');
+                    ripple.classList.add('ripple');
+                    this.appendChild(ripple);
+                    
+                    setTimeout(() => {
+                        ripple.remove();
+                    }, 600);
+                });
+            });
+            
+            // Animate cards when they come into view
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationPlayState = 'running';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            cards.forEach(card => {
+                card.style.animationPlayState = 'paused';
+                observer.observe(card);
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Parallax effect
+            window.addEventListener('scroll', function() {
+                const scrollPosition = window.scrollY;
+                const bg = document.querySelector('.environment-bg');
+                bg.style.transform = `translateY(${scrollPosition * 0.2}px)`;
+            });
+            
+            // Card hover effects
+            const cards = document.querySelectorAll('.initiative-card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transition = 'all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transition = 'all 0.5s ease';
+                });
+            });
+            
+            // Mobile navigation active state
+            const navLinks = document.querySelectorAll('.mobile-nav a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    navLinks.forEach(l => l.style.backgroundColor = 'var(--tree-green)');
+                    this.style.backgroundColor = 'var(--wildlife-gold)';
+                    this.style.color = 'var(--text-dark)';
+                    
+                    // Ripple effect
+                    const ripple = document.createElement('span');
+                    ripple.classList.add('ripple');
+                    this.appendChild(ripple);
+                    
+                    setTimeout(() => {
+                        ripple.remove();
+                    }, 600);
+                });
+            });
+            
+            // Animate cards when they come into view
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationPlayState = 'running';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            cards.forEach(card => {
+                card.style.animationPlayState = 'paused';
+                observer.observe(card);
+            });
+        });
+    </script>
+    <script>
+        // Create floating spiritual symbols
+        function createSpiritSymbols() {
+            const container = document.getElementById('symbols-container');
+            const symbols = ['✻', '❂', '✺', '✤', '✷'];
+            const colors = ['#228B22', '#D4AF37', '#1E90FF', '#8B4513'];
+            const symbolCount = 15;
+            
+            for (let i = 0; i < symbolCount; i++) {
+                const symbol = document.createElement('div');
+                symbol.classList.add('spirit-symbol');
+                
+                // Random properties
+                const size = Math.random() * 20 + 10;
+                const posX = Math.random() * 100;
+                const delay = Math.random() * 5;
+                const duration = Math.random() * 30 + 20;
+                const symbolChar = symbols[Math.floor(Math.random() * symbols.length)];
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                
+                symbol.textContent = symbolChar;
+                symbol.style.fontSize = `${size}px`;
+                symbol.style.left = `${posX}%`;
+                symbol.style.top = `${Math.random() * 100 + 100}%`;
+                symbol.style.setProperty('--symbol-color', color);
+                symbol.style.setProperty('--duration', `${duration}s`);
+                symbol.style.animationDelay = `${delay}s`;
+                
+                container.appendChild(symbol);
+            }
+        }
+        
+        // Initialize everything when DOM loads
+        document.addEventListener('DOMContentLoaded', function() {
+            createSpiritSymbols();
+            
+            // Parallax effect
+            window.addEventListener('scroll', function() {
+                const scrollPosition = window.scrollY;
+                const bg = document.querySelector('.sacred-bg');
+                bg.style.transform = `translateY(${scrollPosition * 0.2}px)`;
+            });
+            
+            // Card hover effects
+            const cards = document.querySelectorAll('.sacred-card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transition = 'all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transition = 'all 0.5s ease';
+                });
+            });
+            
+            // Mobile navigation active state
+            const navLinks = document.querySelectorAll('.mobile-nav a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    navLinks.forEach(l => l.style.backgroundColor = 'var(--sacred-gold)');
+                    this.style.backgroundColor = 'var(--forest-green)';
+                    this.style.color = 'white';
+                    
+                    // Ripple effect
+                    const ripple = document.createElement('span');
+                    ripple.classList.add('ripple');
+                    this.appendChild(ripple);
+                    
+                    setTimeout(() => {
+                        ripple.remove();
+                    }, 600);
+                });
+            });
+            
+            // Animate cards when they come into view
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationPlayState = 'running';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            cards.forEach(card => {
+                card.style.animationPlayState = 'paused';
+                observer.observe(card);
+            });
+        });
+    </script>
+    <script>
+        // Create floating leaves
+        function createFloatingLeaves() {
+            const container = document.getElementById('leaves-container');
+            const leaves = ['🍃', '🌿', '🍂', '🍁'];
+            const leafCount = 12;
+            
+            for (let i = 0; i < leafCount; i++) {
+                const leaf = document.createElement('div');
+                leaf.classList.add('floating-leaf');
+                
+                // Random properties
+                const size = Math.random() * 20 + 10;
+                const posX = Math.random() * 100;
+                const delay = Math.random() * 5;
+                const duration = Math.random() * 15 + 10;
+                const leafChar = leaves[Math.floor(Math.random() * leaves.length)];
+                
+                leaf.textContent = leafChar;
+                leaf.style.fontSize = `${size}px`;
+                leaf.style.left = `${posX}%`;
+                leaf.style.top = `${Math.random() * 100 + 100}%`;
+                leaf.style.setProperty('--duration', `${duration}s`);
+                leaf.style.animationDelay = `${delay}s`;
+                
+                container.appendChild(leaf);
+            }
+        }
+        
+        // Modal functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            createFloatingLeaves();
+            
+            const learnBtn = document.getElementById('learnBtn');
+            const modal = document.getElementById('learnModal');
+            const closeBtn = document.querySelector('.modal-close');
+            
+            // Open modal
+            learnBtn.addEventListener('click', function() {
+                modal.classList.add('active');
+            });
+            
+            // Close modal
+            closeBtn.addEventListener('click', function() {
+                modal.classList.remove('active');
+            });
+            
+            // Close when clicking outside
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                }
+            });
+            
+            // Parallax effect
+            window.addEventListener('scroll', function() {
+                const scrollPosition = window.scrollY;
+                const bg = document.querySelector('.footer-bg');
+                bg.style.transform = `translateY(${scrollPosition * 0.2}px)`;
+            });
+        });
+    </script>
+</body>
+</html>
